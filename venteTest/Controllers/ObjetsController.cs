@@ -48,7 +48,7 @@ namespace venteTest.Controllers
         // GET: Objets/Create
         public IActionResult Create()
         {
-            ViewData["CategorieID"] = new SelectList(_context.Categories, "CategorieId", "CategorieId");
+            ViewData["CategorieNom"] = new SelectList(_context.Categories, "Nom", "Nom");
             return View();
         }
 
