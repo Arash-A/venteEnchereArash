@@ -93,8 +93,8 @@ namespace venteTest.Controllers
                     throw new ApplicationException($"Unexpected error occurred setting email for user with ID '{user.Id}'.");
                 }
             }
-
-            var phoneNumber = user.PhoneNumber;
+            // Propriete enleve
+            /* var phoneNumber = user.PhoneNumber;
             if (model.PhoneNumber != phoneNumber)
             {
                 var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, model.PhoneNumber);
@@ -102,6 +102,16 @@ namespace venteTest.Controllers
                 {
                     throw new ApplicationException($"Unexpected error occurred setting phone number for user with ID '{user.Id}'.");
                 }
+            } */
+
+
+
+            // SB: Pour ne pas exiger une validation par email dans l'environnement de développement (pour accélérer) :
+            // Puisque pour une vrai authentification où l'on modifier le courriel, on doit valider ce courriel
+            if (!user.EmailConfirmed && (HttpContext.Connection.RemoteIpAddress.Equals(HttpContext.Connection.LocalIpAddress) || System.Net.IPAddress.IsLoopback(HttpContext.Connection.RemoteIpAddress))) {
+                // Si courriel non-confirmé ET on est en local (env. de dév.), on confirme le courriel :
+                user.EmailConfirmed = true;
+                await _userManager.UpdateAsync(user);
             }
 
             StatusMessage = "Your profile has been updated";

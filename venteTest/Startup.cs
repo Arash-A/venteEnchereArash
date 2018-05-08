@@ -29,19 +29,33 @@ namespace venteTest
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+
+            /*      services.AddIdentity<ApplicationUser, IdentityRole>()
+                      .AddEntityFrameworkStores<ApplicationDbContext>()
+                      .AddDefaultTokenProviders();
+            */
+            // Ajout SB : pour exiger confirmation par email à l'inscription.. https://docs.microsoft.com/en-us/aspnet/core/security/authentication/accconfirm?view=aspnetcore-2.1&tabs=aspnetcore2x
+            services.AddIdentity<ApplicationUser, IdentityRole>(config => {
+                config.SignIn.RequireConfirmedEmail = true;
+            })
+          .AddEntityFrameworkStores<ApplicationDbContext>()
+          .AddDefaultTokenProviders();
+            // Fin SB
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();
+
+            // Ajout SB pour email sender
+            services.AddSingleton<IEmailSender, EmailSender>();
+
+            services.Configure<AuthMessageSenderOptions>(Configuration);
+            // Fin SB
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider) {
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();
@@ -63,6 +77,82 @@ namespace venteTest
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            //ajout sb pour créer admin et rôles (Si requis)
+            CreateRolesAdminUsers(serviceProvider).Wait();
+
         }
+        //Ajout SB pour créer admin et rôles (Si requis)
+        // Méthode adapté par SB selon: https://stackoverflow.com/questions/42471866/how-to-create-roles-in-asp-net-core-and-assign-them-to-users
+        // Méthode pour créer les rôles dans la BD et définir un administrateur par défaut 
+        private async Task CreateRolesAdminUsers(IServiceProvider serviceProvider) {
+            //initializing custom roles 
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            string[] roleNames = { "Admin", "Manager", "Member" };
+            IdentityResult roleResult;
+
+            foreach (var roleName in roleNames) {
+                var roleExist = await RoleManager.RoleExistsAsync(roleName);
+                if (!roleExist) {
+                    //create the roles and seed them to the database: Question 1
+                    roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
+                }
+            }
+
+            //Creer Admin
+            var powerUser = new ApplicationUser {
+                UserName = Configuration["AppSettings:AdminUserEmail"], // Pour créer membre (avec CreateAsync), on doit mettre le email comme userName par convention
+                Email = Configuration["AppSettings:AdminUserEmail"],
+                EmailConfirmed = true, // on fait EmailConfirmed pour admin seulement
+                //propriétés supplémentaires ajoutés:
+                Nom = Configuration["AppSettings:AdminLastName"],
+                Prenom = Configuration["AppSettings:AdminFirstName"],
+                Civilite = "Monsieur",
+                Langue = "fr",
+                DateInscription = DateTime.Now
+            };
+            //Ensure you have these values in your appsettings.json file
+            string userPWD = Configuration["AppSettings:AdminUserPassword"];
+            var _user = await UserManager.FindByEmailAsync(Configuration["AppSettings:AdminUserEmail"]); //recherche par email
+            if (_user == null)
+                _user = await UserManager.FindByNameAsync(Configuration["AppSettings:AdminUserEmail"]); //recherche par nom d'utilisateur
+
+            if (_user == null) {
+                var createPowerUser = await UserManager.CreateAsync(powerUser, userPWD);
+                if (createPowerUser.Succeeded) {
+                    //here we tie the new user to the role
+                    await UserManager.AddToRoleAsync(powerUser, "Admin");
+                }
+            }
+
+            //Créer un membre
+            var normalUser = new ApplicationUser {
+                UserName = "isabelle.blais16@gmail.com", // Pour créer membre (avec CreateAsync), on doit mettre le email comme userName par convention
+                Email = "isabelle.blais16@gmail.com",
+                EmailConfirmed = true, // on fait EmailConfirmed pour admin seulement
+                //propriétés supplémentaires ajoutés:
+                Nom = "Blain",
+                Prenom = "Isabelle",
+                Civilite = "Madame",
+                Langue = "fr",
+                DateInscription = DateTime.Now
+            };
+            //Ensure you have these values in your appsettings.json file
+            string userPWDn = Configuration["AppSettings:AdminUserPassword"]; //meme pw que l'Admin
+            var _userN = await UserManager.FindByEmailAsync("isabelle.blais16@gmail.com"); //recherche par email
+            if (_userN == null)
+                _userN = await UserManager.FindByNameAsync("isabelle.blais16@gmail.com"); //recherche par nom d'utilisateur
+
+            if (_userN == null) {
+                var createNormalUser = await UserManager.CreateAsync(normalUser, userPWDn);
+                if (createNormalUser.Succeeded) {
+                    //here we tie the new user to the role
+                    await UserManager.AddToRoleAsync(normalUser, "Member");
+                }
+            }
+
+        }
+        // FIN AJOUT SB
     }
 }
