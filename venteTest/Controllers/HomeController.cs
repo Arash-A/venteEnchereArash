@@ -5,14 +5,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using venteTest.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using venteTest.Data;
+
 
 namespace venteTest.Controllers
 {
     public class HomeController : Controller
+
     {
-        public IActionResult Index()
+        private readonly ApplicationDbContext _context;
+
+        public HomeController(ApplicationDbContext context)
         {
-            return View();
+            _context = context;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var applicationDbContext = _context.Objets.Include(o => o.Categorie);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         public IActionResult About()
