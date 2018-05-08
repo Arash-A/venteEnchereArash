@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using venteTest.Models
-@model IEnumerable<venteTest.Models.Objet>
+@*@model IEnumerable<venteTest.Models.Objet>*@
+@model PaginatedList<venteTest.Models.Objet>
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
@@ -94,96 +95,136 @@
         </span>
     </a>
 </div>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nom)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PrixDepart)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateInscription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DureeMiseVente)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.imageUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Categorie)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+
+<div class="mt-4">
+    <hr />
+    <form asp-action="Index" method="get">
+        <div class="form-actions no-color">
+            <p>
+                <strong class="h5">Filter objects by name : </strong><input type="text" name="SearchString" class="m-2" value="@ViewData["currentFilter"]" />
+                <input type="submit" value="Search !" class="btn btn-warning btn-lg m-2" /> |
+                <a asp-action="Index">Show Full List of Objects</a>
+            </p>
+        </div>
+    </form>
+</div>
+<div class="mt-2">
+    <hr />
+    <table class="table-striped thead-dark">
+        <thead>
+            <tr>
+                <th class="p-4">
+                    @*@Html.DisplayNameFor(model => model.Nom)*@
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">Name</a>
+                </th>
+                <th class="p-2 m-2">
+                    Description
+                </th>
+                <th class="p-2 m-2">
+                    @*@Html.DisplayNameFor(model => model.PrixDepart)*@
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["PrixDepartSortParm"]">Start Price</a>
+                </th>
+                <th class="p-2 m-2">
+                    @*@Html.DisplayNameFor(model => model.DateInscription)*@
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["DateInscritSortParm"]">Inscription Date</a>
+                </th>
+                <th class="p-2 m-2">
+                    @*@Html.DisplayNameFor(model => model.DureeMiseVente)*@
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["DureeMiseVenteSortParm"]">Posted (Days)</a>
+                </th>
+                <th class="p-2 m-2">
+                    @*@Html.DisplayNameFor(model => model.Categorie)*@
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["CategorieSortParm"]">Categorie</a>
+                </th>
+                <th class="p-2 m-2">
+                    @*@Html.DisplayNameFor(model => model.imageUrl)*@
+                    Image
+                </th>
+                <th class="p-2 m-2"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+                <tr class="p-2">
+                    <td class="p-2">
+                        @Html.DisplayFor(modelItem => item.Nom)
+                    </td>
+                    <td class="p-2">
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td class="p-2">
+                    <td class="p-2">
+                        @Html.DisplayFor(modelItem => item.PrixDepart)
+                    </td>
+                    <td class="p-2">
+                        @Html.DisplayFor(modelItem => item.DateInscription)
+                    </td>
+                    <td class="p-2">
+                        @Html.DisplayFor(modelItem => item.DureeMiseVente)
+                    </td>
+                    <td class="p-2">
+                        @Html.DisplayFor(modelItem => item.Categorie.Nom)
+                    </td>
+                    <td class="p-2">
+                        @Html.DisplayFor(modelItem => item.imageUrl)
+                    </td>
+                    <td class="p-2">
+                        <a class="btn btn-warning mb-2" role="button" asp-controller="Objects" asp-action="Miser" asp-route-id="@item.ObjetID">Miser!</a>
+                        <a class="btn btn-outline-warning mb-2" role="button" asp-controller="Objects" asp-action="Details" asp-route-id="@item.ObjetID">Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <hr />
+</div>
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+} 
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-outline-warning @prevDisabled">
+    Previous
+</a><span> | </span>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-outline-warning @nextDisabled">
+    Next
+</a>
+
+@*<div class="row mt-5 monCardRow">
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nom)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PrixDepart)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateInscription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DureeMiseVente)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.imageUrl)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Categorie.CategorieId)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.ObjetID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.ObjetID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ObjetID">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-@*<div class="row mt-5 monCardRow">
-    @foreach (var item in Model)
-    {
-        <div class="col-md-3">
-            <div class="card">
-                <img class="card-img-top" src="..." alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title"> @Html.DisplayFor(modelItem => item.Nom)</h5>
-                    <p class="card-text">
-                        @Html.DisplayFor(modelItem => item.Description)
-                        <br />
-                        <h4> @Html.DisplayFor(modelItem => item.PrixDepart) $</h4>
-                    </p>
-                    @if (SignInManager.IsSignedIn(User))
-                    {
-                        <a asp-action="Edit" asp-controller="Objets" asp-route-id="@item.ObjetID" class="btn btn-primary">Modifier</a>
-                        <a asp-action="Details" asp-controller="Objets" asp-route-id="@item.ObjetID" class="btn btn-primary">Détails</a>
-                        <a asp-action="Delete" asp-controller="Objets" asp-route-id="@item.ObjetID" class="btn btn-primary">Supprimer</a>
+            <div class="col-md-3">
+                <div class="card">
+                    <img class="card-img-top" src="..." alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title"> @Html.DisplayFor(modelItem => item.Nom)</h5>
+                        <p class="card-text">
+                            @Html.DisplayFor(modelItem => item.Description)
+                            <br />
+                            <h4> @Html.DisplayFor(modelItem => item.PrixDepart) $</h4>
+                        </p>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <a asp-action="Edit" asp-controller="Objets" asp-route-id="@item.ObjetID" class="btn btn-primary">Modifier</a>
+                            <a asp-action="Details" asp-controller="Objets" asp-route-id="@item.ObjetID" class="btn btn-primary">Détails</a>
+                            <a asp-action="Delete" asp-controller="Objets" asp-route-id="@item.ObjetID" class="btn btn-primary">Supprimer</a>
 
-                    }
-                    else
-                    {
-                        <a asp-action="Details" asp-controller="Objets" asp-route-id="@item.ObjetID" class="btn btn-primary">Détails</a>
+                        }
+                        else
+                        {
+                            <a asp-action="Details" asp-controller="Objets" asp-route-id="@item.ObjetID" class="btn btn-primary">Détails</a>
 
-                    }
+                        }
+                    </div>
                 </div>
             </div>
-        </div>
 
-    }
+        }
 
-</div>*@
+    </div>*@
