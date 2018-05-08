@@ -1,7 +1,11 @@
-﻿body {
+﻿@import url("//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css");
+/*.navbar .navbar-collapse {
+    text-align: center;
+}*/
+/*body {
     padding-top: 50px;
     padding-bottom: 20px;
-}
+}*/
 
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
@@ -33,3 +37,79 @@
         display: none;
     }
 }
+
+/************************************************************************************
+    ****************************  SEARCH BAR    *************************************
+    *********************************************************************************
+*/
+/* Add a black background color to the top navigation bar */
+
+.topnav {
+    background-color: #5C5C5C;
+    height: 55px;
+    display: block;
+}
+
+    .topnav .search-container {
+        float: right;
+        width: 350px;
+    }
+
+    .topnav input[type=text] {
+        padding: 6px;
+        margin-top: 8px;
+        font-size: 17px;
+        border: none;
+        width: 295px;
+    }
+
+    .topnav .search-container button {
+        float: right;
+        padding: 6px 10px;
+        margin-top: 8px;
+        margin-right: 16px;
+        background: #ddd;
+        font-size: 17px;
+        border: none;
+        cursor: pointer;
+    }
+
+        .topnav .search-container button:hover {
+            background: #ccc;
+        }
+
+.dd {
+    position: absolute;
+    z-index: 100111;
+    visibility: visible;
+}
+
+.categ-sel {
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+
+@media screen and (max-width: 600px) {
+    .topnav .search-container {
+        float: none;
+    }
+
+        .topnav a, .topnav input[type=text], .topnav .search-container button {
+            float: none;
+            display: block;
+            text-align: left;
+            width: 100%;
+            margin: 0;
+            padding: 14px;
+        }
+
+    .topnav input[type=text] {
+        border: 1px solid #ccc;
+    }
+}
+
+/************************************************************************************
+    **************************** FIN SEARCH BAR *************************************
+    *********************************************************************************
+*/

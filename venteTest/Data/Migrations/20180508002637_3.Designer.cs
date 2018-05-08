@@ -11,9 +11,10 @@ using venteTest.Data;
 namespace venteTest.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180508002637_3")]
+    partial class _3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -135,25 +136,29 @@ namespace venteTest.Data.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
-                    b.Property<string>("Civilite");
+                    b.Property<string>("Civilite")
+                        .IsRequired();
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
-                    b.Property<DateTime?>("DateInscription");
+                    b.Property<DateTime?>("DateInscription")
+                        .IsRequired();
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<string>("Langue");
+                    b.Property<string>("Langue")
+                        .IsRequired();
 
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
-                    b.Property<string>("Nom");
+                    b.Property<string>("Nom")
+                        .IsRequired();
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
@@ -167,7 +172,8 @@ namespace venteTest.Data.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
-                    b.Property<string>("Prenom");
+                    b.Property<string>("Prenom")
+                        .IsRequired();
 
                     b.Property<string>("SecurityStamp");
 
@@ -292,6 +298,7 @@ namespace venteTest.Data.Migrations
                     b.Property<decimal>("PrixDepart");
 
                     b.Property<string>("imageUrl")
+                        .IsRequired()
                         .HasMaxLength(1024);
 
                     b.HasKey("ObjetID");
