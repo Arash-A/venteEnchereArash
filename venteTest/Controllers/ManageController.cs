@@ -93,8 +93,8 @@ namespace venteTest.Controllers
                     throw new ApplicationException($"Unexpected error occurred setting email for user with ID '{user.Id}'.");
                 }
             }
-            // Propriete enleve
-            /* var phoneNumber = user.PhoneNumber;
+            
+             var phoneNumber = user.PhoneNumber;
             if (model.PhoneNumber != phoneNumber)
             {
                 var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, model.PhoneNumber);
@@ -102,9 +102,33 @@ namespace venteTest.Controllers
                 {
                     throw new ApplicationException($"Unexpected error occurred setting phone number for user with ID '{user.Id}'.");
                 }
-            } */
+            }
 
+            // SB: Setters à définir.. TODO SASHA
+            /*
+            var nom = user.Nom;
+            if (model.Nom != nom) {
+                var setNomResult = await _userManager.SetNomAsync(user, model.Nom);
+                if (!setNomResult.Succeeded) {
+                    throw new ApplicationException($"Unexpected error occurred setting email for user with ID '{user.Id}'.");
+                }
+            }
+            var prenom = user.Prenom;
+            if (model.Prenom != prenom) {
+                var setPrenomResult = await _userManager.SetPrenomAsync(user, model.Prenom);
+                if (!setPrenomResult.Succeeded) {
+                    throw new ApplicationException($"Unexpected error occurred setting email for user with ID '{user.Id}'.");
+                }
+            }
 
+            var langue = user.Langue;
+            if (model.Langue != langue) {
+                var setLangueResult = await _userManager.SetLangueAsync(user, model.Langue);
+                if (!setLangueResult.Succeeded) {
+                    throw new ApplicationException($"Unexpected error occurred setting email for user with ID '{user.Id}'.");
+                }
+            }
+            */
 
             // SB: Pour ne pas exiger une validation par email dans l'environnement de développement (pour accélérer) :
             // Puisque pour une vrai authentification où l'on modifier le courriel, on doit valider ce courriel

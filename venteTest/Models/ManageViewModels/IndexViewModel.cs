@@ -9,10 +9,14 @@ namespace venteTest.Models.ManageViewModels
     public class IndexViewModel
     {
 
-        public string Nom { get; set; }
 
-        public string Prenom { get; set; }
         public string Username { get; set; }
+        [Required]
+        [Display(Name = "Nom")]
+        public string Nom { get; set; }
+        [Required]
+        [Display(Name = "Prenom")]
+        public string Prenom { get; set; }
 
         public bool IsEmailConfirmed { get; set; }
 

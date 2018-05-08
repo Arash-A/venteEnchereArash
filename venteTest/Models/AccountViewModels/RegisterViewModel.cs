@@ -8,13 +8,13 @@ namespace venteTest.Models.AccountViewModels
 {
     public class RegisterViewModel
     {
-        [Required]
-        [Display(Name = "Nom")]
-        public string Nom { get; set; }
+        //[Required]
+        //[Display(Name = "Nom")]
+        //public string Nom { get; set; }
 
-        [Required]
-        [Display(Name = "Prenom")]
-        public string Prenom { get; set; }
+        //[Required]
+        //[Display(Name = "Prenom")]
+        //public string Prenom { get; set; }
 
         [Required]
         [EmailAddress]
