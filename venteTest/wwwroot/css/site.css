@@ -91,7 +91,9 @@
     margin-left: 16px;
     margin-top: 8px;
 }
-
+.memAct {
+    color:aquamarine;
+}
 
 @media screen and (max-width: 600px) {
     .topnav .search-container {
