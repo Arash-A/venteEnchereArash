@@ -61,26 +61,30 @@ namespace venteTest.Controllers
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
-                {
+                
+                // SB: On doit corriger cette erreur de Microsoft pq methode PasswordSignInAsync prend username comme 1e param et non email...
+                //var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+                // MODIF SB:
+                var _user = await _userManager.FindByEmailAsync(model.Email);
+                Microsoft.AspNetCore.Identity.SignInResult result = null;
+                if (_user != null)
+                    result = await _signInManager.PasswordSignInAsync(_user.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
+                
+                if (result != null && result.Succeeded) {
                     _logger.LogInformation("User logged in.");
                     return RedirectToLocal(returnUrl);
                 }
-                if (result.RequiresTwoFactor)
-                {
+                if (result != null && result.RequiresTwoFactor) {
                     return RedirectToAction(nameof(LoginWith2fa), new { returnUrl, model.RememberMe });
                 }
-                if (result.IsLockedOut)
-                {
+                if (result != null && result.IsLockedOut) {
                     _logger.LogWarning("User account locked out.");
                     return RedirectToAction(nameof(Lockout));
-                }
-                else
-                {
+                } else {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return View(model);
                 }
+                // FIN MODIF SB:
             }
 
             // If we got this far, something failed, redisplay form
@@ -220,7 +224,8 @@ namespace venteTest.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { Nom = model.Nom,Prenom=model.Prenom, UserName = model.Email, Email = model.Email };
+                //var user = new ApplicationUser { Nom = model.Nom,Prenom=model.Prenom, UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -230,8 +235,9 @@ namespace venteTest.Controllers
                     var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                     await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
 
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    _logger.LogInformation("User created a new account with password.");
+                    // SB : Prevent newly registered users from being automatically logged on by commenting out the following line:
+                    // await _signInManager.SignInAsync(user, isPersistent: false);
+                    // _logger.LogInformation("User created a new account with password.");
                     return RedirectToLocal(returnUrl);
                 }
                 AddErrors(result);
@@ -343,6 +349,12 @@ namespace venteTest.Controllers
                 throw new ApplicationException($"Unable to load user with ID '{userId}'.");
             }
             var result = await _userManager.ConfirmEmailAsync(user, code);
+
+            //SB : on ajoute le rôle à l'utilisateur en validant que le role du membre n'est pas "Admin" ou "Manager"             
+            if (result.Succeeded && !await (_userManager.IsInRoleAsync(user, "Admin")) && !await (_userManager.IsInRoleAsync(user, "Manager"))) {
+                await _userManager.AddToRoleAsync(user, "Member");
+            }
+
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
