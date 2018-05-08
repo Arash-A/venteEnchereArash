@@ -8,6 +8,10 @@ namespace venteTest.Models.ManageViewModels
 {
     public class IndexViewModel
     {
+
+        public string Nom { get; set; }
+
+        public string Prenom { get; set; }
         public string Username { get; set; }
 
         public bool IsEmailConfirmed { get; set; }

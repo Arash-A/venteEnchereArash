@@ -57,6 +57,8 @@ namespace venteTest.Controllers
 
             var model = new IndexViewModel
             {
+                Nom = user.Nom,
+                Prenom = user.Prenom,
                 Username = user.UserName,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
