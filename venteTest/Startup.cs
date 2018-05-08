@@ -80,7 +80,8 @@ namespace venteTest
 
             //ajout sb pour créer admin et rôles (Si requis)
             CreateRolesAdminUsers(serviceProvider).Wait();
-
+           
+            
         }
         //Ajout SB pour créer admin et rôles (Si requis)
         // Méthode adapté par SB selon: https://stackoverflow.com/questions/42471866/how-to-create-roles-in-asp-net-core-and-assign-them-to-users
