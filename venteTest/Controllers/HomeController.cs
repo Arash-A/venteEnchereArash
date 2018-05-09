@@ -26,7 +26,7 @@ namespace venteTest.Controllers
             string sortOrder,
             string currentFilter,
             string searchString,
-            int? page) { 
+            int? page) {
 
             //var applicationDbContext = _context.Objets.Include(o => o.Categorie);
 
@@ -47,11 +47,12 @@ namespace venteTest.Controllers
             var objets = from o in _context.Objets.Include(o => o.Categorie)
                            select o;
 
+            ViewBag.Categories = _context.Categories.ToList(); //pour ComboBox
+
             if (!String.IsNullOrEmpty(searchString)) {
                 objets = objets.Where(s => s.Nom.Contains(searchString)
                 || s.Description.Contains(searchString));
             }
-
 
             switch (sortOrder) {
                 case "name_desc":
