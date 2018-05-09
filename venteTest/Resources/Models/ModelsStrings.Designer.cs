@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VenteEnchere.Resources.Models {
+namespace venteTest.Resources.Models {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace VenteEnchere.Resources.Models {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VenteEnchere.Resources.Models.ModelsStrings", typeof(ModelsStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("venteTest.Resources.Models.ModelsStrings", typeof(ModelsStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

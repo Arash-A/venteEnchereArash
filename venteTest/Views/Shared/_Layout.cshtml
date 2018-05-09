@@ -1,4 +1,4 @@
-﻿@*@using venteTest.Resources.Views*@
+﻿@using venteTest.Resources.Views
 
 <!DOCTYPE html>
 <html>
@@ -39,23 +39,23 @@
                 <ul class="navbar-nav mr-auto">
 
                     <li class="nav-item">
-                        <a asp-area="" asp-controller="Home" asp-action="Faq" class="nav-link mr-2">Apropos</a>
+                        <a asp-area="" asp-controller="Home" asp-action="Faq" class="nav-link">@SharedStrings.Faq</a>
                     </li>
                     <li class="nav-item">
-                        <a asp-area="" asp-controller="Home" asp-action="Contact" class="nav-link mr-2">Contactez-nous</a>
+                        <a asp-area="" asp-controller="Home" asp-action="Contact" class="nav-link">@SharedStrings.Contact</a>
                     </li>
                 </ul>
                 @*<form class="form-inline mx-auto" action="">
-                        <select class="form-control mr-2" id="cat">
-                            <option>Catégorie 1......</option>
-                            <option>Catégorie 2......</option>
-                            <option>Catégorie 3......</option>
-                            <option>Catégorie 4......</option>
-                            <option>Catégorie 5......</option>
-                        </select>
-                        <input class="form-control mr-sm-2" type="text" id="cherche" placeholder="Rechercher...">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>*@
+            <select class="form-control mr-2" id="cat">
+                <option>Catégorie 1......</option>
+                <option>Catégorie 2......</option>
+                <option>Catégorie 3......</option>
+                <option>Catégorie 4......</option>
+                <option>Catégorie 5......</option>
+            </select>
+            <input class="form-control mr-sm-2" type="text" id="cherche" placeholder="Rechercher...">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>*@
                 @await Html.PartialAsync("_LoginPartial")
             </div>
         </nav>

@@ -1,6 +1,6 @@
 @using Microsoft.AspNetCore.Identity
 @using venteTest.Models
-@*@using venteTest.Resources.Views*@
+@using venteTest.Resources.Views
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
@@ -16,10 +16,10 @@
                         <span class="caret"></span>
                     </button>
                     <div class="dropdown-menu">
-                        <a asp-area="" asp-controller="Objets" asp-action="Create" class="dropdown-item" role="menuitem" tabindex="-1">Ajouter un objet</a>
-                        <a asp-area="" asp-controller="Objets" asp-action="Index" class="dropdown-item" role="menuitem" tabindex="-1">Mes objets a vendre</a>
-                        <a asp-area="" asp-controller="Objets" asp-action="Index" class="dropdown-item" role="menuitem" tabindex="-1">Mes objet a acheter</a>
-                        <a asp-area="" asp-controller="Objets" asp-action="Index" class="dropdown-item" role="menuitem" tabindex="-1">Mon histoire</a>
+                        <a asp-area="" asp-controller="Objets" asp-action="Create" class="dropdown-item" role="menuitem" tabindex="-1">@SharedStrings.ObjetAjouter</a>
+                        <a asp-area="" asp-controller="Objets" asp-action="Index" class="dropdown-item" role="menuitem" tabindex="-1">@SharedStrings.ObjetVendre</a>
+                        <a asp-area="" asp-controller="Objets" asp-action="Index" class="dropdown-item" role="menuitem" tabindex="-1">@SharedStrings.ObjetAcheter</a>
+                        <a asp-area="" asp-controller="Objets" asp-action="Index" class="dropdown-item" role="menuitem" tabindex="-1">@SharedStrings.MonHistoire</a>
                     </div>
                 </div>
             </li>
@@ -27,7 +27,7 @@
                 <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage" class="nav-link navbar-btn mr-2">Bonjour: @UserManager.GetUserName(User)</a>
             </li>
             <li>
-                <button type="submit" class="btn btn-link navbar-btn navbar-link mr-2"> Deconnecter</button>
+                <button type="submit" class="btn btn-link navbar-btn navbar-link mr-2"> @SharedStrings.Deconnexion </button>
             </li>
         </ul>
     </form>
@@ -35,8 +35,8 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li><a asp-area="" asp-controller="Account" asp-action="Register" class="nav-link navbar-btn mr-2"> S'inscrire </a></li>
-        <li><span class="nav-item" style="color:HighlightText"> ou </span></li>
-        <li><a asp-area="" asp-controller="Account" asp-action="Login" class="nav-link mr-2"> SeConnecter </a></li>
+        <li><a asp-area="" asp-controller="Account" asp-action="Register" class="nav-link navbar-btn mr-2"> @SharedStrings.SInscrire </a></li>
+        <li><span class="nav-item" style="color:HighlightText"> @SharedStrings.Ou </span></li>
+        <li><a asp-area="" asp-controller="Account" asp-action="Login" class="nav-link mr-2"> @SharedStrings.SeConnecter </a></li>
     </ul>
 }

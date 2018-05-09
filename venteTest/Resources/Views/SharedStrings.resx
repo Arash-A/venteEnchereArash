@@ -123,6 +123,9 @@
   <data name="APropos" xml:space="preserve">
     <value>À propos</value>
   </data>
+  <data name="Bonjour" xml:space="preserve">
+    <value>Bonjour:</value>
+  </data>
   <data name="Contact" xml:space="preserve">
     <value>Contactez-nous</value>
   </data>
@@ -146,6 +149,9 @@
   </data>
   <data name="Courriel" xml:space="preserve">
     <value>Courriel</value>
+  </data>
+  <data name="Deconnexion" xml:space="preserve">
+    <value>Déconnecter</value>
   </data>
   <data name="Faq" xml:space="preserve">
     <value>Foire aux questions</value>
@@ -173,5 +179,86 @@
   </data>
   <data name="SInscrire" xml:space="preserve">
     <value>S'inscrire</value>
+  </data>
+  <data name="ChangerParametres" xml:space="preserve">
+    <value>Changer vos paramètres de compte</value>
+  </data>
+  <data name="CreerCategorie" xml:space="preserve">
+    <value>Catégorie</value>
+  </data>
+  <data name="CreerDateAjout" xml:space="preserve">
+    <value>Date d'ajout</value>
+  </data>
+  <data name="CreerDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="CreerDuree" xml:space="preserve">
+    <value>Durée de mise en vente</value>
+  </data>
+  <data name="CreerImage" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="CreerNom" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="CreerNouveau" xml:space="preserve">
+    <value>Create New</value>
+  </data>
+  <data name="CreerPrix" xml:space="preserve">
+    <value>Prix</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Détails</value>
+  </data>
+  <data name="FiltrerObjetsNom" xml:space="preserve">
+    <value>Filtrer les objets par nom: </value>
+  </data>
+  <data name="GererCompte" xml:space="preserve">
+    <value>Manage your account</value>
+  </data>
+  <data name="Miser" xml:space="preserve">
+    <value>Miser!</value>
+  </data>
+  <data name="MonHistoire" xml:space="preserve">
+    <value>Mon histoire</value>
+  </data>
+  <data name="Nom" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="NomUtilisateur" xml:space="preserve">
+    <value>Nom d'utilisateur</value>
+  </data>
+  <data name="ObjetAcheter" xml:space="preserve">
+    <value>Mes objets a acheter</value>
+  </data>
+  <data name="ObjetAjouter" xml:space="preserve">
+    <value>Ajouter un objet</value>
+  </data>
+  <data name="ObjetVendre" xml:space="preserve">
+    <value>Mes objets a vendre</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Mot de passe</value>
+  </data>
+  <data name="Precedent" xml:space="preserve">
+    <value>Précédent</value>
+  </data>
+  <data name="Prenom" xml:space="preserve">
+    <value>Prénom</value>
+  </data>
+  <data name="Profil" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="Rechercher" xml:space="preserve">
+    <value>Rechercher !</value>
+  </data>
+  <data name="Suivant" xml:space="preserve">
+    <value>Suivant</value>
+  </data>
+  <data name="Telephone" xml:space="preserve">
+    <value>Numéro de téléphone</value>
+  </data>
+  <data name="ToutAfficherObjets" xml:space="preserve">
+    <value>Afficher la liste complète des objets</value>
   </data>
 </root>
