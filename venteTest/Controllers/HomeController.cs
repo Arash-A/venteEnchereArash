@@ -8,7 +8,17 @@ using venteTest.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using venteTest.Data;
-
+using System.Web;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using venteTest.Models.HomeViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using venteTest.Services;
+using Microsoft.Extensions.Logging;
+using System.Text.Encodings.Web;
+using System.Net;
+using System.Net.Mail;
 
 namespace venteTest.Controllers
 {
@@ -91,17 +101,51 @@ namespace venteTest.Controllers
             return View(await PaginatedList<Objet>.CreateAsync(objets.AsNoTracking(), page ?? 1, pageSize));
         }
 
-        public IActionResult About()
+        public IActionResult Faq()
         {
-            ViewData["Message"] = "Your application description page.";
-
             return View();
         }
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            return View();
+        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Contact(EmailFormModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var body = "<p>Email From: ({0})</p><p>Message:</p><p>{1}</p>";
+                //var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
+                var message = new MailMessage();
+                message.To.Add(new MailAddress("VenteEnchereM9@gmail.com"));  // replace with valid value 
+                message.From = new MailAddress("sender@outlook.com");  // replace with valid value
+                message.Subject = "Demande de contact - Site web VenteEnchere";
+                message.Body = string.Format(body, model.FromEmail, model.Message);
+                message.IsBodyHtml = true;
+
+                using (var smtp = new SmtpClient())
+                {
+                    var credential = new NetworkCredential
+                    {
+                        UserName = "VenteEnchereM9@gmail.com",  // replace with valid value
+                        Password = "!qwerty123"  // replace with valid value
+                    };
+                    smtp.Credentials = credential;
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.Port = 587;
+                    smtp.EnableSsl = true;
+                    await smtp.SendMailAsync(message);
+                    return RedirectToAction("Sent");
+                }
+            }
+            return View(model);
+        }
+
+        public ActionResult Sent()
+        {
             return View();
         }
 
