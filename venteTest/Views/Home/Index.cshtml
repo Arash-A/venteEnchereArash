@@ -103,7 +103,7 @@
             <p>
                 <strong class="h5">Filter objects by name : </strong><input type="text" name="SearchString" class="m-2" value="@ViewData["currentFilter"]" />
                 <input type="submit" value="Search !" class="btn btn-warning btn-lg m-2" /> |
-                <a asp-action="Index">Show Full List of Objects</a>
+                <a class="p-2" asp-action="Index">Show Full List of Objects</a>
             </p>
         </div>
     </form>
@@ -115,31 +115,31 @@
             <tr>
                 <th class="p-4">
                     @*@Html.DisplayNameFor(model => model.Nom)*@
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">Name</a>
+                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]"><span class="h6">Name</span></a>
                 </th>
                 <th class="p-2 m-2">
-                    Description
+                    <span class="h6">Description</span>
                 </th>
                 <th class="p-2 m-2">
                     @*@Html.DisplayNameFor(model => model.PrixDepart)*@
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["PrixDepartSortParm"]">Start Price</a>
+                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["PrixDepartSortParm"]"><span class="h6">Start Price ($)</span></a>
                 </th>
                 <th class="p-2 m-2">
                     @*@Html.DisplayNameFor(model => model.DateInscription)*@
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["DateInscritSortParm"]">Inscription Date</a>
+                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["DateInscritSortParm"]"><span class="h6">Inscription Date & Time</span></a>
                 </th>
                 <th class="p-2 m-2">
                     @*@Html.DisplayNameFor(model => model.DureeMiseVente)*@
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["DureeMiseVenteSortParm"]">Posted (Days)</a>
+                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["DureeMiseVenteSortParm"]"><span class="h6">Posted (Days)</span></a>
                 </th>
                 <th class="p-2 m-2">
                     @*@Html.DisplayNameFor(model => model.Categorie)*@
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["CategorieSortParm"]">Categorie</a>
+                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["CategorieSortParm"]"><span class="h6">Categorie</span></a>
                 </th>
                 <th class="p-2 m-2">
                     @*@Html.DisplayNameFor(model => model.imageUrl)*@
-                    Image
-                </th>
+                    <span class="h6">Image</span>
+</th>
                 <th class="p-2 m-2"></th>
             </tr>
         </thead>
@@ -185,14 +185,14 @@
    asp-route-sortOrder="@ViewData["CurrentSort"]"
    asp-route-page="@(Model.PageIndex - 1)"
    asp-route-currentFilter="@ViewData["CurrentFilter"]"
-   class="btn btn-outline-warning @prevDisabled">
+   class="m-2 btn btn-outline-warning btn-lg @prevDisabled">
     Previous
 </a><span> | </span>
 <a asp-action="Index"
    asp-route-sortOrder="@ViewData["CurrentSort"]"
    asp-route-page="@(Model.PageIndex + 1)"
    asp-route-currentFilter="@ViewData["CurrentFilter"]"
-   class="btn btn-outline-warning @nextDisabled">
+   class="m-2 btn btn-outline-warning btn-lg @nextDisabled">
     Next
 </a>
 

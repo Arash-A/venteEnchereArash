@@ -86,7 +86,7 @@ namespace venteTest.Controllers
                     break;
             }
 
-            int pageSize = 3;
+            int pageSize = 5;
             //return View(await objets.AsNoTracking().ToListAsync());
             return View(await PaginatedList<Objet>.CreateAsync(objets.AsNoTracking(), page ?? 1, pageSize));
         }
