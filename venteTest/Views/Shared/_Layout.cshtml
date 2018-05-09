@@ -111,6 +111,29 @@
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
 
+    <script>
+        // filtrer categories dans la pagedList de la page Index
+        function filterCategories(nomCategorie) {
+            debugger;
+            var x = document.getElementsByClassName("laCategorie p-2 m-2");
+
+            var table = document.getElementById("laPagedList");
+            for (var i = 0, row; row = table.rows[i]; i++) {
+                //iterate through rows
+                var cell = row.cells[5];
+                var leText = row.cells[5].innerText.replace(/(^\s+|\s+$)/g, '');; 
+                if (leText == nomCategorie) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+                    
+            }
+
+        }
+
+    </script>
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>

@@ -2,15 +2,13 @@
 @using venteTest.Models
 @*@model IEnumerable<venteTest.Models.Objet>*@
 @model PaginatedList<venteTest.Models.Objet>
-@using venteTest.Resources.Views
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
-
 @{
     ViewData["Title"] = "Home Page";
 }
-<div class="topnav">
+@*<div class="topnav">
     <div class="row">
         <div class="col-4">
             <select class="form-control categ-sel" id="cat">
@@ -30,7 +28,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
     <ol class="carousel-indicators">
@@ -99,43 +97,48 @@
 
 <div class="mt-4">
     <hr />
-    <form asp-action="Index" method="get">
-        <div class="form-actions no-color">
-            <p>
-                <strong class="h5">@SharedStrings.FiltrerObjetsNom </strong><input type="text" name="SearchString" class="m-2" value="@ViewData["currentFilter"]" />
-                <input type="submit" value="@SharedStrings.Rechercher" class="btn btn-warning btn-lg m-2" /> |
-                <a class="p-2" asp-action="Index">@SharedStrings.ToutAfficherObjets</a>
-            </p>
+    <form class="form-inline" asp-action="Index" method="get" >
+        <div class="form-group mb-2">
+            <strong class="h5">Filter objects by : <mark class="p-2 m-2">Name</mark></strong><input type="text" name="SearchString" class="form-control m-2" value="@ViewData["currentFilter"]" />
+            <input type="submit" value="Search !" class="btn btn-warning btn-lg m-2" /> |
+            <strong class="m-2 h5">by : <mark class="p-2 m-2">Categorie</mark></strong> |
+            <select class="form-control w-auto m-2" id="cat" onchange="filterCategories(this.value)">
+                <option>Select a categorie...</option>
+                @foreach (var item in ViewBag.Categories) {
+                            <option>@item.Nom</option>
+                }
+            </select> |
+            <a class="m-2" asp-action="Index">Show Full List</a>
         </div>
     </form>
 </div>
 <div class="mt-2">
     <hr />
-    <table class="table-striped thead-dark">
+    <table id="laPagedList" class="table-striped thead-dark">
         <thead>
             <tr>
                 <th class="p-4">
                     @*@Html.DisplayNameFor(model => model.Nom)*@
-                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]"><span class="h6">Name</span></a>
+                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]"><span class="h6">Name</span><i class="fa fa-fw fa-sort"></i></a>
                 </th>
                 <th class="p-2 m-2">
                     <span class="h6">Description</span>
                 </th>
                 <th class="p-2 m-2">
                     @*@Html.DisplayNameFor(model => model.PrixDepart)*@
-                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["PrixDepartSortParm"]"><span class="h6">Start Price ($)</span></a>
+                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["PrixDepartSortParm"]"><span class="h6">Price</span><i class="fa fa-fw fa-sort"></i></a>
                 </th>
                 <th class="p-2 m-2">
                     @*@Html.DisplayNameFor(model => model.DateInscription)*@
-                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["DateInscritSortParm"]"><span class="h6">Inscription Date & Time</span></a>
+                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["DateInscritSortParm"]"><span class="h6">Inscription Date</span><i class="fa fa-fw fa-sort"></i></a>
                 </th>
                 <th class="p-2 m-2">
                     @*@Html.DisplayNameFor(model => model.DureeMiseVente)*@
-                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["DureeMiseVenteSortParm"]"><span class="h6">Posted (Days)</span></a>
+                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["DureeMiseVenteSortParm"]"><span class="h6">Days</span><i class="fa fa-fw fa-sort"></i></a>
                 </th>
                 <th class="p-2 m-2">
                     @*@Html.DisplayNameFor(model => model.Categorie)*@
-                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["CategorieSortParm"]"><span class="h6">Categorie</span></a>
+                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["CategorieSortParm"]"><span class="h6">Categorie</span><i class="fa fa-fw fa-sort"></i></a>
                 </th>
                 <th class="p-2 m-2">
                     @*@Html.DisplayNameFor(model => model.imageUrl)*@
@@ -145,8 +148,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
-            {
+            @foreach (var item in Model) {
                 <tr class="p-2">
                     <td class="p-2">
                         @Html.DisplayFor(modelItem => item.Nom)
@@ -163,15 +165,15 @@
                     <td class="p-2">
                         @Html.DisplayFor(modelItem => item.DureeMiseVente)
                     </td>
-                    <td class="p-2">
+                    <td class="laCategorie p-2">
                         @Html.DisplayFor(modelItem => item.Categorie.Nom)
                     </td>
                     <td class="p-2">
                         @Html.DisplayFor(modelItem => item.imageUrl)
                     </td>
                     <td class="p-2">
-                        <a class="btn btn-warning mb-2" role="button" asp-controller="Objects" asp-action="Miser" asp-route-id="@item.ObjetID">@SharedStrings.Miser</a>
-                        <a class="btn btn-outline-warning mb-2" role="button" asp-controller="Objects" asp-action="Details" asp-route-id="@item.ObjetID">@SharedStrings.Details</a>
+                        <a class="btn btn-warning mb-2" role="button" asp-controller="Objects" asp-action="Miser" asp-route-id="@item.ObjetID">BID !</a>
+                        <a class="btn btn-outline-warning mb-2" role="button" asp-controller="Objects" asp-action="Details" asp-route-id="@item.ObjetID">Details</a>
                     </td>
                 </tr>
             }
@@ -188,14 +190,14 @@
    asp-route-page="@(Model.PageIndex - 1)"
    asp-route-currentFilter="@ViewData["CurrentFilter"]"
    class="m-2 btn btn-outline-warning btn-lg @prevDisabled">
-    @SharedStrings.Precedent
+    Previous
 </a><span> | </span>
 <a asp-action="Index"
    asp-route-sortOrder="@ViewData["CurrentSort"]"
    asp-route-page="@(Model.PageIndex + 1)"
    asp-route-currentFilter="@ViewData["CurrentFilter"]"
    class="m-2 btn btn-outline-warning btn-lg @nextDisabled">
-    @SharedStrings.Suivant
+    Next
 </a>
 
 @*<div class="row mt-5 monCardRow">
