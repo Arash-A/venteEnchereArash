@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <Folder Include="Views\Partials\" />
+    <Folder Include="wwwroot\Uploads\" />
   </ItemGroup>
 
   <ItemGroup>
