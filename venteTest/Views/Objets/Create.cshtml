@@ -11,7 +11,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Nom" class="control-label"></label>
@@ -28,11 +28,7 @@
                 <input asp-for="PrixDepart" class="form-control" />
                 <span asp-validation-for="PrixDepart" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="DateInscription" class="control-label"></label>
-                <input asp-for="DateInscription" class="form-control" />
-                <span asp-validation-for="DateInscription" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
                 <label asp-for="DureeMiseVente" class="control-label"></label>
                 <input asp-for="DureeMiseVente" class="form-control" />
@@ -40,12 +36,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="imageUrl" class="control-label"></label>
-                <input asp-for="imageUrl" class="form-control" />
-                <span asp-validation-for="imageUrl" class="text-danger"></span>
+                <input type="file" name="pic" class="form-control" /><br />
             </div>
             <div class="form-group">
-                <label asp-for="CategorieID" class="control-label"></label>
-                <select asp-for="CategorieID" class ="form-control" asp-items="ViewBag.CategorieID"></select>
+                <label asp-for="Categorie" class="control-label"></label>
+                <select asp-for="CategorieID" class="form-control" asp-items="@(new SelectList(@ViewBag.CategoryList ,"CategorieId", "Nom"))"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />

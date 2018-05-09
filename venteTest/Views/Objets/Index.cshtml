@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<venteTest.Models.Objet>
-@using venteTest.Resources.Views
 
 @{
     ViewData["Title"] = "Index";
@@ -9,7 +8,7 @@
 <h2>Index</h2>
 
 <p>
-    <a asp-action="Create">@SharedStrings.CreerNouveau</a>
+    <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -58,7 +57,7 @@
                     @Html.DisplayFor(modelItem => item.DureeMiseVente)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.imageUrl)
+                    <img src="@item.imageUrl" width="100" height="100" />
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Categorie.CategorieId)
