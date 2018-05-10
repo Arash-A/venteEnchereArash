@@ -226,18 +226,33 @@ namespace venteTest.Controllers
             {
                 //var user = new ApplicationUser { Nom = model.Nom,Prenom=model.Prenom, UserName = model.Email, Email = model.Email };
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                user.DateInscription = DateTime.Now;
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
-                    await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
+                    // SB: Pour ne pas exiger une validation par email SendGrid dans l'environnement de développement (pour accélérer) :
+                    if (HttpContext.Connection.RemoteIpAddress.Equals(HttpContext.Connection.LocalIpAddress) || System.Net.IPAddress.IsLoopback(HttpContext.Connection.RemoteIpAddress)) {
+                        // si en local (env. de dév.) :
+                        user.EmailConfirmed = true;
+                        user.Nom = "MonNom";
+                        user.Prenom = "MonPrénom";
+                        user.Civilite = new Civilite { Abbreviation = CiviliteAbbreviation.M.ToString(), Name = CiviliteName.Monsieur.ToString() }.Abbreviation; //user.Civilite = "Monsieur";
+                        user.Langue = new Language { Abbreviation = LanguageAbbreviation.fr.ToString(), Name = LanguageName.FR.ToString() }.Abbreviation; //  TODO SASHA ajouter langue//user.Langue = "en";
 
-                    // SB : Prevent newly registered users from being automatically logged on by commenting out the following line:
-                    // await _signInManager.SignInAsync(user, isPersistent: false);
-                    // _logger.LogInformation("User created a new account with password.");
+                        await _userManager.UpdateAsync(user); // MAJ
+                        await _userManager.AddToRoleAsync(user, "Member"); // ajout Role
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        _logger.LogInformation("User created a new account with password.");
+                    } else {
+                        // si sur Serveur
+                        // envoie de courriel SendGrid si on s'authentifie sur serveur..
+                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                        var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
+                        await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
+                    }
+
                     return RedirectToLocal(returnUrl);
                 }
                 AddErrors(result);

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using venteTest.Models;
@@ -55,16 +56,20 @@ namespace venteTest.Controllers
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            var model = new IndexViewModel
-            {
+            var model = new IndexViewModel {
                 Nom = user.Nom,
                 Prenom = user.Prenom,
                 Username = user.UserName,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 IsEmailConfirmed = user.EmailConfirmed,
-                StatusMessage = StatusMessage
+                Langue = user.Langue,
+                Civilite = user.Civilite,
+                StatusMessage = StatusMessage,
             };
+
+            ViewData["Civilite"] = new SelectList(new Services.CiviliteService().List(), "Abbreviation", "Name", model.Civilite);
+            ViewData["Langue"] = new SelectList(new Services.LanguageService().List(), "Abbreviation", "Name", model.Langue);
 
             return View(model);
         }
@@ -104,22 +109,19 @@ namespace venteTest.Controllers
                 }
             }
 
-            
-            // SB: Setters à définir.. 
             user.Nom = model.Nom;
             user.Prenom = model.Prenom;
-            user.Langue = "en";
-            //user.Langue = model.Langue; //  TODO SASHA ajouter langue
-
-            await _userManager.UpdateAsync(user);
+            user.Civilite = model.Civilite; //user.Civilite = "Monsieur";
+            user.Langue = model.Langue; //  TODO SASHA ajouter langue//user.Langue = "en";
 
             // SB: Pour ne pas exiger une validation par email dans l'environnement de développement (pour accélérer) :
             // Puisque pour une vrai authentification où l'on modifier le courriel, on doit valider ce courriel
             if (!user.EmailConfirmed && (HttpContext.Connection.RemoteIpAddress.Equals(HttpContext.Connection.LocalIpAddress) || System.Net.IPAddress.IsLoopback(HttpContext.Connection.RemoteIpAddress))) {
                 // Si courriel non-confirmé ET on est en local (env. de dév.), on confirme le courriel :
                 user.EmailConfirmed = true;
-                await _userManager.UpdateAsync(user);
             }
+
+            await _userManager.UpdateAsync(user);
 
             StatusMessage = "Your profile has been updated";
             return RedirectToAction(nameof(Index));

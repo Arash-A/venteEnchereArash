@@ -109,8 +109,8 @@ namespace venteTest
                 //propriétés supplémentaires ajoutés:
                 Nom = Configuration["AppSettings:AdminLastName"],
                 Prenom = Configuration["AppSettings:AdminFirstName"],
-                Civilite = "Monsieur",
-                Langue = "fr",
+                Civilite = new Civilite { Abbreviation = CiviliteAbbreviation.M.ToString(), Name = CiviliteName.Monsieur.ToString() }.Abbreviation,
+                Langue = new Language { Abbreviation = LanguageAbbreviation.fr.ToString(), Name = LanguageName.FR.ToString() }.Abbreviation,
                 DateInscription = DateTime.Now
             };
             //Ensure you have these values in your appsettings.json file
@@ -135,8 +135,8 @@ namespace venteTest
                 //propriétés supplémentaires ajoutés:
                 Nom = "Blain",
                 Prenom = "Isabelle",
-                Civilite = "Madame",
-                Langue = "fr",
+                Civilite = new Civilite { Abbreviation = CiviliteAbbreviation.Mme.ToString(), Name = CiviliteName.Madame.ToString() }.Abbreviation, 
+                Langue = new Language { Abbreviation = LanguageAbbreviation.fr.ToString(), Name = LanguageName.FR.ToString() }.Abbreviation,
                 DateInscription = DateTime.Now
             };
             //Ensure you have these values in your appsettings.json file

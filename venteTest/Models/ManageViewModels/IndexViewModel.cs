@@ -12,8 +12,8 @@ namespace venteTest.Models.ManageViewModels
     public class IndexViewModel
     {
 
-
         public string Username { get; set; }
+
         [Required]
         [Display(Name = "Nom", ResourceType = typeof(SharedStrings))]
         public string Nom { get; set; }
@@ -33,5 +33,14 @@ namespace venteTest.Models.ManageViewModels
         public string PhoneNumber { get; set; }
 
         public string StatusMessage { get; set; }
+
+        [Required]
+        [Display(Name = "Civilite")]
+        public string Civilite { get; set; }
+
+        [Required]
+        [Display(Name = "Langue")]
+        public string Langue { get; set; }
+
     }
 }
