@@ -14,16 +14,17 @@ namespace venteTest.Models {
 
 
         [Required]
-        [MaxLength(300)]
+        [MaxLength(400)]
         [Display(Name = "Description")]
         public string Description { get; set; }
 
 
         [Required]
         [Display(Name = "Prix")]
-        public decimal PrixDepart { get; set; }
+        public double PrixDepart { get; set; }
 
         private DateTime _date1 = DateTime.MinValue;
+
         [Required]
         [DataType(DataType.Date)]
         [Display(Name = "Date d'ajout")]
@@ -34,11 +35,15 @@ namespace venteTest.Models {
             set { _date1 = value; }
         }
 
-
-
         [Display(Name = "Durée de mise en vente")]
-        public int DureeMiseVente { get; set; }
-
+        public String DureeMiseVente {
+            get {
+                TimeSpan diff1 = DateTime.Now.Subtract(_date1);
+               String duree= diff1.ToString("d");
+                return (duree);
+            }
+            set {}
+        }
 
         [DisplayName("Image")]
         [StringLength(1024)]
@@ -47,9 +52,14 @@ namespace venteTest.Models {
         //propriéte de Navigation
         public int CategorieID { get; set; }
 
-
         public virtual Categorie Categorie { get; set; }
 
+        public string Status { get; set; }
+
+        public DateTime DateVendu { get; set; }
+
+        public string UserId { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
 
         public virtual ICollection<Enchere> Encheres { get; set; }
 

@@ -8,13 +8,25 @@ namespace venteTest.Models
 {
     public class Categorie
     {
-        public int CategorieId { get; set; }
+
+        public int CategorieId {
+            get;
+            set;
+        }
 
         [RegularExpression("[a-z A-Z]{30}", ErrorMessage = "Please enter name")]
-        public String Nom { get; set; }
+        public String Nom {
+            get;
+            set;
+        }
 
         public String Description{ get; set; }
 
-        public virtual ICollection<Objet> Objets { get; set; }
+
+
+        public virtual ICollection<Objet> Objets {
+            get;
+            set;
+        }
     }
 }

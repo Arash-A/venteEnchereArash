@@ -5,29 +5,69 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 
-namespace venteTest.Models
-{
+namespace venteTest.Models {
     // Add profile data for application users by adding properties to the ApplicationUser class
-    public class ApplicationUser : IdentityUser
-    {
-
-        //[Required(ErrorMessage = "Please enter your civility")]
-        public String Civilite { get; set; }
-
-        // [Required]
-        public String Nom { get; set; }
+    public class ApplicationUser : IdentityUser {
 
 
-        //[Required(ErrorMessage = "Please enter your last Name")]
-        public String Prenom { get; set; }
+        public  string Civilite {
+            get;
+            set;
+        }
+
+        public  string Nom {
+            get;
+            set;
+        }
+
+        public  string Prenom {
+            get;
+            set;
+        }
+
+        public  string Langue {
+            get;
+            set;
+        }
+
+        public  int Telephone {
+            get;
+            set;
+        }
+
+        public  string Adresse {
+            get;
+            set;
+        }
+
+        public DateTime? DateInscription {
+            get;
+            set;
+            //get {
+            //    return DateInscription;
+            //}
+            //set { DateInscription = DateTime.Now; }
+        }
+
+        public virtual int ObjetId {
+            get;
+            set;
+        }
+
+        public virtual ICollection<Objet> Objets {
+            get;
+            set;
+        }
+
+        public virtual ICollection<Enchere> Encheres {
+            get;
+            set;
+        }
+        public virtual ICollection<Evaluation> Evaluations {
+            get;
+            set;
+        }
 
 
-        // [Required(ErrorMessage = "Please enter your language")]
-        public String Langue { get; set; }
-
-        //[Required]
-        public DateTime? DateInscription { get; set; }
-
-        public virtual ICollection<Enchere> Encheres { get; set; }
     }
 }

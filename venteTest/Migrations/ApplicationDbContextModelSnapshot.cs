@@ -8,13 +8,12 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 using venteTest.Data;
 
-namespace venteTest.Data.Migrations
+namespace venteTest.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180508012834_5")]
-    partial class _5
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -136,6 +135,8 @@ namespace venteTest.Data.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<string>("Adresse");
+
                     b.Property<string>("Civilite");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -162,6 +163,8 @@ namespace venteTest.Data.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256);
 
+                    b.Property<int>("ObjetId");
+
                     b.Property<string>("PasswordHash");
 
                     b.Property<string>("PhoneNumber");
@@ -171,6 +174,8 @@ namespace venteTest.Data.Migrations
                     b.Property<string>("Prenom");
 
                     b.Property<string>("SecurityStamp");
+
+                    b.Property<int>("Telephone");
 
                     b.Property<bool>("TwoFactorEnabled");
 
@@ -206,22 +211,28 @@ namespace venteTest.Data.Migrations
 
             modelBuilder.Entity("venteTest.Models.Enchere", b =>
                 {
-                    b.Property<int>("EnchereID")
+                    b.Property<int>("EnchereId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("ApplicationUserId");
 
-                    b.Property<int>("MembreID");
+                    b.Property<int?>("EvaluationID");
 
-                    b.Property<decimal>("NiveauEnchere");
+                    b.Property<double>("Niveau");
 
-                    b.Property<int>("ObjetID");
+                    b.Property<int>("ObjetId");
 
-                    b.HasKey("EnchereID");
+                    b.Property<string>("UserId");
+
+                    b.HasKey("EnchereId");
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.HasIndex("ObjetID");
+                    b.HasIndex("EvaluationID")
+                        .IsUnique()
+                        .HasFilter("[EvaluationID] IS NOT NULL");
+
+                    b.HasIndex("ObjetId");
 
                     b.ToTable("Encheres");
                 });
@@ -240,9 +251,9 @@ namespace venteTest.Data.Migrations
 
                     b.Property<DateTime>("DateEvaluation");
 
-                    b.Property<int>("MembreId");
-
                     b.Property<string>("Numero");
+
+                    b.Property<string>("UserId");
 
                     b.HasKey("EvaluationID");
 
@@ -255,6 +266,8 @@ namespace venteTest.Data.Migrations
                 {
                     b.Property<int>("FichierId")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("NomLocale");
 
                     b.Property<string>("NomOriginal")
                         .IsRequired();
@@ -277,25 +290,35 @@ namespace venteTest.Data.Migrations
                     b.Property<int>("ObjetID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("ApplicationUserId");
+
                     b.Property<int>("CategorieID");
 
                     b.Property<DateTime>("DateInscription");
 
+                    b.Property<DateTime>("DateVendu");
+
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(300);
+                        .HasMaxLength(400);
 
-                    b.Property<int>("DureeMiseVente");
+                    b.Property<string>("DureeMiseVente");
 
                     b.Property<string>("Nom")
                         .IsRequired();
 
-                    b.Property<decimal>("PrixDepart");
+                    b.Property<double>("PrixDepart");
+
+                    b.Property<string>("Status");
+
+                    b.Property<string>("UserId");
 
                     b.Property<string>("imageUrl")
                         .HasMaxLength(1024);
 
                     b.HasKey("ObjetID");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("CategorieID");
 
@@ -353,16 +376,20 @@ namespace venteTest.Data.Migrations
                         .WithMany("Encheres")
                         .HasForeignKey("ApplicationUserId");
 
+                    b.HasOne("venteTest.Models.Evaluation", "Evaluation")
+                        .WithOne("Enchere")
+                        .HasForeignKey("venteTest.Models.Enchere", "EvaluationID");
+
                     b.HasOne("venteTest.Models.Objet", "Objet")
                         .WithMany("Encheres")
-                        .HasForeignKey("ObjetID")
+                        .HasForeignKey("ObjetId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("venteTest.Models.Evaluation", b =>
                 {
                     b.HasOne("venteTest.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
+                        .WithMany("Evaluations")
                         .HasForeignKey("ApplicationUserId");
                 });
 
@@ -376,6 +403,10 @@ namespace venteTest.Data.Migrations
 
             modelBuilder.Entity("venteTest.Models.Objet", b =>
                 {
+                    b.HasOne("venteTest.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany("Objets")
+                        .HasForeignKey("ApplicationUserId");
+
                     b.HasOne("venteTest.Models.Categorie", "Categorie")
                         .WithMany("Objets")
                         .HasForeignKey("CategorieID")

@@ -13,6 +13,8 @@ namespace venteTest.Models
         [Required]
         public string NomOriginal { get; set; }
 
+        public string NomLocale { get; set; }
+
         public DateTime verseLe { get; private set; }
 
         public string Remarques{ get; set; }

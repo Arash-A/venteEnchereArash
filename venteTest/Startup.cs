@@ -79,7 +79,7 @@ namespace venteTest
             });
 
             //ajout sb pour créer admin et rôles (Si requis)
-            CreateRolesAdminUsers(serviceProvider).Wait();
+            //CreateRolesAdminUsers(serviceProvider).Wait();
            
             
         }

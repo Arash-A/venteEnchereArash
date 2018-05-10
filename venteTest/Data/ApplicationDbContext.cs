@@ -22,7 +22,6 @@ namespace venteTest.Data
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
-        //public DbSet<Membre> Membres { get; set; }
         public DbSet<Enchere> Encheres { get; set; }
         public DbSet<Objet> Objets { get; set; }
         public DbSet<Categorie> Categories { get; set; }

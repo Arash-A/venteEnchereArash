@@ -27,9 +27,9 @@ namespace venteTest.Models
         [MaxLength(10000, ErrorMessage = "1000 caracteres max")]
         public String Commentaire { get; set; }
 
+        public virtual Enchere Enchere { get; set; }
 
-        public int MembreId { get; set; }
-
-        public virtual ApplicationUser ApplicationUser { get; set; }
+        public string UserId { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }

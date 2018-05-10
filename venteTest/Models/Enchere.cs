@@ -8,19 +8,19 @@ namespace venteTest.Models
 {
     public class Enchere
     {
-        public int EnchereID { get; set; }
 
-        [Required]
-        public decimal NiveauEnchere{ get; set; }
- 
-        //propriéte de Navigation
-        public int MembreID { get; set; }
-        public virtual ApplicationUser ApplicationUser { get; set; }
+        public virtual int EnchereId { get; set; }
 
+        public virtual double Niveau { get; set; }
 
-        //propriéte de Navigation
-        public int ObjetID { get; set; }
-        public virtual Objet Objet{ get; set; }
+        public string UserId { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
+
+        public  int ObjetId { get; set; }
+
+        public  Objet Objet { get; set; }
+
+        public  Evaluation Evaluation { get; set; }
 
     }
 }
