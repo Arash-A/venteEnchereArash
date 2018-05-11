@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using venteTest.Data;
 using venteTest.Models;
 using venteTest.Services;
+using Hangfire;
 
 namespace venteTest
 {
@@ -52,6 +53,10 @@ namespace venteTest
 
             services.Configure<AuthMessageSenderOptions>(Configuration);
             // Fin SB
+
+            // Ajout Arash pour les Taches automatique selon http://docs.hangfire.io
+            // aussi: http://docs.hangfire.io/en/latest/configuration/using-dashboard.html#configuring-authorization
+            services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -79,9 +84,13 @@ namespace venteTest
             });
 
             //ajout sb pour créer admin et rôles (Si requis)
-            //CreateRolesAdminUsers(serviceProvider).Wait();
-           
-            
+            CreateRolesAdminUsers(serviceProvider).Wait();
+
+            // Ajour Arash pour Hangfire
+            app.UseHangfireServer();
+            app.UseHangfireDashboard();
+
+
         }
         //Ajout SB pour créer admin et rôles (Si requis)
         // Méthode adapté par SB selon: https://stackoverflow.com/questions/42471866/how-to-create-roles-in-asp-net-core-and-assign-them-to-users
