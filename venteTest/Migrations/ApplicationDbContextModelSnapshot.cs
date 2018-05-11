@@ -5,8 +5,10 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
+using Microsoft.EntityFrameworkCore.ValueGeneration;
 using System;
 using venteTest.Data;
+using venteTest.Models;
 
 namespace venteTest.Migrations
 {
@@ -144,6 +146,9 @@ namespace venteTest.Migrations
 
                     b.Property<DateTime?>("DateInscription");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
@@ -163,8 +168,6 @@ namespace venteTest.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256);
 
-                    b.Property<int>("ObjetId");
-
                     b.Property<string>("PasswordHash");
 
                     b.Property<string>("PhoneNumber");
@@ -174,8 +177,6 @@ namespace venteTest.Migrations
                     b.Property<string>("Prenom");
 
                     b.Property<string>("SecurityStamp");
-
-                    b.Property<int>("Telephone");
 
                     b.Property<bool>("TwoFactorEnabled");
 
@@ -193,6 +194,8 @@ namespace venteTest.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("ApplicationUser");
                 });
 
             modelBuilder.Entity("venteTest.Models.Categorie", b =>
@@ -209,6 +212,20 @@ namespace venteTest.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("venteTest.Models.ConfigurationAdmin", b =>
+                {
+                    b.Property<int>("ConfigurationAdminId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<decimal>("PasGlobalEnchere");
+
+                    b.Property<decimal>("TauxGlobalComissionAuVendeur");
+
+                    b.HasKey("ConfigurationAdminId");
+
+                    b.ToTable("ConfigurationAdmin");
+                });
+
             modelBuilder.Entity("venteTest.Models.Enchere", b =>
                 {
                     b.Property<int>("EnchereId")
@@ -216,21 +233,17 @@ namespace venteTest.Migrations
 
                     b.Property<string>("ApplicationUserId");
 
-                    b.Property<int?>("EvaluationID");
+                    b.Property<string>("MiseurId");
 
                     b.Property<double>("Niveau");
 
                     b.Property<int>("ObjetId");
 
-                    b.Property<string>("UserId");
-
                     b.HasKey("EnchereId");
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.HasIndex("EvaluationID")
-                        .IsUnique()
-                        .HasFilter("[EvaluationID] IS NOT NULL");
+                    b.HasIndex("MiseurId");
 
                     b.HasIndex("ObjetId");
 
@@ -242,8 +255,6 @@ namespace venteTest.Migrations
                     b.Property<int>("EvaluationID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ApplicationUserId");
-
                     b.Property<string>("Commentaire")
                         .HasMaxLength(10000);
 
@@ -251,15 +262,18 @@ namespace venteTest.Migrations
 
                     b.Property<DateTime>("DateEvaluation");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
                     b.Property<string>("Numero");
 
-                    b.Property<string>("UserId");
+                    b.Property<int>("ObjetId");
 
                     b.HasKey("EvaluationID");
 
-                    b.HasIndex("ApplicationUserId");
-
                     b.ToTable("Evaluations");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Evaluation");
                 });
 
             modelBuilder.Entity("venteTest.Models.Fichier", b =>
@@ -290,39 +304,104 @@ namespace venteTest.Migrations
                     b.Property<int>("ObjetID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ApplicationUserId");
+                    b.Property<string>("AcheteurId");
 
                     b.Property<int>("CategorieID");
 
+                    b.Property<int?>("ConfigurationAdminId");
+
                     b.Property<DateTime>("DateInscription");
 
-                    b.Property<DateTime>("DateVendu");
+                    b.Property<DateTime>("DateLimite");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(400);
-
-                    b.Property<string>("DureeMiseVente");
 
                     b.Property<string>("Nom")
                         .IsRequired();
 
                     b.Property<double>("PrixDepart");
 
-                    b.Property<string>("Status");
+                    b.Property<int>("Status");
 
-                    b.Property<string>("UserId");
+                    b.Property<string>("VendeurId")
+                        .IsRequired();
 
                     b.Property<string>("imageUrl")
                         .HasMaxLength(1024);
 
                     b.HasKey("ObjetID");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("AcheteurId");
 
                     b.HasIndex("CategorieID");
 
+                    b.HasIndex("ConfigurationAdminId");
+
+                    b.HasIndex("VendeurId");
+
                     b.ToTable("Objets");
+                });
+
+            modelBuilder.Entity("venteTest.Models.Miseur", b =>
+                {
+                    b.HasBaseType("venteTest.Models.ApplicationUser");
+
+
+                    b.ToTable("Miseur");
+
+                    b.HasDiscriminator().HasValue("Miseur");
+                });
+
+            modelBuilder.Entity("venteTest.Models.Vendeur", b =>
+                {
+                    b.HasBaseType("venteTest.Models.ApplicationUser");
+
+
+                    b.ToTable("Vendeur");
+
+                    b.HasDiscriminator().HasValue("Vendeur");
+                });
+
+            modelBuilder.Entity("venteTest.Models.AchatEvaluation", b =>
+                {
+                    b.HasBaseType("venteTest.Models.Evaluation");
+
+                    b.Property<string>("MiseurId");
+
+                    b.Property<string>("VendeurId");
+
+                    b.HasIndex("MiseurId");
+
+                    b.HasIndex("ObjetId")
+                        .IsUnique();
+
+                    b.HasIndex("VendeurId");
+
+                    b.ToTable("AchatEvaluation");
+
+                    b.HasDiscriminator().HasValue("AchatEvaluation");
+                });
+
+            modelBuilder.Entity("venteTest.Models.VenteEvaluation", b =>
+                {
+                    b.HasBaseType("venteTest.Models.Evaluation");
+
+                    b.Property<string>("AcheteurId");
+
+                    b.Property<string>("ApplicationUserId");
+
+                    b.HasIndex("AcheteurId");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("ObjetId")
+                        .IsUnique();
+
+                    b.ToTable("VenteEvaluation");
+
+                    b.HasDiscriminator().HasValue("VenteEvaluation");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -372,25 +451,18 @@ namespace venteTest.Migrations
 
             modelBuilder.Entity("venteTest.Models.Enchere", b =>
                 {
-                    b.HasOne("venteTest.Models.ApplicationUser", "ApplicationUser")
+                    b.HasOne("venteTest.Models.ApplicationUser")
                         .WithMany("Encheres")
                         .HasForeignKey("ApplicationUserId");
 
-                    b.HasOne("venteTest.Models.Evaluation", "Evaluation")
-                        .WithOne("Enchere")
-                        .HasForeignKey("venteTest.Models.Enchere", "EvaluationID");
+                    b.HasOne("venteTest.Models.Miseur", "Miseur")
+                        .WithMany()
+                        .HasForeignKey("MiseurId");
 
                     b.HasOne("venteTest.Models.Objet", "Objet")
                         .WithMany("Encheres")
                         .HasForeignKey("ObjetId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("venteTest.Models.Evaluation", b =>
-                {
-                    b.HasOne("venteTest.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany("Evaluations")
-                        .HasForeignKey("ApplicationUserId");
                 });
 
             modelBuilder.Entity("venteTest.Models.Fichier", b =>
@@ -403,13 +475,54 @@ namespace venteTest.Migrations
 
             modelBuilder.Entity("venteTest.Models.Objet", b =>
                 {
-                    b.HasOne("venteTest.Models.ApplicationUser", "ApplicationUser")
+                    b.HasOne("venteTest.Models.Miseur", "Acheteur")
                         .WithMany("Objets")
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("AcheteurId");
 
                     b.HasOne("venteTest.Models.Categorie", "Categorie")
                         .WithMany("Objets")
                         .HasForeignKey("CategorieID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("venteTest.Models.ConfigurationAdmin", "ConfigurationAdmin")
+                        .WithMany()
+                        .HasForeignKey("ConfigurationAdminId");
+
+                    b.HasOne("venteTest.Models.Vendeur", "Vendeur")
+                        .WithMany("Objets")
+                        .HasForeignKey("VendeurId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("venteTest.Models.AchatEvaluation", b =>
+                {
+                    b.HasOne("venteTest.Models.Miseur")
+                        .WithMany("AchatEvaluations")
+                        .HasForeignKey("MiseurId");
+
+                    b.HasOne("venteTest.Models.Objet", "Objet")
+                        .WithOne("AchatEvaluation")
+                        .HasForeignKey("venteTest.Models.AchatEvaluation", "ObjetId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("venteTest.Models.Vendeur", "Vendeur")
+                        .WithMany("AchatEvaluations")
+                        .HasForeignKey("VendeurId");
+                });
+
+            modelBuilder.Entity("venteTest.Models.VenteEvaluation", b =>
+                {
+                    b.HasOne("venteTest.Models.Miseur", "Acheteur")
+                        .WithMany()
+                        .HasForeignKey("AcheteurId");
+
+                    b.HasOne("venteTest.Models.ApplicationUser")
+                        .WithMany("VenteEvaluations")
+                        .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("venteTest.Models.Objet", "Objet")
+                        .WithOne("VenteEvaluation")
+                        .HasForeignKey("venteTest.Models.VenteEvaluation", "ObjetId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

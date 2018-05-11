@@ -10,32 +10,28 @@ namespace venteTest.Models {
     public class ApplicationUser : IdentityUser {
 
 
-        public  string Civilite {
+        public string Civilite {
             get;
             set;
         }
 
-        public  string Nom {
+        public string Nom {
             get;
             set;
         }
 
-        public  string Prenom {
+        public string Prenom {
             get;
             set;
         }
 
-        public  string Langue {
+        public string Langue {
             get;
             set;
         }
+        // N.B.: Telephone est deja nativement ds AspNetUsers
 
-        public  int Telephone {
-            get;
-            set;
-        }
-
-        public  string Adresse {
+        public string Adresse {
             get;
             set;
         }
@@ -43,31 +39,32 @@ namespace venteTest.Models {
         public DateTime? DateInscription {
             get;
             set;
-            //get {
-            //    return DateInscription;
-            //}
-            //set { DateInscription = DateTime.Now; }
         }
 
-        public virtual int ObjetId {
-            get;
-            set;
-        }
+
+        // N.B. 1 vendeur peut être un miseur en même temps
+        // 1 user(vendeur) a 1 ou * objects à vendre
 
         public virtual ICollection<Objet> Objets {
             get;
             set;
         }
 
+        // 1 user(miseur) a 1 ou * encheres(mises supérieur) sur 1 objets
+
         public virtual ICollection<Enchere> Encheres {
             get;
             set;
         }
-        public virtual ICollection<Evaluation> Evaluations {
+
+        public virtual ICollection<VenteEvaluation> VenteEvaluations {
             get;
             set;
         }
-
+        public virtual ICollection<AchatEvaluation> AchatEvaluations {
+            get;
+            set;
+        }
 
     }
 }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace venteTest.Migrations
 {
-    public partial class test : Migration
+    public partial class BdRevisiteSb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -33,6 +33,7 @@ namespace venteTest.Migrations
                     Civilite = table.Column<string>(nullable: true),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
                     DateInscription = table.Column<DateTime>(nullable: true),
+                    Discriminator = table.Column<string>(nullable: false),
                     Email = table.Column<string>(maxLength: 256, nullable: true),
                     EmailConfirmed = table.Column<bool>(nullable: false),
                     Langue = table.Column<string>(nullable: true),
@@ -41,13 +42,11 @@ namespace venteTest.Migrations
                     Nom = table.Column<string>(nullable: true),
                     NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
-                    ObjetId = table.Column<int>(nullable: false),
                     PasswordHash = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
                     PhoneNumberConfirmed = table.Column<bool>(nullable: false),
                     Prenom = table.Column<string>(nullable: true),
                     SecurityStamp = table.Column<string>(nullable: true),
-                    Telephone = table.Column<int>(nullable: false),
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     UserName = table.Column<string>(maxLength: 256, nullable: true)
                 },
@@ -68,6 +67,20 @@ namespace venteTest.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.CategorieId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ConfigurationAdmin",
+                columns: table => new
+                {
+                    ConfigurationAdminId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    PasGlobalEnchere = table.Column<decimal>(nullable: false),
+                    TauxGlobalComissionAuVendeur = table.Column<decimal>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ConfigurationAdmin", x => x.ConfigurationAdminId);
                 });
 
             migrationBuilder.CreateTable(
@@ -177,53 +190,29 @@ namespace venteTest.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Evaluations",
-                columns: table => new
-                {
-                    EvaluationID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ApplicationUserId = table.Column<string>(nullable: true),
-                    Commentaire = table.Column<string>(maxLength: 10000, nullable: true),
-                    Cote = table.Column<int>(nullable: false),
-                    DateEvaluation = table.Column<DateTime>(nullable: false),
-                    Numero = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Evaluations", x => x.EvaluationID);
-                    table.ForeignKey(
-                        name: "FK_Evaluations_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Objets",
                 columns: table => new
                 {
                     ObjetID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ApplicationUserId = table.Column<string>(nullable: true),
+                    AcheteurId = table.Column<string>(nullable: true),
                     CategorieID = table.Column<int>(nullable: false),
+                    ConfigurationAdminId = table.Column<int>(nullable: true),
                     DateInscription = table.Column<DateTime>(nullable: false),
-                    DateVendu = table.Column<DateTime>(nullable: false),
+                    DateLimite = table.Column<DateTime>(nullable: false),
                     Description = table.Column<string>(maxLength: 400, nullable: false),
-                    DureeMiseVente = table.Column<string>(nullable: true),
                     Nom = table.Column<string>(nullable: false),
                     PrixDepart = table.Column<double>(nullable: false),
-                    Status = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true),
+                    Status = table.Column<int>(nullable: false),
+                    VendeurId = table.Column<string>(nullable: false),
                     imageUrl = table.Column<string>(maxLength: 1024, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Objets", x => x.ObjetID);
                     table.ForeignKey(
-                        name: "FK_Objets_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
+                        name: "FK_Objets_AspNetUsers_AcheteurId",
+                        column: x => x.AcheteurId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -232,6 +221,18 @@ namespace venteTest.Migrations
                         column: x => x.CategorieID,
                         principalTable: "Categories",
                         principalColumn: "CategorieId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Objets_ConfigurationAdmin_ConfigurationAdminId",
+                        column: x => x.ConfigurationAdminId,
+                        principalTable: "ConfigurationAdmin",
+                        principalColumn: "ConfigurationAdminId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Objets_AspNetUsers_VendeurId",
+                        column: x => x.VendeurId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -242,10 +243,9 @@ namespace venteTest.Migrations
                     EnchereId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ApplicationUserId = table.Column<string>(nullable: true),
-                    EvaluationID = table.Column<int>(nullable: true),
+                    MiseurId = table.Column<string>(nullable: true),
                     Niveau = table.Column<double>(nullable: false),
-                    ObjetId = table.Column<int>(nullable: false),
-                    UserId = table.Column<string>(nullable: true)
+                    ObjetId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -257,10 +257,10 @@ namespace venteTest.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Encheres_Evaluations_EvaluationID",
-                        column: x => x.EvaluationID,
-                        principalTable: "Evaluations",
-                        principalColumn: "EvaluationID",
+                        name: "FK_Encheres_AspNetUsers_MiseurId",
+                        column: x => x.MiseurId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Encheres_Objets_ObjetId",
@@ -268,6 +268,58 @@ namespace venteTest.Migrations
                         principalTable: "Objets",
                         principalColumn: "ObjetID",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Evaluations",
+                columns: table => new
+                {
+                    MiseurId = table.Column<string>(nullable: true),
+                    VendeurId = table.Column<string>(nullable: true),
+                    EvaluationID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Commentaire = table.Column<string>(maxLength: 10000, nullable: true),
+                    Cote = table.Column<int>(nullable: false),
+                    DateEvaluation = table.Column<DateTime>(nullable: false),
+                    Discriminator = table.Column<string>(nullable: false),
+                    Numero = table.Column<string>(nullable: true),
+                    ObjetId = table.Column<int>(nullable: false),
+                    AcheteurId = table.Column<string>(nullable: true),
+                    ApplicationUserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Evaluations", x => x.EvaluationID);
+                    table.ForeignKey(
+                        name: "FK_Evaluations_AspNetUsers_MiseurId",
+                        column: x => x.MiseurId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Evaluations_Objets_ObjetId",
+                        column: x => x.ObjetId,
+                        principalTable: "Objets",
+                        principalColumn: "ObjetID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Evaluations_AspNetUsers_VendeurId",
+                        column: x => x.VendeurId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Evaluations_AspNetUsers_AcheteurId",
+                        column: x => x.AcheteurId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Evaluations_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -338,16 +390,35 @@ namespace venteTest.Migrations
                 column: "ApplicationUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Encheres_EvaluationID",
+                name: "IX_Encheres_MiseurId",
                 table: "Encheres",
-                column: "EvaluationID",
-                unique: true,
-                filter: "[EvaluationID] IS NOT NULL");
+                column: "MiseurId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Encheres_ObjetId",
                 table: "Encheres",
                 column: "ObjetId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Evaluations_MiseurId",
+                table: "Evaluations",
+                column: "MiseurId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Evaluations_ObjetId",
+                table: "Evaluations",
+                column: "ObjetId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Evaluations_VendeurId",
+                table: "Evaluations",
+                column: "VendeurId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Evaluations_AcheteurId",
+                table: "Evaluations",
+                column: "AcheteurId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Evaluations_ApplicationUserId",
@@ -360,14 +431,24 @@ namespace venteTest.Migrations
                 column: "ObjetId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Objets_ApplicationUserId",
+                name: "IX_Objets_AcheteurId",
                 table: "Objets",
-                column: "ApplicationUserId");
+                column: "AcheteurId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Objets_CategorieID",
                 table: "Objets",
                 column: "CategorieID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Objets_ConfigurationAdminId",
+                table: "Objets",
+                column: "ConfigurationAdminId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Objets_VendeurId",
+                table: "Objets",
+                column: "VendeurId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -391,13 +472,13 @@ namespace venteTest.Migrations
                 name: "Encheres");
 
             migrationBuilder.DropTable(
+                name: "Evaluations");
+
+            migrationBuilder.DropTable(
                 name: "Fichiers");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "Evaluations");
 
             migrationBuilder.DropTable(
                 name: "Objets");
@@ -407,6 +488,9 @@ namespace venteTest.Migrations
 
             migrationBuilder.DropTable(
                 name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "ConfigurationAdmin");
         }
     }
 }

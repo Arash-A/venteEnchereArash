@@ -17,10 +17,10 @@ namespace venteTest.Models
 
         public DateTime verseLe { get; private set; }
 
-        public string Remarques{ get; set; }
+        public string Remarques { get; set; }
 
         public int ObjetId { get; set; }
 
-        public virtual Objet Objet { get; set; }
+        public Objet Objet { get; set; }
     }
 }

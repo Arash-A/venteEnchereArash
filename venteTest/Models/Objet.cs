@@ -6,6 +6,11 @@ using System.Linq;
 using System.Web;
 
 namespace venteTest.Models {
+    public enum Status {
+        EnVente,
+        Vendu
+    }
+    // Class corespondante à un objet à vendre
     public class Objet {
         public int ObjetID { get; set; } // The unique key
 
@@ -20,30 +25,25 @@ namespace venteTest.Models {
 
 
         [Required]
-        [Display(Name = "Prix")]
+        [Display(Name = "Price")]
         public double PrixDepart { get; set; }
-
-        private DateTime _date1 = DateTime.MinValue;
 
         [Required]
         [DataType(DataType.Date)]
-        [Display(Name = "Date d'ajout")]
-        public DateTime DateInscription {
-            get {
-                return (_date1 == DateTime.MinValue) ? DateTime.Now : _date1;
-            }
-            set { _date1 = value; }
-        }
+        [Display(Name = "Date added")]
+        public DateTime DateInscription { get; set; } // fixé par le Vendeur à l'ajout
 
-        [Display(Name = "Durée de mise en vente")]
+        public DateTime DateLimite { get; set; } // fixé par le Vendeur à l'ajout
+
+        [Display(Name = "Time since start of sell")]
         public String DureeMiseVente {
             get {
-                TimeSpan diff1 = DateTime.Now.Subtract(_date1);
-               String duree= diff1.ToString("d");
+                TimeSpan diff1 = DateLimite.Subtract(DateInscription);
+                String duree = diff1.ToString("d");
                 return (duree);
             }
-            set {}
         }
+        public Status Status { get; set; }
 
         [DisplayName("Image")]
         [StringLength(1024)]
@@ -52,18 +52,22 @@ namespace venteTest.Models {
         //propriéte de Navigation
         public int CategorieID { get; set; }
 
-        public virtual Categorie Categorie { get; set; }
+        public Categorie Categorie { get; set; }
 
-        public string Status { get; set; }
+        [Required]
+        public Vendeur Vendeur { get; set; }
 
-        public DateTime DateVendu { get; set; }
+        public Miseur Acheteur { get; set; }
+        // 1 objet à vendre possède une Configuration de PasDenchère et 1 TauxGlobalComissionAuVendeur qui ne change pas durant une vente
+        public ConfigurationAdmin ConfigurationAdmin { get; set; }
+        public VenteEvaluation VenteEvaluation { get; set; }
 
-        public string UserId { get; set; }
-        public virtual ApplicationUser ApplicationUser { get; set; }
+        public AchatEvaluation AchatEvaluation { get; set; }
 
+        // 1 objet à 1 ou * des mises(Encheres)
         public virtual ICollection<Enchere> Encheres { get; set; }
-
-
+        // 1 objet à 1 ou * des fichiers
         public virtual ICollection<Fichier> Fichiers { get; set; }
+
     }
 }
