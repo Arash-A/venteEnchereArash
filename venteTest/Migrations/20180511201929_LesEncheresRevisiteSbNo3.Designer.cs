@@ -13,8 +13,8 @@ using venteTest.Models;
 namespace venteTest.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180511185430_BdRevisiteSb")]
-    partial class BdRevisiteSb
+    [Migration("20180511201929_LesEncheresRevisiteSbNo3")]
+    partial class LesEncheresRevisiteSbNo3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -232,21 +232,21 @@ namespace venteTest.Migrations
                     b.Property<int>("EnchereId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ApplicationUserId");
-
                     b.Property<string>("MiseurId");
 
                     b.Property<double>("Niveau");
 
                     b.Property<int>("ObjetId");
 
-                    b.HasKey("EnchereId");
+                    b.Property<string>("VendeurId");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasKey("EnchereId");
 
                     b.HasIndex("MiseurId");
 
                     b.HasIndex("ObjetId");
+
+                    b.HasIndex("VendeurId");
 
                     b.ToTable("Encheres");
                 });
@@ -369,11 +369,7 @@ namespace venteTest.Migrations
                 {
                     b.HasBaseType("venteTest.Models.Evaluation");
 
-                    b.Property<string>("MiseurId");
-
                     b.Property<string>("VendeurId");
-
-                    b.HasIndex("MiseurId");
 
                     b.HasIndex("ObjetId")
                         .IsUnique();
@@ -391,11 +387,7 @@ namespace venteTest.Migrations
 
                     b.Property<string>("AcheteurId");
 
-                    b.Property<string>("ApplicationUserId");
-
                     b.HasIndex("AcheteurId");
-
-                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("ObjetId")
                         .IsUnique();
@@ -452,18 +444,18 @@ namespace venteTest.Migrations
 
             modelBuilder.Entity("venteTest.Models.Enchere", b =>
                 {
-                    b.HasOne("venteTest.Models.ApplicationUser")
-                        .WithMany("Encheres")
-                        .HasForeignKey("ApplicationUserId");
-
                     b.HasOne("venteTest.Models.Miseur", "Miseur")
-                        .WithMany()
+                        .WithMany("Encheres")
                         .HasForeignKey("MiseurId");
 
                     b.HasOne("venteTest.Models.Objet", "Objet")
                         .WithMany("Encheres")
                         .HasForeignKey("ObjetId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("venteTest.Models.Vendeur")
+                        .WithMany("Encheres")
+                        .HasForeignKey("VendeurId");
                 });
 
             modelBuilder.Entity("venteTest.Models.Fichier", b =>
@@ -497,17 +489,13 @@ namespace venteTest.Migrations
 
             modelBuilder.Entity("venteTest.Models.AchatEvaluation", b =>
                 {
-                    b.HasOne("venteTest.Models.Miseur")
-                        .WithMany("AchatEvaluations")
-                        .HasForeignKey("MiseurId");
-
                     b.HasOne("venteTest.Models.Objet", "Objet")
                         .WithOne("AchatEvaluation")
                         .HasForeignKey("venteTest.Models.AchatEvaluation", "ObjetId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("venteTest.Models.Vendeur", "Vendeur")
-                        .WithMany("AchatEvaluations")
+                        .WithMany()
                         .HasForeignKey("VendeurId");
                 });
 
@@ -516,10 +504,6 @@ namespace venteTest.Migrations
                     b.HasOne("venteTest.Models.Miseur", "Acheteur")
                         .WithMany()
                         .HasForeignKey("AcheteurId");
-
-                    b.HasOne("venteTest.Models.ApplicationUser")
-                        .WithMany("VenteEvaluations")
-                        .HasForeignKey("ApplicationUserId");
 
                     b.HasOne("venteTest.Models.Objet", "Objet")
                         .WithOne("VenteEvaluation")

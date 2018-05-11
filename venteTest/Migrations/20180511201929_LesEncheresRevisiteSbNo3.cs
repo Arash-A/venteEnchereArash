@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace venteTest.Migrations
 {
-    public partial class BdRevisiteSb : Migration
+    public partial class LesEncheresRevisiteSbNo3 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -242,20 +242,14 @@ namespace venteTest.Migrations
                 {
                     EnchereId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ApplicationUserId = table.Column<string>(nullable: true),
                     MiseurId = table.Column<string>(nullable: true),
                     Niveau = table.Column<double>(nullable: false),
-                    ObjetId = table.Column<int>(nullable: false)
+                    ObjetId = table.Column<int>(nullable: false),
+                    VendeurId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Encheres", x => x.EnchereId);
-                    table.ForeignKey(
-                        name: "FK_Encheres_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Encheres_AspNetUsers_MiseurId",
                         column: x => x.MiseurId,
@@ -268,13 +262,18 @@ namespace venteTest.Migrations
                         principalTable: "Objets",
                         principalColumn: "ObjetID",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Encheres_AspNetUsers_VendeurId",
+                        column: x => x.VendeurId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Evaluations",
                 columns: table => new
                 {
-                    MiseurId = table.Column<string>(nullable: true),
                     VendeurId = table.Column<string>(nullable: true),
                     EvaluationID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
@@ -284,18 +283,11 @@ namespace venteTest.Migrations
                     Discriminator = table.Column<string>(nullable: false),
                     Numero = table.Column<string>(nullable: true),
                     ObjetId = table.Column<int>(nullable: false),
-                    AcheteurId = table.Column<string>(nullable: true),
-                    ApplicationUserId = table.Column<string>(nullable: true)
+                    AcheteurId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Evaluations", x => x.EvaluationID);
-                    table.ForeignKey(
-                        name: "FK_Evaluations_AspNetUsers_MiseurId",
-                        column: x => x.MiseurId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Evaluations_Objets_ObjetId",
                         column: x => x.ObjetId,
@@ -311,12 +303,6 @@ namespace venteTest.Migrations
                     table.ForeignKey(
                         name: "FK_Evaluations_AspNetUsers_AcheteurId",
                         column: x => x.AcheteurId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Evaluations_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -385,11 +371,6 @@ namespace venteTest.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Encheres_ApplicationUserId",
-                table: "Encheres",
-                column: "ApplicationUserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Encheres_MiseurId",
                 table: "Encheres",
                 column: "MiseurId");
@@ -400,9 +381,9 @@ namespace venteTest.Migrations
                 column: "ObjetId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Evaluations_MiseurId",
-                table: "Evaluations",
-                column: "MiseurId");
+                name: "IX_Encheres_VendeurId",
+                table: "Encheres",
+                column: "VendeurId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Evaluations_ObjetId",
@@ -419,11 +400,6 @@ namespace venteTest.Migrations
                 name: "IX_Evaluations_AcheteurId",
                 table: "Evaluations",
                 column: "AcheteurId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Evaluations_ApplicationUserId",
-                table: "Evaluations",
-                column: "ApplicationUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Fichiers_ObjetId",

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace venteTest.Models
 {
-    public class Evaluation
+    public abstract class Evaluation
     {
         public int EvaluationID { get; set; }
 

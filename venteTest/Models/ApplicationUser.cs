@@ -57,14 +57,5 @@ namespace venteTest.Models {
             set;
         }
 
-        public virtual ICollection<VenteEvaluation> VenteEvaluations {
-            get;
-            set;
-        }
-        public virtual ICollection<AchatEvaluation> AchatEvaluations {
-            get;
-            set;
-        }
-
     }
 }
