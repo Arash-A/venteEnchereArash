@@ -27,7 +27,7 @@ namespace venteTest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<LibraryContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 
@@ -39,7 +39,7 @@ namespace venteTest
             services.AddIdentity<ApplicationUser, IdentityRole>(config => {
                 config.SignIn.RequireConfirmedEmail = true;
             })
-          .AddEntityFrameworkStores<ApplicationDbContext>()
+          .AddEntityFrameworkStores<LibraryContext>()
           .AddDefaultTokenProviders();
             // Fin SB
 
@@ -56,7 +56,7 @@ namespace venteTest
 
             // Ajout Arash pour les Taches automatique selon http://docs.hangfire.io
             // aussi: http://docs.hangfire.io/en/latest/configuration/using-dashboard.html#configuring-authorization
-            services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -84,7 +84,14 @@ namespace venteTest
             });
 
             //ajout sb pour créer admin et rôles (Si requis)
-            CreateRolesAdminUsers(serviceProvider).Wait();
+<<<<<<< HEAD
+          CreateRolesAdminUsers(serviceProvider).Wait();
+=======
+            //CreateRolesAdminUsers(serviceProvider).Wait();
+
+            // Ajout SB pour faire nos mappings entre Model et ViewModels
+            AutoMapperConfig.RegisterMappings();
+>>>>>>> e571dd9145539eab09f5730daf9713f1d7184716
 
             // Ajour Arash pour Hangfire
             app.UseHangfireServer();
@@ -165,4 +172,32 @@ namespace venteTest
         }
         // FIN AJOUT SB
     }
+
+    public class AutoMapperConfig {
+        // 
+        public static void RegisterMappings() {
+
+            AutoMapper.Mapper.Initialize(cfg => {            
+                cfg.CreateMap<Categorie, Models.AdminViewModels.CategorieViewModel>();
+                cfg.CreateMap<Models.AdminViewModels.CategorieViewModel, Categorie>();
+                                                   
+                                                              
+            });                                                                                                        
+
+            // Exemples utilisés dans le contrôleur :
+            //
+            //Ex1 pour mapper:  
+            // Article article = _articleManager.lstArticles.FirstOrDefault(p => p.Titre.Equals(titre));
+            // ArticleViewModel model = Mapper.Map<Article, ArticleViewModel>(article); // conversion d'une entité Article en ArticleViewModel
+            //return View(model)
+
+            //Ex2 pour mapper:
+            // IList<Article> lArt = _articleManager.lstArticles;
+            // IList<ArticleViewModel> model = Mapper.Map<IList<Article>, IList<ArticleViewModel>>(lArt);
+            // return PartialView(model);
+
+        }
+
+    }
+
 }

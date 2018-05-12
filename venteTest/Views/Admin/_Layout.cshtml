@@ -1,0 +1,25 @@
+﻿@using venteTest.Resources.Views
+
+@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Administration</h2>
+
+<div>
+    <h4>Administrative Operations</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-3">
+            @await Html.PartialAsync("_AdminNav")
+        </div>
+        <div class="col-md-9">
+            @RenderBody()
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}
+

@@ -14,7 +14,6 @@ namespace venteTest.Models
             set;
         }
 
-        [RegularExpression("[a-z A-Z]{30}", ErrorMessage = "Please enter name")]
         public String Nom {
             get;
             set;

@@ -42,5 +42,9 @@ namespace venteTest.Models.ManageViewModels
         [Display(Name = "Langue")]
         public string Langue { get; set; }
 
+        [Required]
+        [Display(Name = "Adresse")]
+        public string Adresse { get; set; }
+
     }
 }
