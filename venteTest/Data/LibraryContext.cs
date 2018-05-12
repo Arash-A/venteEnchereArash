@@ -8,9 +8,9 @@ using venteTest.Models;
 
 namespace venteTest.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class LibraryContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public LibraryContext(DbContextOptions<LibraryContext> options)
             : base(options)
         {
         }
@@ -27,5 +27,12 @@ namespace venteTest.Data
         public DbSet<Categorie> Categories { get; set; }
         public DbSet<Evaluation> Evaluations { get; set; }
         public DbSet<Fichier> Fichiers { get; set; }
+        public DbSet<ApplicationUser> Users { get; set; }
+
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(@"Server=.\SQLEXPRESS;Database=eAuctionDB;Trusted_Connection=True;");
+        }
     }
 }

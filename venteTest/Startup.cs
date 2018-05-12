@@ -27,7 +27,7 @@ namespace venteTest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<LibraryContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 
@@ -39,7 +39,7 @@ namespace venteTest
             services.AddIdentity<ApplicationUser, IdentityRole>(config => {
                 config.SignIn.RequireConfirmedEmail = true;
             })
-          .AddEntityFrameworkStores<ApplicationDbContext>()
+          .AddEntityFrameworkStores<LibraryContext>()
           .AddDefaultTokenProviders();
             // Fin SB
 
@@ -56,7 +56,7 @@ namespace venteTest
 
             // Ajout Arash pour les Taches automatique selon http://docs.hangfire.io
             // aussi: http://docs.hangfire.io/en/latest/configuration/using-dashboard.html#configuring-authorization
-            services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -84,11 +84,11 @@ namespace venteTest
             });
 
             //ajout sb pour créer admin et rôles (Si requis)
-            CreateRolesAdminUsers(serviceProvider).Wait();
+          //CreateRolesAdminUsers(serviceProvider).Wait();
 
             // Ajour Arash pour Hangfire
-            app.UseHangfireServer();
-            app.UseHangfireDashboard();
+          //  app.UseHangfireServer();
+            //app.UseHangfireDashboard();
 
 
         }
