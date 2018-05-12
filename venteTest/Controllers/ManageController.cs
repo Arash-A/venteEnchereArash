@@ -113,7 +113,7 @@ namespace venteTest.Controllers
             user.Prenom = model.Prenom;
             user.Civilite = model.Civilite; //user.Civilite = "Monsieur";
             user.Langue = model.Langue; //  TODO SASHA ajouter langue//user.Langue = "en";
-
+            user.Adresse = model.Adresse;
             // SB: Pour ne pas exiger une validation par email dans l'environnement de développement (pour accélérer) :
             // Puisque pour une vrai authentification où l'on modifier le courriel, on doit valider ce courriel
             if (!user.EmailConfirmed && (HttpContext.Connection.RemoteIpAddress.Equals(HttpContext.Connection.LocalIpAddress) || System.Net.IPAddress.IsLoopback(HttpContext.Connection.RemoteIpAddress))) {

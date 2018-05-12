@@ -16,7 +16,15 @@
 </ul>
 -->
 <!-- SB: Adapatation pour bootstrap 4 -->
-<ul class="list-group mt-2">
-    <li class="list-group-item list-group-item-warning"><a asp-action="Index">@SharedStrings.Profil</a></li>
-    <li class="list-group-item list-group-item-warning"><a asp-action="ChangePassword">@SharedStrings.Password</a></li>
-</ul>
+    <h5 class="p-2 rounded-top" style="background-color: #FFC107;"><span>Options</span></h5>
+    <ul class="list-group mb-4">
+        <li class="list-group-item list-group-item-warning"><a asp-action="Index">@SharedStrings.Profil</a></li>
+        <li class="list-group-item list-group-item-warning"><a asp-action="ChangePassword">@SharedStrings.Password</a></li>
+    </ul>
+@*@if (User.IsInRole("Admin")) {
+    <h5 class="p-2 rounded-top" style="background-color: #FFC107;"><span>Web site configuration</span></h5>
+    <ul class="list-group mt-2">
+        <li class="list-group-item list-group-item-warning"><a asp-action="Index">@SharedStrings.Profil</a></li>
+        <li class="list-group-item list-group-item-warning"><a asp-action="ChangePassword">@SharedStrings.Password</a></li>
+    </ul>
+}*@
