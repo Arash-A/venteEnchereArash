@@ -84,7 +84,10 @@ namespace venteTest
             });
 
             //ajout sb pour créer admin et rôles (Si requis)
-            CreateRolesAdminUsers(serviceProvider).Wait();
+            //CreateRolesAdminUsers(serviceProvider).Wait();
+
+            // Ajout SB pour faire nos mappings entre Model et ViewModels
+            AutoMapperConfig.RegisterMappings();
 
             // Ajour Arash pour Hangfire
             app.UseHangfireServer();
@@ -165,4 +168,32 @@ namespace venteTest
         }
         // FIN AJOUT SB
     }
+
+    public class AutoMapperConfig {
+        // 
+        public static void RegisterMappings() {
+
+            AutoMapper.Mapper.Initialize(cfg => {            
+                cfg.CreateMap<Categorie, Models.AdminViewModels.CategorieViewModel>();
+                cfg.CreateMap<Models.AdminViewModels.CategorieViewModel, Categorie>();
+                                                   
+                                                              
+            });                                                                                                        
+
+            // Exemples utilisés dans le contrôleur :
+            //
+            //Ex1 pour mapper:  
+            // Article article = _articleManager.lstArticles.FirstOrDefault(p => p.Titre.Equals(titre));
+            // ArticleViewModel model = Mapper.Map<Article, ArticleViewModel>(article); // conversion d'une entité Article en ArticleViewModel
+            //return View(model)
+
+            //Ex2 pour mapper:
+            // IList<Article> lArt = _articleManager.lstArticles;
+            // IList<ArticleViewModel> model = Mapper.Map<IList<Article>, IList<ArticleViewModel>>(lArt);
+            // return PartialView(model);
+
+        }
+
+    }
+
 }
