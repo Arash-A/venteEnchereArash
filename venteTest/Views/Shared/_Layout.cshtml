@@ -45,6 +45,15 @@
                         <a asp-area="" asp-controller="Home" asp-action="Contact" class="nav-link">@SharedStrings.Contact</a>
                     </li>
                 </ul>
+                <div class="dropdown mx-auto">
+                    <button class="btn dropdown-toggle" type="button" id="lang" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img id="langSel" src="~/images/icon-francais.gif" alt="..." class="img-thumbnail icon-small" width="35px">FR
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="about-us">
+                        <a asp-area="" asp-controller="Home" asp-action="Faq" class="dropdown-item" ><img id="langSelFR" src="~/images/icon-francais.gif" alt="..." class="img-thumbnail icon-small" width="35px">Francais</a>
+                        <a asp-area="" asp-controller="Home" asp-action="Faq" class="dropdown-item"><img id="langSelEN" src="~/images/icon-anglais.gif" alt="..." class="img-thumbnail icon-small" width="35px">Anglais</a>
+                    </div>
+                </div>
                 @*<form class="form-inline mx-auto" action="">
             <select class="form-control mr-2" id="cat">
                 <option>Catégorie 1......</option>

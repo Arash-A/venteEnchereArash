@@ -13,7 +13,12 @@
     padding-left: 15px;
     padding-right: 15px;
 }
-
+.dropdown-toggle::after {
+    display: none;
+}
+.dropdown-toggle::before {
+    display: none;
+}
 /* Carousel */
 .carousel-caption p {
     font-size: 20px;
