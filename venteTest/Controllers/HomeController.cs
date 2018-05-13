@@ -43,6 +43,7 @@ namespace venteTest.Controllers
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : ""; // name asc
             ViewData["PrixDepartSortParm"] = sortOrder == "prix_asc" ? "prix_desc" : "prix_asc";
             ViewData["DateInscritSortParm"] = sortOrder == "date_asc" ? "date_desc" : "date_asc";
+            ViewData["DateLimiteSortParm"] = sortOrder == "dateL_asc" ? "dateL_desc" : "dateL_asc";
             ViewData["DureeMiseVenteSortParm"] = sortOrder == "duree_asc" ? "duree_desc" : "duree_asc";
             ViewData["CategorieSortParm"] = sortOrder == "categ_asc" ? "categ_desc" : "categ_asc";
 
@@ -56,7 +57,14 @@ namespace venteTest.Controllers
 
             // ajout Arash ---- pour lister des objets qui sont EnVente
             string query = "SELECT * FROM Objets WHERE Status = {0}";
-            var objets = from o in _context.Objets.Include(o => o.Categorie).FromSql(query, 0)
+            var objets = from o in _context.Objets.
+                         Include(o => o.Categorie).
+                         Include(o => o.Vendeur).
+                         Include(o => o.Acheteur).
+                         Include(o => o.Fichiers).
+                         Include(o => o.Encheres).
+                         ThenInclude(o => o.Miseur).
+                         FromSql(query, 0)
                          select o;
 
             ViewBag.Categories = _context.Categories.ToList(); //pour ComboBox
@@ -81,6 +89,12 @@ namespace venteTest.Controllers
                     break;
                 case "date_desc":
                     objets = objets.OrderByDescending(s => s.DateInscription);
+                    break;
+                case "dateL_asc":
+                    objets = objets.OrderBy(s => s.DateLimite);
+                    break;
+                case "dateL_desc":
+                    objets = objets.OrderByDescending(s => s.DateLimite);
                     break;
                 case "duree_asc":
                     objets = objets.OrderBy(s => s.DureeMiseVente);

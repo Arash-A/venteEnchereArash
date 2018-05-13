@@ -14,11 +14,9 @@ namespace venteTest.Models.ManageViewModels
 
         public string Username { get; set; }
 
-        [Required]
         [Display(Name = "Nom", ResourceType = typeof(SharedStrings))]
         public string Nom { get; set; }
 
-        [Required]
         [Display(Name = "Prenom", ResourceType = typeof(SharedStrings))]
         public string Prenom { get; set; }
 
@@ -34,15 +32,12 @@ namespace venteTest.Models.ManageViewModels
 
         public string StatusMessage { get; set; }
 
-        [Required]
         [Display(Name = "Civilite")]
         public string Civilite { get; set; }
 
-        [Required]
         [Display(Name = "Langue")]
         public string Langue { get; set; }
 
-        [Required]
         [Display(Name = "Adresse")]
         public string Adresse { get; set; }
 

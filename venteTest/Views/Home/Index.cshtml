@@ -122,58 +122,61 @@
                     <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]"><span class="h6">Name</span><i class="fa fa-fw fa-sort"></i></a>
                 </th>
                 <th class="p-2 m-2">
-                    <span class="h6">Description</span>
-                </th>
-                <th class="p-2 m-2">
                     @*@Html.DisplayNameFor(model => model.PrixDepart)*@
-                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["PrixDepartSortParm"]"><span class="h6">Price</span><i class="fa fa-fw fa-sort"></i></a>
+                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["PrixDepartSortParm"]"><span class="h6">Start Price</span><i class="fa fa-fw fa-sort"></i></a>
                 </th>
                 <th class="p-2 m-2">
                     @*@Html.DisplayNameFor(model => model.DateInscription)*@
                     <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["DateInscritSortParm"]"><span class="h6">Inscription Date</span><i class="fa fa-fw fa-sort"></i></a>
                 </th>
-                @*
                  <th class="p-2 m-2">
-          
-                <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["DureeMiseVenteSortParm"]"><span class="h6">Days</span><i class="fa fa-fw fa-sort"></i></a>
+                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["DateLimiteSortParm"]"><span class="h6">Inscription End</span><i class="fa fa-fw fa-sort"></i></a>
                 </th>
-                *@
                 <th class="p-2 m-2">
                     @*@Html.DisplayNameFor(model => model.Categorie)*@
                     <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["CategorieSortParm"]"><span class="h6">Categorie</span><i class="fa fa-fw fa-sort"></i></a>
                 </th>
                 <th class="p-2 m-2">
-                    @*@Html.DisplayNameFor(model => model.imageUrl)*@
-                    <span class="h6">Image</span>
                 </th>
-                <th class="p-2 m-2"></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model) {
             <tr class="p-2">
                 <td class="p-2">
-                    @Html.DisplayFor(modelItem => item.Nom)
+                    <span style="background-color: #FCF8E3;" class="m-1 p-1 text-dark rounded"><strong>@Html.DisplayFor(modelItem => item.Nom)</strong></span>
+                    <div class="row p-2">
+                        <div class="col-12 col-lg-6">
+                            <img src="@item.imageUrl" style="min-width:50px" class="img-fluid" />
+                        </div>
+                        <div class="col-auto col-lg-6">
+                            <p class="pt-5">@Html.DisplayFor(modelItem => item.Description)</p>
+                            @*Afficher l'enchère actuellement sur l'objet qui mène*@
+                            <p style="background-color: #FFC107;" class="text-dark rounded p-2">
+                                <strong>Currently leading bid...</strong>
+                                @{
+                                    var enchereMenante = item.Encheres.OrderByDescending(t => t.Niveau).FirstOrDefault();
+                                    var miseurMenantEnchere = enchereMenante.Miseur;
+                                }
+                                <br />
+                                <span>@miseurMenantEnchere.Prenom @miseurMenantEnchere.Nom !  |  @Html.DisplayFor(modelItem => item.Encheres.OrderByDescending(t => t.Niveau).FirstOrDefault().Niveau) $</span>
+                            </p>
+
+                        </div>
+                    </div>
                 </td>
+
                 <td class="p-2">
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td class="p-2">
-                    @Html.DisplayFor(modelItem => item.PrixDepart)
+                    @Html.DisplayFor(modelItem => item.PrixDepart) $
                 </td>
                 <td class="p-2">
                     @Html.DisplayFor(modelItem => item.DateInscription)
                 </td>
-                @*
-        <td class="p-2">
-            @Html.DisplayFor(modelItem => item.DureeMiseVente)
-        </td>
-                *@
-                <td class="laCategorie p-2">
-                    @Html.DisplayFor(modelItem => item.Categorie.Nom)
-                </td>
                 <td class="p-2">
-                    <img src="@item.imageUrl" width="100" height="100" />
+                    @Html.DisplayFor(modelItem => item.DateLimite)
+                </td>
+                <td class="laCategorie p-2">
+                    <p style="background-color: #FCF8E3;" class="m-1 p-1 text-dark rounded"><strong>@Html.DisplayFor(modelItem => item.Categorie.Nom)</strong></p>
                 </td>
                 <td class="p-2">
                     <a class="btn btn-warning mb-2" role="button" asp-controller="Objets" asp-action="Miser" asp-route-id="@item.ObjetID">BID !</a>
@@ -187,8 +190,8 @@
 </div>
 @{
     var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
-}
+                                    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+                                }
 <a asp-action="Index"
    asp-route-sortOrder="@ViewData["CurrentSort"]"
    asp-route-page="@(Model.PageIndex - 1)"
