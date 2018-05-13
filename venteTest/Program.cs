@@ -22,7 +22,7 @@ namespace venteTest
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-                var context = services.GetRequiredService<LibraryContext>();
+                var context = services.GetRequiredService<ApplicationDbContext>();
                 try
                 {
                     SeedData.Initialize(services);

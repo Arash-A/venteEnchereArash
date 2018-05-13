@@ -8,9 +8,9 @@ using venteTest.Models;
 
 namespace venteTest.Data
 {
-    public class LibraryContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public LibraryContext(DbContextOptions<LibraryContext> options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
@@ -22,12 +22,12 @@ namespace venteTest.Data
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
-        public DbSet<Enchere> Encheres { get; set; }
-        public DbSet<Objet> Objets { get; set; }
-        public DbSet<Categorie> Categories { get; set; }
-        public DbSet<Evaluation> Evaluations { get; set; }
-        public DbSet<Fichier> Fichiers { get; set; }
-        public DbSet<ApplicationUser> Users { get; set; }
+        public DbSet<Enchere> Encheres { get; set;}
+        public DbSet<Objet> Objets { get; set;}
+        public DbSet<Categorie> Categories { get; set;}
+        public DbSet<Evaluation> Evaluations { get; set;}
+        public DbSet<Fichier> Fichiers { get; set;}
+      
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

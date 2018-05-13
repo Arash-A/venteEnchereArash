@@ -11,7 +11,7 @@ namespace venteTest.Models
     {
         public static void Initialize(IServiceProvider serviceProvider)
         {
-            var context = serviceProvider.GetRequiredService<LibraryContext>();
+            var context = serviceProvider.GetRequiredService<ApplicationDbContext>();
              context.Database.EnsureCreated();
 
             if (!context.Categories.Any())

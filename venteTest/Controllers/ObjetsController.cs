@@ -15,10 +15,10 @@ namespace venteTest.Controllers
 {
     public class ObjetsController : Controller
     {
-        private readonly LibraryContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly IHostingEnvironment he;
 
-        public ObjetsController(LibraryContext context, IHostingEnvironment e)
+        public ObjetsController(ApplicationDbContext context, IHostingEnvironment e)
         {
             _context = context;
             he = e;

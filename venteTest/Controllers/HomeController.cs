@@ -25,9 +25,9 @@ namespace venteTest.Controllers
     public class HomeController : Controller
 
     {
-        private readonly LibraryContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public HomeController(LibraryContext context)
+        public HomeController(ApplicationDbContext context)
         {
             _context = context;
         }

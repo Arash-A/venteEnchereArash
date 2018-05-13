@@ -27,7 +27,7 @@ namespace venteTest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<LibraryContext>(options =>
+            services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 
@@ -39,7 +39,7 @@ namespace venteTest
             services.AddIdentity<ApplicationUser, IdentityRole>(config => {
                 config.SignIn.RequireConfirmedEmail = true;
             })
-          .AddEntityFrameworkStores<LibraryContext>()
+          .AddEntityFrameworkStores<ApplicationDbContext>()
           .AddDefaultTokenProviders();
             // Fin SB
 
@@ -84,18 +84,18 @@ namespace venteTest
             });
 
             //ajout sb pour créer admin et rôles (Si requis)
-<<<<<<< HEAD
-          CreateRolesAdminUsers(serviceProvider).Wait();
-=======
+
+         CreateRolesAdminUsers(serviceProvider).Wait();
+
             //CreateRolesAdminUsers(serviceProvider).Wait();
 
             // Ajout SB pour faire nos mappings entre Model et ViewModels
             AutoMapperConfig.RegisterMappings();
->>>>>>> e571dd9145539eab09f5730daf9713f1d7184716
+
 
             // Ajour Arash pour Hangfire
-            app.UseHangfireServer();
-            app.UseHangfireDashboard();
+           // app.UseHangfireServer();
+           // app.UseHangfireDashboard();
 
 
         }
