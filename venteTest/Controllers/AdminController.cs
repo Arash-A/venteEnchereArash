@@ -82,7 +82,7 @@ namespace venteTest.Controllers
             }
 
             // Valider l'unicité du nom de la catégorie..
-            if (_context.Categories.FirstOrDefault(p => p.Nom.Equals(categViewModel.Nom)) != null)
+            if (_context.Categories.FirstOrDefault(p => p.Nom.Equals(categViewModel.Nom) && !p.CategorieId.Equals(categViewModel.CategorieId)) != null)
                 ModelState.AddModelError("CustomValid", "This categorie name already exists. Try again.");
             // Fin validation
 
