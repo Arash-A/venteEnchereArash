@@ -25,14 +25,74 @@ namespace venteTest.Controllers
         }
 
         // GET: Objets
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder,
+            string currentFilter,
+            string searchString,
+            int? page)
         {
+
+
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : ""; // name asc
+            ViewData["PrixDepartSortParm"] = sortOrder == "prix_asc" ? "prix_desc" : "prix_asc";
+            ViewData["DateInscritSortParm"] = sortOrder == "date_asc" ? "date_desc" : "date_asc";
+            ViewData["DureeMiseVenteSortParm"] = sortOrder == "duree_asc" ? "duree_desc" : "duree_asc";
+            ViewData["CategorieSortParm"] = sortOrder == "categ_asc" ? "categ_desc" : "categ_asc";
+
+            if (searchString != null) {
+                page = 1;
+            } else {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+
             // --ajout Arash ---- Lister des objets qui appartient de l'utilisateur
             string query = "SELECT * FROM Objets WHERE VendeurId = {0} AND Status={1}";
-            var applicationDbContext = _context.Objets.FromSql(query, "980e6dc5-ed7b-46dd-96cd-abe6d2186b12", 0).Include(o => o.Categorie);
+            var objets = from o in _context.Objets.Include(o => o.Categorie).FromSql(query, "24d23d82-b8c0-4eca-bf99-47369ed68c99", 0) select o;
+            //var objets = from o in _context.Objets.Include(o => o.Categorie).FromSql(query, User.Identity.Name, 0) select o;
 
-            //var applicationDbContext = _context.Objets.Include(o => o.Categorie);
-            return View(await applicationDbContext.ToListAsync());
+            ViewBag.Categories = _context.Categories.ToList(); //pour ComboBox
+
+            if (!String.IsNullOrEmpty(searchString)) {
+                objets = objets.Where(s => s.Nom.Contains(searchString)
+                || s.Description.Contains(searchString));
+            }
+
+            switch (sortOrder) {
+                case "name_desc":
+                    objets = objets.OrderByDescending(s => s.Nom);
+                    break;
+                case "prix_asc":
+                    objets = objets.OrderBy(s => s.PrixDepart);
+                    break;
+                case "prix_desc":
+                    objets = objets.OrderByDescending(s => s.PrixDepart);
+                    break;
+                case "date_asc":
+                    objets = objets.OrderBy(s => s.DateInscription);
+                    break;
+                case "date_desc":
+                    objets = objets.OrderByDescending(s => s.DateInscription);
+                    break;
+                case "duree_asc":
+                    objets = objets.OrderBy(s => s.DureeMiseVente);
+                    break;
+                case "duree_desc":
+                    objets = objets.OrderByDescending(s => s.DureeMiseVente);
+                    break;
+                case "categ_asc":
+                    objets = objets.OrderBy(s => s.Categorie.Nom);
+                    break;
+                case "categ_desc":
+                    objets = objets.OrderByDescending(s => s.Categorie.Nom);
+                    break;
+                default: // name asc
+                    objets = objets.OrderBy(s => s.Nom);
+                    break;
+            }
+
+            int pageSize = 4;
+            return View(await PaginatedList<Objet>.CreateAsync(objets.AsNoTracking(), page ?? 1, pageSize));
         }
 
         // GET: Objets/Details/5
@@ -50,7 +110,7 @@ namespace venteTest.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.Categories = _context.Categories.ToList();
             return View(objet);
         }
 

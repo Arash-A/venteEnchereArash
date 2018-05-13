@@ -33,13 +33,20 @@ margin:auto;
 .carousel-item {
     text-align: center;
 }
+dt {
+    color:blueviolet;
+
+}
+dd {
+    text-emphasis:filled;
+    font-size:large;
+}
 /* Make .svg files in the carousel display properly in older browsers */
-    .carousel-inner .carousel-item img[src$=".jpg"] {
-        width: 80%;
-        height: 300px;
-        display:inline-block;
-       
-    }
+.carousel-inner .carousel-item img[src$=".jpg"] {
+    width: 80%;
+    height: 300px;
+    display: inline-block;
+}
 
 /* QR code generator */
 #qrCode {
