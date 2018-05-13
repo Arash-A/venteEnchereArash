@@ -9,26 +9,26 @@
     ViewData["Title"] = "Home Page";
 }
 @*<div class="topnav">
-    <div class="row">
-        <div class="col-4">
-            <select class="form-control categ-sel" id="cat">
-                <option>Catégorie 1</option>
-                <option>Catégorie 2</option>
-                <option>Catégorie 3</option>
-                <option>Catégorie 4</option>
-                <option>Catégorie 5</option>
-            </select>
-        </div>
-        <div class="col-8">
-            <div class="search-container">
-                <form action="">
-                    <input type="text" placeholder="Recherche.." name="search">
-                    <button type="submit"><i class="fa fa-search"></i></button>
-                </form>
+        <div class="row">
+            <div class="col-4">
+                <select class="form-control categ-sel" id="cat">
+                    <option>Catégorie 1</option>
+                    <option>Catégorie 2</option>
+                    <option>Catégorie 3</option>
+                    <option>Catégorie 4</option>
+                    <option>Catégorie 5</option>
+                </select>
+            </div>
+            <div class="col-8">
+                <div class="search-container">
+                    <form action="">
+                        <input type="text" placeholder="Recherche.." name="search">
+                        <button type="submit"><i class="fa fa-search"></i></button>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-</div>*@
+    </div>*@
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
     <ol class="carousel-indicators">
@@ -97,7 +97,7 @@
 
 <div class="mt-4">
     <hr />
-    <form class="form-inline" asp-action="Index" method="get" >
+    <form class="form-inline" asp-action="Index" method="get">
         <div class="form-group mb-2">
             <strong class="h5">Filter objects by : <mark class="p-2 m-2">Name</mark></strong><input type="text" name="SearchString" class="form-control m-2" value="@ViewData["currentFilter"]" />
             <input type="submit" value="Search !" class="btn btn-warning btn-lg m-2" /> |
@@ -105,7 +105,7 @@
             <select class="form-control w-auto m-2" id="cat" onchange="filterCategories(this.value)">
                 <option>Select a categorie...</option>
                 @foreach (var item in ViewBag.Categories) {
-                            <option>@item.Nom</option>
+                    <option>@item.Nom</option>
                 }
             </select> |
             <a class="m-2" asp-action="Index">Show Full List</a>
@@ -129,7 +129,7 @@
                     @*@Html.DisplayNameFor(model => model.DateInscription)*@
                     <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["DateInscritSortParm"]"><span class="h6">Inscription Date</span><i class="fa fa-fw fa-sort"></i></a>
                 </th>
-                 <th class="p-2 m-2">
+                <th class="p-2 m-2">
                     <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["DateLimiteSortParm"]"><span class="h6">Inscription End</span><i class="fa fa-fw fa-sort"></i></a>
                 </th>
                 <th class="p-2 m-2">
@@ -142,47 +142,47 @@
         </thead>
         <tbody>
             @foreach (var item in Model) {
-            <tr class="p-2">
-                <td class="p-2">
-                    <span style="background-color: #FCF8E3;" class="m-1 p-1 text-dark rounded"><strong>@Html.DisplayFor(modelItem => item.Nom)</strong></span>
-                    <div class="row p-2">
-                        <div class="col-12 col-lg-6">
-                            <img src="@item.imageUrl" style="min-width:50px" class="img-fluid" />
-                        </div>
-                        <div class="col-auto col-lg-6">
-                            <p class="pt-3">@Html.DisplayFor(modelItem => item.Description)</p>
-                            @*Afficher l'enchère actuellement sur l'objet qui mène*@
-                            <p style="background-color: #FFC107;" class="text-dark rounded p-2">
-                                <strong>Currently leading bid...</strong>
-                                @{
-                                    var enchereMenante = item.Encheres.OrderByDescending(t => t.Niveau).FirstOrDefault();
-                                    var miseurMenantEnchere = enchereMenante.Miseur;
-                                }
-                                <br />
-                                <span>@miseurMenantEnchere.Prenom @miseurMenantEnchere.Nom !  |  @Html.DisplayFor(modelItem => item.Encheres.OrderByDescending(t => t.Niveau).FirstOrDefault().Niveau) $</span>
-                            </p>
+                <tr class="p-2">
+                    <td class="p-2">
+                        <div class="row p-2">
+                            <div class="col-12 col-lg-6">
+                                <img src="@item.imageUrl" style="min-width:30px" class="img-fluid" />
+                            </div>
+                            <div class="col-auto col-lg-6">
+                                <span style="background-color: #FCF8E3;" class="m-1 p-1 text-dark rounded"><strong>@Html.DisplayFor(modelItem => item.Nom)</strong></span>
+                                <p class="pt-3">@Html.DisplayFor(modelItem => item.Description)</p>
+                                @*Afficher l'enchère actuellement sur l'objet qui mène*@
+                                <p style="background-color: #FFC107;" class="text-dark rounded p-2">
+                                    <strong>Currently leading bid...</strong>
+                                    @{
+                                        var enchereMenante = item.Encheres.OrderByDescending(t => t.Niveau).FirstOrDefault();
+                                        var miseurMenantEnchere = enchereMenante.Miseur;
+                                    }
+                                    <br />
+                                    <span>@miseurMenantEnchere.Prenom @miseurMenantEnchere.Nom !  |  @Html.DisplayFor(modelItem => item.Encheres.OrderByDescending(t => t.Niveau).FirstOrDefault().Niveau) $</span>
+                                </p>
 
+                            </div>
                         </div>
-                    </div>
-                </td>
+                    </td>
 
-                <td class="p-2">
-                    @Html.DisplayFor(modelItem => item.PrixDepart) $
-                </td>
-                <td class="p-2">
-                    @Html.DisplayFor(modelItem => item.DateInscription)
-                </td>
-                <td class="p-2">
-                    @Html.DisplayFor(modelItem => item.DateLimite)
-                </td>
-                <td class="laCategorie p-2">
-                    <p style="background-color: #FCF8E3;" class="m-1 p-1 text-dark rounded"><strong>@Html.DisplayFor(modelItem => item.Categorie.Nom)</strong></p>
-                </td>
-                <td class="p-2">
-                    <a class="btn btn-warning mb-2" role="button" asp-controller="Objets" asp-action="Miser" asp-route-id="@item.ObjetID">BID !</a>
-                    <a class="btn btn-outline-warning mb-2" role="button" asp-controller="Objets" asp-action="Details" asp-route-id="@item.ObjetID">Details</a>
-                </td>
-            </tr>
+                    <td class="p-2">
+                        @Html.DisplayFor(modelItem => item.PrixDepart) $
+                    </td>
+                    <td class="p-2">
+                        @Html.DisplayFor(modelItem => item.DateInscription)
+                    </td>
+                    <td class="p-2">
+                        @Html.DisplayFor(modelItem => item.DateLimite)
+                    </td>
+                    <td class="laCategorie p-2">
+                        <p style="background-color: #FCF8E3;" class="m-1 p-1 text-dark rounded"><strong>@Html.DisplayFor(modelItem => item.Categorie.Nom)</strong></p>
+                    </td>
+                    <td class="p-2">
+                        <a class="btn btn-warning mb-2" role="button" asp-controller="Objets" asp-action="Miser" asp-route-id="@item.ObjetID">BID !</a>
+                        <a class="btn btn-outline-warning mb-2" role="button" asp-controller="Objets" asp-action="Details" asp-route-id="@item.ObjetID">Details</a>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
@@ -190,8 +190,8 @@
 </div>
 @{
     var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-                                    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
-                                }
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
 <a asp-action="Index"
    asp-route-sortOrder="@ViewData["CurrentSort"]"
    asp-route-page="@(Model.PageIndex - 1)"
@@ -207,35 +207,3 @@
     Next
 </a>
 
-@*<div class="row mt-5 monCardRow">
-        @foreach (var item in Model)
-        {
-            <div class="col-md-3">
-                <div class="card">
-                    <img class="card-img-top" src="..." alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title"> @Html.DisplayFor(modelItem => item.Nom)</h5>
-                        <p class="card-text">
-                            @Html.DisplayFor(modelItem => item.Description)
-                            <br />
-                            <h4> @Html.DisplayFor(modelItem => item.PrixDepart) $</h4>
-                        </p>
-                        @if (SignInManager.IsSignedIn(User))
-                        {
-                            <a asp-action="Edit" asp-controller="Objets" asp-route-id="@item.ObjetID" class="btn btn-primary">Modifier</a>
-                            <a asp-action="Details" asp-controller="Objets" asp-route-id="@item.ObjetID" class="btn btn-primary">Détails</a>
-                            <a asp-action="Delete" asp-controller="Objets" asp-route-id="@item.ObjetID" class="btn btn-primary">Supprimer</a>
-
-                        }
-                        else
-                        {
-                            <a asp-action="Details" asp-controller="Objets" asp-route-id="@item.ObjetID" class="btn btn-primary">Détails</a>
-
-                        }
-                    </div>
-                </div>
-            </div>
-
-        }
-
-    </div>*@
