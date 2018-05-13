@@ -128,10 +128,21 @@
             var x = document.getElementsByClassName("laCategorie p-2 m-2");
 
             var table = document.getElementById("laPagedList");
+
+            //trouver la colonne categorie:
+            var noColCategorie = 0;
+            for (var j = 0, col; col = table.rows[0].cells[j]; j++) {
+                var leText = col.innerText.replace(/(^\s+|\s+$)/g, '').substring(4, 9);;
+                if (leText == "gorie") {
+                    noColCategorie = j;
+                    break;
+                }
+            }
+
+            //filter les catégories
             for (var i = 1, row; row = table.rows[i]; i++) {
                 //iterate through rows
-                var cell = row.cells[5];
-                var leText = row.cells[5].innerText.replace(/(^\s+|\s+$)/g, ''); 
+                var leText = row.cells[noColCategorie].innerText.replace(/(^\s+|\s+$)/g, ''); 
                 var premier = nomCategorie.substring(0, 6);
                 if (leText == nomCategorie || premier == "Select") {
                     row.style.display = '';

@@ -65,7 +65,8 @@ namespace venteTest.Controllers
                 IsEmailConfirmed = user.EmailConfirmed,
                 Langue = user.Langue,
                 Civilite = user.Civilite,
-                StatusMessage = StatusMessage,
+                Adresse = user.Adresse,
+                StatusMessage = StatusMessage,               
             };
 
             ViewData["Civilite"] = new SelectList(new Services.CiviliteService().List(), "Abbreviation", "Name", model.Civilite);
