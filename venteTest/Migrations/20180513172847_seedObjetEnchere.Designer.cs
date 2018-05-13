@@ -13,8 +13,8 @@ using venteTest.Models;
 namespace venteTest.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180513155139_BuildSeed2")]
-    partial class BuildSeed2
+    [Migration("20180513172847_seedObjetEnchere")]
+    partial class seedObjetEnchere
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -224,7 +224,7 @@ namespace venteTest.Migrations
 
                     b.HasKey("ConfigurationAdminId");
 
-                    b.ToTable("ConfigurationAdmin");
+                    b.ToTable("ConfigurationAdmins");
                 });
 
             modelBuilder.Entity("venteTest.Models.Enchere", b =>

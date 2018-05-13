@@ -47,28 +47,86 @@ namespace venteTest.Models
 
             }
 
-            // trouve un utilisateur pour le mettre vendeur
+            // Définir configuration admin ID
+            if (!context.ConfigurationAdmins.Any()) {
+                context.ConfigurationAdmins.Add(new ConfigurationAdmin() { TauxGlobalComissionAuVendeur = 5/100m, PasGlobalEnchere = 1});
+                context.SaveChanges();
+            }
+
+
             var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-            ApplicationUser user = UserManager.Users.FirstOrDefault(p => p.UserName.Equals("isabelle.blais16@gmail.com")); //changer "isabelle.blais16@gmail.com" avec user.Email avec httpcontext.
-            Vendeur vendeur = Mapper.Map<ApplicationUser, Vendeur>(user); // conversion d'une entité User en Vendeur
 
             if (!context.Objets.Any())
             {
-                context.Objets.Add(new Objet() { Nom = "Sauder Kids Storage", Description= "Sauder Kids Storage Chest for Toys, Blankets, Clothes - Oiled Oak Finish",PrixDepart= 169.99,DateInscription=DateTime.Parse("2018-05-10"),DateLimite= DateTime.Parse("2018-05-17"),Status=Status.EnVente,imageUrl= "Uploads/kidStorage.jpg",CategorieID=1,Vendeur= vendeur });
-                context.Objets.Add(new Objet() { Nom = "Men's Leather Watch", Description = "SEIKO SARB017 Mechanical Alpinist Automatic Men's Leather Watch - Made In Japan", PrixDepart = 479.00, DateInscription = DateTime.Parse("2018-05-10"), DateLimite = DateTime.Parse("2018-05-17"), Status = Status.EnVente, imageUrl = "Uploads/LatherWatch.jpg", CategorieID = 2, Vendeur= vendeur });
-                context.Objets.Add(new Objet() { Nom = "Professional Headlight Hands Free", Description = "Energizer Atex Hard Case Professional Headlight Hands Free Head Torch", PrixDepart = 29.95, DateInscription = DateTime.Parse("2018-05-10"), DateLimite = DateTime.Parse("2018-05-17"), Status = Status.EnVente, imageUrl = "Uploads/HeadLight.jpg", CategorieID = 4, Vendeur= vendeur });
-                context.Objets.Add(new Objet() { Nom = "Galaxy Baby Groot Figure", Description = "Guardians of The Galaxy Baby Groot Figure Flowerpot Style Pen Pot Xmas Gift", PrixDepart = 9.99, DateInscription = DateTime.Parse("2018-05-10"), DateLimite = DateTime.Parse("2018-05-17"), Status = Status.EnVente, imageUrl = "Uploads/GardianGalaxy.jpg", CategorieID = 5, Vendeur= vendeur });
-                context.Objets.Add(new Objet() { Nom = "Alcohol Breath Tester", Description = "LCD Digital Alcohol Breath Tester Breathalyzer Analyzer Detector Test AT6000", PrixDepart = 8.54, DateInscription = DateTime.Parse("2018-05-10"), DateLimite = DateTime.Parse("2018-05-17"), Status = Status.EnVente, imageUrl = "Uploads/Alcoholtest.jpg", CategorieID = 7, Vendeur= vendeur });
-                context.Objets.Add(new Objet() { Nom = "Sport Camera phones", Description = "Zhiyun Crane-M 3-Axis Gimbal Stabilizer for Mirrorless/Sport Camera phones", PrixDepart = 235.00, DateInscription = DateTime.Parse("2018-05-10"), DateLimite = DateTime.Parse("2018-05-17"), Status = Status.EnVente, imageUrl = "Uploads/CameraPhone.jpg", CategorieID = 12, Vendeur= vendeur });
-                context.Objets.Add(new Objet() { Nom = "Portable Play Yard", Description = "Funsport Portable Play Yard Black Arrow / playard / play pen for babies", PrixDepart = 84.95, DateInscription = DateTime.Parse("2018-05-10"), DateLimite = DateTime.Parse("2018-05-17"), Status = Status.EnVente, imageUrl = "Uploads/BabyBed.jpg", CategorieID = 9, Vendeur= vendeur });
-                context.Objets.Add(new Objet() { Nom = "Diary Notebook", Description = "Vintage Classic Retro Leather Journal Travel Notepad Blank Book Diary Notebook", PrixDepart = 3.89, DateInscription = DateTime.Parse("2018-05-10"), DateLimite = DateTime.Parse("2018-05-17"), Status = Status.EnVente, imageUrl = "Uploads/Book.jpg", CategorieID = 10, Vendeur = vendeur });
-                context.Objets.Add(new Objet() { Nom = "Dell Precision T5400", Description = "Dell Precision T5400 2 x Xeon Quad Core E5420 2.50Ghz 16GB RAM 500Gb HDD", PrixDepart = 199.00, DateInscription = DateTime.Parse("2018-05-10"), DateLimite = DateTime.Parse("2018-05-17"), Status = Status.EnVente, imageUrl = "Uploads/Desktop.jpg", CategorieID = 15, Vendeur= vendeur });
-                context.Objets.Add(new Objet() { Nom = "Abrasive Brush ", Description = "OSBORN 32138  Grit Abrasive Brush great for log and wood home restore NIB", PrixDepart = 89.98, DateInscription = DateTime.Parse("2018-05-10"), DateLimite = DateTime.Parse("2018-05-17"), Status = Status.EnVente, imageUrl = "Uploads/Brush.jpg", CategorieID = 11, Vendeur= vendeur });
-                context.Objets.Add(new Objet() { Nom = "Hiking Camping Blade", Description = "New Pocket Fold Knife Sharp Outdoor Portable Travel Hiking Camping Blade Gift HY", PrixDepart = 3.88, DateInscription = DateTime.Parse("2018-05-10"), DateLimite = DateTime.Parse("2018-05-17"), Status = Status.EnVente, imageUrl = "Uploads/Blade.jpg", CategorieID = 4, Vendeur= vendeur });
-                context.Objets.Add(new Objet() { Nom = "Cord Craft Tool", Description = "0.8mm 78m/Roll Leather Hand Sewing Waxed Thread Hand Stitching Cord Craft Tool", PrixDepart = 1.86, DateInscription = DateTime.Parse("2018-05-10"), DateLimite = DateTime.Parse("2018-05-17"), Status = Status.EnVente, imageUrl = "Uploads/Craft.jpg", CategorieID = 16, Vendeur= vendeur });
-                context.Objets.Add(new Objet() { Nom = "Cologne for Men", Description = "Azzaro Pour Homme Cologne for Men 100ml EDT Spray", PrixDepart = 1.86, DateInscription = DateTime.Parse("2018-05-10"), DateLimite = DateTime.Parse("2018-05-17"), Status = Status.EnVente, imageUrl = "Uploads/Parfum.jpg", CategorieID = 17, Vendeur= vendeur });
+                // trouve un utilisateur pour le mettre vendeur
+                ApplicationUser user = UserManager.Users.FirstOrDefault(p => p.UserName.Equals("isabelle.blais16@gmail.com")); //changer "isabelle.blais16@gmail.com" avec user.Email avec httpcontext.
+                Vendeur vendeur = Mapper.Map<ApplicationUser, Vendeur>(user); // conversion d'une entité User en Vendeur
+                ConfigurationAdmin configurationAdmin = context.ConfigurationAdmins.FirstOrDefault(p => p.ConfigurationAdminId.Equals(1));
+
+
+                context.Objets.Add(new Objet() { Nom = "Sauder Kids Storage", Description= "Sauder Kids Storage Chest for Toys, Blankets, Clothes - Oiled Oak Finish",PrixDepart= 169.99,DateInscription=DateTime.Parse("2018-05-10"),DateLimite= DateTime.Parse("2018-05-17"),Status=Status.EnVente,imageUrl= "Uploads/kidStorage.jpg",CategorieID=1,Vendeur= vendeur, ConfigurationAdmin = configurationAdmin });
+                context.Objets.Add(new Objet() { Nom = "Men's Leather Watch", Description = "SEIKO SARB017 Mechanical Alpinist Automatic Men's Leather Watch - Made In Japan", PrixDepart = 479.00, DateInscription = DateTime.Parse("2018-05-10"), DateLimite = DateTime.Parse("2018-05-17"), Status = Status.EnVente, imageUrl = "Uploads/LatherWatch.jpg", CategorieID = 2, Vendeur= vendeur, ConfigurationAdmin = configurationAdmin });
+                context.Objets.Add(new Objet() { Nom = "Professional Headlight Hands Free", Description = "Energizer Atex Hard Case Professional Headlight Hands Free Head Torch", PrixDepart = 29.95, DateInscription = DateTime.Parse("2018-05-10"), DateLimite = DateTime.Parse("2018-05-17"), Status = Status.EnVente, imageUrl = "Uploads/HeadLight.jpg", CategorieID = 4, Vendeur= vendeur, ConfigurationAdmin = configurationAdmin });
+                context.Objets.Add(new Objet() { Nom = "Galaxy Baby Groot Figure", Description = "Guardians of The Galaxy Baby Groot Figure Flowerpot Style Pen Pot Xmas Gift", PrixDepart = 9.99, DateInscription = DateTime.Parse("2018-05-10"), DateLimite = DateTime.Parse("2018-05-17"), Status = Status.EnVente, imageUrl = "Uploads/GardianGalaxy.jpg", CategorieID = 5, Vendeur= vendeur, ConfigurationAdmin = configurationAdmin });
+                context.Objets.Add(new Objet() { Nom = "Alcohol Breath Tester", Description = "LCD Digital Alcohol Breath Tester Breathalyzer Analyzer Detector Test AT6000", PrixDepart = 8.54, DateInscription = DateTime.Parse("2018-05-10"), DateLimite = DateTime.Parse("2018-05-17"), Status = Status.EnVente, imageUrl = "Uploads/Alcoholtest.jpg", CategorieID = 7, Vendeur= vendeur, ConfigurationAdmin = configurationAdmin });
+                context.Objets.Add(new Objet() { Nom = "Sport Camera phones", Description = "Zhiyun Crane-M 3-Axis Gimbal Stabilizer for Mirrorless/Sport Camera phones", PrixDepart = 235.00, DateInscription = DateTime.Parse("2018-05-10"), DateLimite = DateTime.Parse("2018-05-17"), Status = Status.EnVente, imageUrl = "Uploads/CameraPhone.jpg", CategorieID = 12, Vendeur= vendeur, ConfigurationAdmin = configurationAdmin });
+                context.Objets.Add(new Objet() { Nom = "Portable Play Yard", Description = "Funsport Portable Play Yard Black Arrow / playard / play pen for babies", PrixDepart = 84.95, DateInscription = DateTime.Parse("2018-05-10"), DateLimite = DateTime.Parse("2018-05-17"), Status = Status.EnVente, imageUrl = "Uploads/BabyBed.jpg", CategorieID = 9, Vendeur= vendeur, ConfigurationAdmin = configurationAdmin });
+                context.Objets.Add(new Objet() { Nom = "Diary Notebook", Description = "Vintage Classic Retro Leather Journal Travel Notepad Blank Book Diary Notebook", PrixDepart = 3.89, DateInscription = DateTime.Parse("2018-05-10"), DateLimite = DateTime.Parse("2018-05-17"), Status = Status.EnVente, imageUrl = "Uploads/Book.jpg", CategorieID = 10, Vendeur = vendeur, ConfigurationAdmin = configurationAdmin });
+                context.Objets.Add(new Objet() { Nom = "Dell Precision T5400", Description = "Dell Precision T5400 2 x Xeon Quad Core E5420 2.50Ghz 16GB RAM 500Gb HDD", PrixDepart = 199.00, DateInscription = DateTime.Parse("2018-05-10"), DateLimite = DateTime.Parse("2018-05-17"), Status = Status.EnVente, imageUrl = "Uploads/Desktop.jpg", CategorieID = 15, Vendeur= vendeur, ConfigurationAdmin = configurationAdmin });
+                context.Objets.Add(new Objet() { Nom = "Abrasive Brush", Description = "OSBORN 32138  Grit Abrasive Brush great for log and wood home restore NIB", PrixDepart = 89.98, DateInscription = DateTime.Parse("2018-05-10"), DateLimite = DateTime.Parse("2018-05-17"), Status = Status.EnVente, imageUrl = "Uploads/Brush.jpg", CategorieID = 11, Vendeur= vendeur, ConfigurationAdmin = configurationAdmin });
+                context.Objets.Add(new Objet() { Nom = "Hiking Camping Blade", Description = "New Pocket Fold Knife Sharp Outdoor Portable Travel Hiking Camping Blade Gift HY", PrixDepart = 3.88, DateInscription = DateTime.Parse("2018-05-10"), DateLimite = DateTime.Parse("2018-05-17"), Status = Status.EnVente, imageUrl = "Uploads/Blade.jpg", CategorieID = 4, Vendeur= vendeur, ConfigurationAdmin = configurationAdmin });
+                context.Objets.Add(new Objet() { Nom = "Cord Craft Tool", Description = "0.8mm 78m/Roll Leather Hand Sewing Waxed Thread Hand Stitching Cord Craft Tool", PrixDepart = 1.86, DateInscription = DateTime.Parse("2018-05-10"), DateLimite = DateTime.Parse("2018-05-17"), Status = Status.EnVente, imageUrl = "Uploads/Craft.jpg", CategorieID = 16, Vendeur= vendeur, ConfigurationAdmin = configurationAdmin });
+                context.Objets.Add(new Objet() { Nom = "Cologne for Men", Description = "Azzaro Pour Homme Cologne for Men 100ml EDT Spray", PrixDepart = 1.86, DateInscription = DateTime.Parse("2018-05-10"), DateLimite = DateTime.Parse("2018-05-17"), Status = Status.EnVente, imageUrl = "Uploads/Parfum.jpg", CategorieID = 17, Vendeur= vendeur, ConfigurationAdmin = configurationAdmin });
                 context.SaveChanges();
 
+            }
+
+            // Par défaut, un vendeur place une première mise sur son objet correspondant au prix de départ (discutable... fait pour tester)
+            if (!context.Encheres.Any()) 
+            {
+                Miseur miseur = (Miseur)UserManager.Users.FirstOrDefault(p => p.UserName.Equals("isabelle.blais16@gmail.com"));
+
+                Objet objet;
+                objet = context.Objets.FirstOrDefault(p => p.ObjetID == 1);
+                context.Encheres.Add(new Enchere() { Objet = objet, Niveau = objet.PrixDepart, Miseur = miseur});
+
+                objet = context.Objets.FirstOrDefault(p => p.ObjetID == 2);
+                context.Encheres.Add(new Enchere() { Objet = objet, Niveau = objet.PrixDepart, Miseur = miseur });
+
+                objet = context.Objets.FirstOrDefault(p => p.ObjetID == 3);
+                context.Encheres.Add(new Enchere() { Objet = objet, Niveau = objet.PrixDepart, Miseur = miseur });
+
+                objet = context.Objets.FirstOrDefault(p => p.ObjetID == 4);
+                context.Encheres.Add(new Enchere() { Objet = objet, Niveau = objet.PrixDepart, Miseur = miseur });
+
+                objet = context.Objets.FirstOrDefault(p => p.ObjetID == 5);
+                context.Encheres.Add(new Enchere() { Objet = objet, Niveau = objet.PrixDepart, Miseur = miseur });
+
+                objet = context.Objets.FirstOrDefault(p => p.ObjetID == 6);
+                context.Encheres.Add(new Enchere() { Objet = objet, Niveau = objet.PrixDepart, Miseur = miseur });
+
+                objet = context.Objets.FirstOrDefault(p => p.ObjetID == 7);
+                context.Encheres.Add(new Enchere() { Objet = objet, Niveau = objet.PrixDepart, Miseur = miseur });
+
+                objet = context.Objets.FirstOrDefault(p => p.ObjetID == 8);
+                context.Encheres.Add(new Enchere() { Objet = objet, Niveau = objet.PrixDepart, Miseur = miseur });
+
+                objet = context.Objets.FirstOrDefault(p => p.ObjetID == 9);
+                context.Encheres.Add(new Enchere() { Objet = objet, Niveau = objet.PrixDepart, Miseur = miseur });
+
+                objet = context.Objets.FirstOrDefault(p => p.ObjetID == 10);
+                context.Encheres.Add(new Enchere() { Objet = objet, Niveau = objet.PrixDepart, Miseur = miseur });
+
+                objet = context.Objets.FirstOrDefault(p => p.ObjetID == 11);
+                context.Encheres.Add(new Enchere() { Objet = objet, Niveau = objet.PrixDepart, Miseur = miseur });
+
+                objet = context.Objets.FirstOrDefault(p => p.ObjetID == 12);
+                context.Encheres.Add(new Enchere() { Objet = objet, Niveau = objet.PrixDepart, Miseur = miseur });
+
+                objet = context.Objets.FirstOrDefault(p => p.ObjetID == 13);
+                context.Encheres.Add(new Enchere() { Objet = objet, Niveau = objet.PrixDepart, Miseur = miseur });
+
+                context.SaveChanges();
             }
 
         }

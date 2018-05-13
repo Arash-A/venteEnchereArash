@@ -223,7 +223,7 @@ namespace venteTest.Migrations
 
                     b.HasKey("ConfigurationAdminId");
 
-                    b.ToTable("ConfigurationAdmin");
+                    b.ToTable("ConfigurationAdmins");
                 });
 
             modelBuilder.Entity("venteTest.Models.Enchere", b =>

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace venteTest.Migrations
 {
-    public partial class BuildSeed2 : Migration
+    public partial class seedObjetEnchere : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -70,7 +70,7 @@ namespace venteTest.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ConfigurationAdmin",
+                name: "ConfigurationAdmins",
                 columns: table => new
                 {
                     ConfigurationAdminId = table.Column<int>(nullable: false)
@@ -80,7 +80,7 @@ namespace venteTest.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ConfigurationAdmin", x => x.ConfigurationAdminId);
+                    table.PrimaryKey("PK_ConfigurationAdmins", x => x.ConfigurationAdminId);
                 });
 
             migrationBuilder.CreateTable(
@@ -223,9 +223,9 @@ namespace venteTest.Migrations
                         principalColumn: "CategorieId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Objets_ConfigurationAdmin_ConfigurationAdminId",
+                        name: "FK_Objets_ConfigurationAdmins_ConfigurationAdminId",
                         column: x => x.ConfigurationAdminId,
-                        principalTable: "ConfigurationAdmin",
+                        principalTable: "ConfigurationAdmins",
                         principalColumn: "ConfigurationAdminId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -454,7 +454,7 @@ namespace venteTest.Migrations
                 name: "Categories");
 
             migrationBuilder.DropTable(
-                name: "ConfigurationAdmin");
+                name: "ConfigurationAdmins");
         }
     }
 }

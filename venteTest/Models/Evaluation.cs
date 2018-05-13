@@ -11,7 +11,6 @@ namespace venteTest.Models
         public int EvaluationID { get; set; }
 
 
-        [RegularExpression("[a-z A-Z 0-9 ]{10}", ErrorMessage = "Please enter name")]
         public String Numero { get; set; }
 
 
@@ -23,7 +22,6 @@ namespace venteTest.Models
         public int Cote { get; set; }
 
 
-        [RegularExpression("[a-z A-Z]{1000}", ErrorMessage = "Please enter name")]
         [MaxLength(10000, ErrorMessage = "1000 caracteres max")]
         public String Commentaire { get; set; }
 
