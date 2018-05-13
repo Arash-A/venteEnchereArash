@@ -38,9 +38,9 @@ namespace venteTest.Models {
         [Display(Name = "Time since start of sell")]
         public String DureeMiseVente {
             get {
-                TimeSpan diff1 = DateLimite.Subtract(DateInscription);
-                String duree = diff1.ToString("d");
-                return (duree);
+                TimeSpan diff1 = DateTime.Now.Subtract(DateInscription);
+                 String outpp= diff1.ToString("%d");
+                return (outpp);
             }
         }
         public Status Status { get; set; }

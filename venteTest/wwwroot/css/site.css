@@ -24,11 +24,22 @@
     font-size: 20px;
     line-height: 1.4;
 }
-
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
+.container {
+    width:80%;
 }
+.carousel-inner {
+margin:auto;
+}
+.carousel-item {
+    text-align: center;
+}
+/* Make .svg files in the carousel display properly in older browsers */
+    .carousel-inner .carousel-item img[src$=".jpg"] {
+        width: 80%;
+        height: 300px;
+        display:inline-block;
+       
+    }
 
 /* QR code generator */
 #qrCode {
@@ -52,7 +63,7 @@
 */
 /* Add a black background color to the top navigation bar */
 
-.topnav {
+/*.topnav {
     background-color: #5C5C5C;
     height: 55px;
     display: block;
@@ -98,7 +109,7 @@
 }
 .memAct {
     color:aquamarine;
-}
+}*/
 
 @media screen and (max-width: 600px) {
     .topnav .search-container {
@@ -118,7 +129,11 @@
         border: 1px solid #ccc;
     }
 }
-
+@media (min-width: 1200px) {
+    .container {
+        /*min-width: 1300px;*/
+    }
+}
 /************************************************************************************
     **************************** FIN SEARCH BAR *************************************
     *********************************************************************************

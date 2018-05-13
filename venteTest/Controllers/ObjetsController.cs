@@ -27,7 +27,11 @@ namespace venteTest.Controllers
         // GET: Objets
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Objets.Include(o => o.Categorie);
+            // --ajout Arash ---- Lister des objets qui appartient de l'utilisateur
+            string query = "SELECT * FROM Objets WHERE VendeurId = {0} AND Status={1}";
+            var applicationDbContext = _context.Objets.FromSql(query, "980e6dc5-ed7b-46dd-96cd-abe6d2186b12", 0).Include(o => o.Categorie);
+
+            //var applicationDbContext = _context.Objets.Include(o => o.Categorie);
             return View(await applicationDbContext.ToListAsync());
         }
 
