@@ -83,120 +83,16 @@ namespace venteTest
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            //------------ajout sb pour créer admin et rôles (Si requis)-------------//
-            CreateRolesAdminUsers(serviceProvider).Wait();
-            //---------------------Commentaire avant update-database-----------------//
-
-
-            // Ajout SB pour faire nos mappings entre Model et ViewModels
-            AutoMapperConfig.RegisterMappings();
-
 
             // Ajour Arash pour Hangfire
-            //app.UseHangfireServer();
+           // app.UseHangfireServer();
            // app.UseHangfireDashboard();
 
 
         }
-        //Ajout SB pour créer admin et rôles (Si requis)
-        // Méthode adapté par SB selon: https://stackoverflow.com/questions/42471866/how-to-create-roles-in-asp-net-core-and-assign-them-to-users
-        // Méthode pour créer les rôles dans la BD et définir un administrateur par défaut 
-        private async Task CreateRolesAdminUsers(IServiceProvider serviceProvider) {
-            //initializing custom roles 
-            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-            string[] roleNames = { "Admin", "Manager", "Member" };
-            IdentityResult roleResult;
-
-            foreach (var roleName in roleNames) {
-                var roleExist = await RoleManager.RoleExistsAsync(roleName);
-                if (!roleExist) {
-                    //create the roles and seed them to the database: Question 1
-                    roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
-                }
-            }
-
-            //Creer Admin
-            var powerUser = new ApplicationUser {
-                UserName = Configuration["AppSettings:AdminUserEmail"], // Pour créer membre (avec CreateAsync), on doit mettre le email comme userName par convention
-                Email = Configuration["AppSettings:AdminUserEmail"],
-                EmailConfirmed = true, // on fait EmailConfirmed pour admin seulement
-                //propriétés supplémentaires ajoutés:
-                Nom = Configuration["AppSettings:AdminLastName"],
-                Prenom = Configuration["AppSettings:AdminFirstName"],
-                Civilite = new Civilite { Abbreviation = CiviliteAbbreviation.M.ToString(), Name = CiviliteName.Monsieur.ToString() }.Abbreviation,
-                Langue = new Language { Abbreviation = LanguageAbbreviation.fr.ToString(), Name = LanguageName.FR.ToString() }.Abbreviation,
-                DateInscription = DateTime.Now
-            };
-            //Ensure you have these values in your appsettings.json file
-            string userPWD = Configuration["AppSettings:AdminUserPassword"];
-            var _user = await UserManager.FindByEmailAsync(Configuration["AppSettings:AdminUserEmail"]); //recherche par email
-            if (_user == null)
-                _user = await UserManager.FindByNameAsync(Configuration["AppSettings:AdminUserEmail"]); //recherche par nom d'utilisateur
-
-            if (_user == null) {
-                var createPowerUser = await UserManager.CreateAsync(powerUser, userPWD);
-                if (createPowerUser.Succeeded) {
-                    //here we tie the new user to the role
-                    await UserManager.AddToRoleAsync(powerUser, "Admin");
-                }
-            }
-
-            //Créer un membre
-            var normalUser = new ApplicationUser {
-                UserName = "isabelle.blais16@gmail.com", // Pour créer membre (avec CreateAsync), on doit mettre le email comme userName par convention
-                Email = "isabelle.blais16@gmail.com",
-                EmailConfirmed = true, // on fait EmailConfirmed pour admin seulement
-                //propriétés supplémentaires ajoutés:
-                Nom = "Blain",
-                Prenom = "Isabelle",
-                Civilite = new Civilite { Abbreviation = CiviliteAbbreviation.Mme.ToString(), Name = CiviliteName.Madame.ToString() }.Abbreviation, 
-                Langue = new Language { Abbreviation = LanguageAbbreviation.fr.ToString(), Name = LanguageName.FR.ToString() }.Abbreviation,
-                DateInscription = DateTime.Now
-            };
-            //Ensure you have these values in your appsettings.json file
-            string userPWDn = Configuration["AppSettings:AdminUserPassword"]; //meme pw que l'Admin
-            var _userN = await UserManager.FindByEmailAsync("isabelle.blais16@gmail.com"); //recherche par email
-            if (_userN == null)
-                _userN = await UserManager.FindByNameAsync("isabelle.blais16@gmail.com"); //recherche par nom d'utilisateur
-
-            if (_userN == null) {
-                var createNormalUser = await UserManager.CreateAsync(normalUser, userPWDn);
-                if (createNormalUser.Succeeded) {
-                    //here we tie the new user to the role
-                    await UserManager.AddToRoleAsync(normalUser, "Member");
-                }
-            }
-
-        }
-        // FIN AJOUT SB
-    }
-
-    public class AutoMapperConfig {
-        // 
-        public static void RegisterMappings() {
-
-            AutoMapper.Mapper.Initialize(cfg => {            
-                cfg.CreateMap<Categorie, Models.AdminViewModels.CategorieViewModel>();
-                cfg.CreateMap<Models.AdminViewModels.CategorieViewModel, Categorie>();
-                                                   
-                                                              
-            });                                                                                                        
-
-            // Exemples utilisés dans le contrôleur :
-            //
-            //Ex1 pour mapper:  
-            // Article article = _articleManager.lstArticles.FirstOrDefault(p => p.Titre.Equals(titre));
-            // ArticleViewModel model = Mapper.Map<Article, ArticleViewModel>(article); // conversion d'une entité Article en ArticleViewModel
-            //return View(model)
-
-            //Ex2 pour mapper:
-            // IList<Article> lArt = _articleManager.lstArticles;
-            // IList<ArticleViewModel> model = Mapper.Map<IList<Article>, IList<ArticleViewModel>>(lArt);
-            // return PartialView(model);
-
-        }
 
     }
+
+
 
 }

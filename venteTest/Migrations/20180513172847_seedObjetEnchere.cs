@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace venteTest.Migrations
 {
-    public partial class CreateDb : Migration
+    public partial class seedObjetEnchere : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -70,7 +70,7 @@ namespace venteTest.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ConfigurationAdmin",
+                name: "ConfigurationAdmins",
                 columns: table => new
                 {
                     ConfigurationAdminId = table.Column<int>(nullable: false)
@@ -80,7 +80,7 @@ namespace venteTest.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ConfigurationAdmin", x => x.ConfigurationAdminId);
+                    table.PrimaryKey("PK_ConfigurationAdmins", x => x.ConfigurationAdminId);
                 });
 
             migrationBuilder.CreateTable(
@@ -223,9 +223,9 @@ namespace venteTest.Migrations
                         principalColumn: "CategorieId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Objets_ConfigurationAdmin_ConfigurationAdminId",
+                        name: "FK_Objets_ConfigurationAdmins_ConfigurationAdminId",
                         column: x => x.ConfigurationAdminId,
-                        principalTable: "ConfigurationAdmin",
+                        principalTable: "ConfigurationAdmins",
                         principalColumn: "ConfigurationAdminId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -244,8 +244,7 @@ namespace venteTest.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     MiseurId = table.Column<string>(nullable: true),
                     Niveau = table.Column<double>(nullable: false),
-                    ObjetId = table.Column<int>(nullable: false),
-                    VendeurId = table.Column<string>(nullable: true)
+                    ObjetId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -262,12 +261,6 @@ namespace venteTest.Migrations
                         principalTable: "Objets",
                         principalColumn: "ObjetID",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Encheres_AspNetUsers_VendeurId",
-                        column: x => x.VendeurId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -381,11 +374,6 @@ namespace venteTest.Migrations
                 column: "ObjetId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Encheres_VendeurId",
-                table: "Encheres",
-                column: "VendeurId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Evaluations_ObjetId",
                 table: "Evaluations",
                 column: "ObjetId",
@@ -466,7 +454,7 @@ namespace venteTest.Migrations
                 name: "Categories");
 
             migrationBuilder.DropTable(
-                name: "ConfigurationAdmin");
+                name: "ConfigurationAdmins");
         }
     }
 }

@@ -225,7 +225,7 @@ namespace venteTest.Controllers
             if (ModelState.IsValid)
             {
                 //var user = new ApplicationUser { Nom = model.Nom,Prenom=model.Prenom, UserName = model.Email, Email = model.Email };
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new Vendeur { UserName = model.Email, Email = model.Email }; //SB: mis comme vendeur maintenant il peut créer un enchère
                 user.DateInscription = DateTime.Now;
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

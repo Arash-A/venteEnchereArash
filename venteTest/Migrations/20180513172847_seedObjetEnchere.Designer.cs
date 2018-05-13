@@ -13,8 +13,8 @@ using venteTest.Models;
 namespace venteTest.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180513101810_CreateDb")]
-    partial class CreateDb
+    [Migration("20180513172847_seedObjetEnchere")]
+    partial class seedObjetEnchere
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -224,7 +224,7 @@ namespace venteTest.Migrations
 
                     b.HasKey("ConfigurationAdminId");
 
-                    b.ToTable("ConfigurationAdmin");
+                    b.ToTable("ConfigurationAdmins");
                 });
 
             modelBuilder.Entity("venteTest.Models.Enchere", b =>
@@ -238,15 +238,11 @@ namespace venteTest.Migrations
 
                     b.Property<int>("ObjetId");
 
-                    b.Property<string>("VendeurId");
-
                     b.HasKey("EnchereId");
 
                     b.HasIndex("MiseurId");
 
                     b.HasIndex("ObjetId");
-
-                    b.HasIndex("VendeurId");
 
                     b.ToTable("Encheres");
                 });
@@ -355,16 +351,6 @@ namespace venteTest.Migrations
                     b.HasDiscriminator().HasValue("Miseur");
                 });
 
-            modelBuilder.Entity("venteTest.Models.Vendeur", b =>
-                {
-                    b.HasBaseType("venteTest.Models.ApplicationUser");
-
-
-                    b.ToTable("Vendeur");
-
-                    b.HasDiscriminator().HasValue("Vendeur");
-                });
-
             modelBuilder.Entity("venteTest.Models.AchatEvaluation", b =>
                 {
                     b.HasBaseType("venteTest.Models.Evaluation");
@@ -395,6 +381,16 @@ namespace venteTest.Migrations
                     b.ToTable("VenteEvaluation");
 
                     b.HasDiscriminator().HasValue("VenteEvaluation");
+                });
+
+            modelBuilder.Entity("venteTest.Models.Vendeur", b =>
+                {
+                    b.HasBaseType("venteTest.Models.Miseur");
+
+
+                    b.ToTable("Vendeur");
+
+                    b.HasDiscriminator().HasValue("Vendeur");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -452,10 +448,6 @@ namespace venteTest.Migrations
                         .WithMany("Encheres")
                         .HasForeignKey("ObjetId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("venteTest.Models.Vendeur")
-                        .WithMany("Encheres")
-                        .HasForeignKey("VendeurId");
                 });
 
             modelBuilder.Entity("venteTest.Models.Fichier", b =>
@@ -482,7 +474,7 @@ namespace venteTest.Migrations
                         .HasForeignKey("ConfigurationAdminId");
 
                     b.HasOne("venteTest.Models.Vendeur", "Vendeur")
-                        .WithMany("Objets")
+                        .WithMany()
                         .HasForeignKey("VendeurId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
