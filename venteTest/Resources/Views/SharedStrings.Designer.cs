@@ -259,7 +259,7 @@ namespace venteTest.Resources.Views {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Foire aux questions.
+        ///   Looks up a localized string similar to FAQ.
         /// </summary>
         public static string Faq {
             get {

@@ -54,8 +54,10 @@ namespace venteTest.Controllers
 
             ViewData["CurrentFilter"] = searchString;
 
-            var objets = from o in _context.Objets.Include(o => o.Categorie)
-                           select o;
+            // ajout Arash ---- pour lister des objets qui sont EnVente
+            string query = "SELECT * FROM Objets WHERE Status = {0}";
+            var objets = from o in _context.Objets.Include(o => o.Categorie).FromSql(query, 0)
+                         select o;
 
             ViewBag.Categories = _context.Categories.ToList(); //pour ComboBox
 

@@ -30,9 +30,9 @@ namespace venteTest.Data
       
 
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Server=.\SQLEXPRESS;Database=eAuctionDB;Trusted_Connection=True;");
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer(@"Server=.\SQLEXPRESS;Database=eAuctionDB;Trusted_Connection=True;");
+        //}
     }
 }

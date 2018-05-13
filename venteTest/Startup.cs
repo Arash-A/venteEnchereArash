@@ -83,18 +83,17 @@ namespace venteTest
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            //ajout sb pour créer admin et rôles (Si requis)
+            //------------ajout sb pour créer admin et rôles (Si requis)-------------//
+            CreateRolesAdminUsers(serviceProvider).Wait();
+            //---------------------Commentaire avant update-database-----------------//
 
-         CreateRolesAdminUsers(serviceProvider).Wait();
-
-            //CreateRolesAdminUsers(serviceProvider).Wait();
 
             // Ajout SB pour faire nos mappings entre Model et ViewModels
             AutoMapperConfig.RegisterMappings();
 
 
             // Ajour Arash pour Hangfire
-           // app.UseHangfireServer();
+            //app.UseHangfireServer();
            // app.UseHangfireDashboard();
 
 
