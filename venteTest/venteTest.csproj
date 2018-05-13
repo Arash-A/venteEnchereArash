@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <Folder Include="Data\Migrations\" />
+    <Folder Include="Views\Objects\" />
     <Folder Include="Views\Partials\" />
     <Folder Include="wwwroot\Uploads\" />
   </ItemGroup>

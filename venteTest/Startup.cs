@@ -176,8 +176,10 @@ namespace venteTest
             AutoMapper.Mapper.Initialize(cfg => {            
                 cfg.CreateMap<Categorie, Models.AdminViewModels.CategorieViewModel>();
                 cfg.CreateMap<Models.AdminViewModels.CategorieViewModel, Categorie>();
-                                                   
-                                                              
+
+                cfg.CreateMap<Objet, Models.ObjectViewModels.AnnoncerObjectViewModel>();
+                cfg.CreateMap<Models.ObjectViewModels.AnnoncerObjectViewModel, Objet>();
+
             });                                                                                                        
 
             // Exemples utilisés dans le contrôleur :

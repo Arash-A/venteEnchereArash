@@ -8,7 +8,8 @@ using System.Web;
 namespace venteTest.Models {
     public enum Status {
         EnVente,
-        Vendu
+        Vendu,
+        Expire
     }
     // Class corespondante à un objet à vendre
     public class Objet {

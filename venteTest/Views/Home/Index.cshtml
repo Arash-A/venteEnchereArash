@@ -134,7 +134,7 @@
                 </th>
                 <th class="p-2 m-2">
                     @*@Html.DisplayNameFor(model => model.DureeMiseVente)*@
-                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["DureeMiseVenteSortParm"]"><span class="h6">Days</span><i class="fa fa-fw fa-sort"></i></a>
+                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["DureeMiseVenteSortParm"]"><span class="h6">Bid End Date</span><i class="fa fa-fw fa-sort"></i></a>
                 </th>
                 <th class="p-2 m-2">
                     @*@Html.DisplayNameFor(model => model.Categorie)*@
@@ -163,7 +163,7 @@
                         @Html.DisplayFor(modelItem => item.DateInscription)
                     </td>
                     <td class="p-2">
-                        @Html.DisplayFor(modelItem => item.DureeMiseVente)
+                        @Html.DisplayFor(modelItem => item.DateLimite)
                     </td>
                     <td class="laCategorie p-2">
                         @Html.DisplayFor(modelItem => item.Categorie.Nom)
