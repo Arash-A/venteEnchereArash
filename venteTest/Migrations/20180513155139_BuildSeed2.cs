@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace venteTest.Migrations
 {
-    public partial class CreateDb : Migration
+    public partial class BuildSeed2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -244,8 +244,7 @@ namespace venteTest.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     MiseurId = table.Column<string>(nullable: true),
                     Niveau = table.Column<double>(nullable: false),
-                    ObjetId = table.Column<int>(nullable: false),
-                    VendeurId = table.Column<string>(nullable: true)
+                    ObjetId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -262,12 +261,6 @@ namespace venteTest.Migrations
                         principalTable: "Objets",
                         principalColumn: "ObjetID",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Encheres_AspNetUsers_VendeurId",
-                        column: x => x.VendeurId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -379,11 +372,6 @@ namespace venteTest.Migrations
                 name: "IX_Encheres_ObjetId",
                 table: "Encheres",
                 column: "ObjetId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Encheres_VendeurId",
-                table: "Encheres",
-                column: "VendeurId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Evaluations_ObjetId",

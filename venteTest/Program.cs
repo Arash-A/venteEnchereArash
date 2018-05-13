@@ -21,11 +21,13 @@ namespace venteTest
 
             using (var scope = host.Services.CreateScope())
             {
+                var Configuration = host.Services.GetRequiredService<IConfiguration>();
+
                 var services = scope.ServiceProvider;
                 var context = services.GetRequiredService<ApplicationDbContext>();
                 try
                 {
-                    SeedData.Initialize(services);
+                    SeedData.Initialize(services, Configuration);
                 }
                 catch (Exception ex)
                 {
