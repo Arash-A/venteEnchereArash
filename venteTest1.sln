@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2043
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "venteTest", "venteTest\venteTest.csproj", "{B4161F94-44B2-410F-83AE-3B9455C9B867}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "venteTest", "venteTest\venteTest.csproj", "{B4161F94-44B2-410F-83AE-3B9455C9B867}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitTestProject1", "XUnitTestProject1\XUnitTestProject1.csproj", "{4ACA28F7-FC94-40D5-9294-39C2CB05DA55}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{B4161F94-44B2-410F-83AE-3B9455C9B867}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4161F94-44B2-410F-83AE-3B9455C9B867}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4161F94-44B2-410F-83AE-3B9455C9B867}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4ACA28F7-FC94-40D5-9294-39C2CB05DA55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4ACA28F7-FC94-40D5-9294-39C2CB05DA55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4ACA28F7-FC94-40D5-9294-39C2CB05DA55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4ACA28F7-FC94-40D5-9294-39C2CB05DA55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
