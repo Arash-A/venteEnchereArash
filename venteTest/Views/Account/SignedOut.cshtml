@@ -1,8 +1,10 @@
-﻿@{
-    ViewData["Title"] = "Signed out";
+﻿@using venteTest.Resources.Views
+
+@{
+    ViewData["Title"] = StringsAccount.SignedOut;
 }
 
 <h2>@ViewData["Title"]</h2>
 <p>
-    You have successfully signed out.
+    @StringsAccount.SignedOutDescription
 </p>
