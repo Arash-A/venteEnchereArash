@@ -6,6 +6,7 @@ namespace XUnitTestProject1
 {
     public class UnitTest1
     {
+        //TESTS WILL NEED TO BE ADAPTED TO THE FOLLOWING CONTROLLERS:
         //[Fact]
         //public void Test1()
         //{
