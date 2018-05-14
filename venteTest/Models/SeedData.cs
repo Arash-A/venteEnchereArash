@@ -150,7 +150,7 @@ namespace venteTest.Models
             }
 
             //Creer Admin
-            var powerUser = new ApplicationUser {
+            var powerUser = new Administrateur {
                 UserName = Configuration["AppSettings:AdminUserEmail"], // Pour créer membre (avec CreateAsync), on doit mettre le email comme userName par convention
                 Email = Configuration["AppSettings:AdminUserEmail"],
                 EmailConfirmed = true, // on fait EmailConfirmed pour permettre le login immédiatement

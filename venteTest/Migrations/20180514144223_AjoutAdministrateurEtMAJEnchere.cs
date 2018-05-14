@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace venteTest.Migrations
 {
-    public partial class seedObjetEnchere : Migration
+    public partial class AjoutAdministrateurEtMAJEnchere : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -67,20 +67,6 @@ namespace venteTest.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.CategorieId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ConfigurationAdmins",
-                columns: table => new
-                {
-                    ConfigurationAdminId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    PasGlobalEnchere = table.Column<decimal>(nullable: false),
-                    TauxGlobalComissionAuVendeur = table.Column<decimal>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ConfigurationAdmins", x => x.ConfigurationAdminId);
                 });
 
             migrationBuilder.CreateTable(
@@ -190,6 +176,27 @@ namespace venteTest.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ConfigurationAdmins",
+                columns: table => new
+                {
+                    ConfigurationAdminId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AdminDesVentesId = table.Column<string>(nullable: true),
+                    PasGlobalEnchere = table.Column<decimal>(nullable: false),
+                    TauxGlobalComissionAuVendeur = table.Column<decimal>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ConfigurationAdmins", x => x.ConfigurationAdminId);
+                    table.ForeignKey(
+                        name: "FK_ConfigurationAdmins_AspNetUsers_AdminDesVentesId",
+                        column: x => x.AdminDesVentesId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Objets",
                 columns: table => new
                 {
@@ -242,6 +249,7 @@ namespace venteTest.Migrations
                 {
                     EnchereId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    MiseMax = table.Column<double>(nullable: false),
                     MiseurId = table.Column<string>(nullable: true),
                     Niveau = table.Column<double>(nullable: false),
                     ObjetId = table.Column<int>(nullable: false)
@@ -364,6 +372,11 @@ namespace venteTest.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ConfigurationAdmins_AdminDesVentesId",
+                table: "ConfigurationAdmins",
+                column: "AdminDesVentesId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Encheres_MiseurId",
                 table: "Encheres",
                 column: "MiseurId");
@@ -448,13 +461,13 @@ namespace venteTest.Migrations
                 name: "Objets");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "ConfigurationAdmins");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
         }
     }
 }

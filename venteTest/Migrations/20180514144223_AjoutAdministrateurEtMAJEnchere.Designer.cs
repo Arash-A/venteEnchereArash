@@ -13,8 +13,8 @@ using venteTest.Models;
 namespace venteTest.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180513172847_seedObjetEnchere")]
-    partial class seedObjetEnchere
+    [Migration("20180514144223_AjoutAdministrateurEtMAJEnchere")]
+    partial class AjoutAdministrateurEtMAJEnchere
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -218,11 +218,15 @@ namespace venteTest.Migrations
                     b.Property<int>("ConfigurationAdminId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("AdminDesVentesId");
+
                     b.Property<decimal>("PasGlobalEnchere");
 
                     b.Property<decimal>("TauxGlobalComissionAuVendeur");
 
                     b.HasKey("ConfigurationAdminId");
+
+                    b.HasIndex("AdminDesVentesId");
 
                     b.ToTable("ConfigurationAdmins");
                 });
@@ -231,6 +235,8 @@ namespace venteTest.Migrations
                 {
                     b.Property<int>("EnchereId")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<double>("MiseMax");
 
                     b.Property<string>("MiseurId");
 
@@ -393,6 +399,16 @@ namespace venteTest.Migrations
                     b.HasDiscriminator().HasValue("Vendeur");
                 });
 
+            modelBuilder.Entity("venteTest.Models.Administrateur", b =>
+                {
+                    b.HasBaseType("venteTest.Models.Vendeur");
+
+
+                    b.ToTable("Administrateur");
+
+                    b.HasDiscriminator().HasValue("Administrateur");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -436,6 +452,13 @@ namespace venteTest.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("venteTest.Models.ConfigurationAdmin", b =>
+                {
+                    b.HasOne("venteTest.Models.Administrateur", "AdminDesVentes")
+                        .WithMany("ConfigurationAdmins")
+                        .HasForeignKey("AdminDesVentesId");
                 });
 
             modelBuilder.Entity("venteTest.Models.Enchere", b =>
