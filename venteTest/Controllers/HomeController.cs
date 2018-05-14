@@ -36,6 +36,7 @@ namespace venteTest.Controllers
             string sortOrder,
             string currentFilter,
             string searchString,
+            string pages,
             int? page) {
 
             //var applicationDbContext = _context.Objets.Include(o => o.Categorie);
@@ -113,7 +114,10 @@ namespace venteTest.Controllers
                     break;
             }
 
-            int pageSize = 5;
+            ViewData["Pages"] = ("10" == pages) ? 250 : 10;
+            int pageSize = (int)ViewData["Pages"];
+            ViewData["NumPages"] = (pageSize == 250) ? "Show 10 Per Page" : "Show Full List";
+
             //return View(await objets.AsNoTracking().ToListAsync());
             return View(await PaginatedList<Objet>.CreateAsync(objets.AsNoTracking(), page ?? 1, pageSize));
         }

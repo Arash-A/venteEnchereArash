@@ -99,16 +99,16 @@
     <hr />
     <form class="form-inline" asp-action="Index" method="get">
         <div class="form-group mb-2">
-            <strong class="h5">Filter objects by : <mark class="p-2 m-2">Name</mark></strong><input type="text" name="SearchString" class="form-control m-2" value="@ViewData["currentFilter"]" />
+            <strong class="h5">Filter objects by : <mark class="p-2 mt-2 mb-2">Name</mark></strong><input type="text" name="SearchString" class="form-control m-2" value="@ViewData["currentFilter"]" />
             <input type="submit" value="Search !" class="btn btn-warning btn-lg m-2" /> |
-            <strong class="m-2 h5">by : <mark class="p-2 m-2">Categorie</mark></strong> |
-            <select class="form-control w-auto m-2" id="cat" onchange="filterCategories(this.value)">
+            <strong class="m-2 h5">by : <mark class="p-2 mt-2 mb-2">Categorie</mark></strong>
+            <select class="form-control w-auto mt-2 mb-2 mr-2" id="cat" onchange="filterCategories(this.value)">
                 <option>Select a categorie...</option>
                 @foreach (var item in ViewBag.Categories) {
                     <option>@item.Nom</option>
                 }
             </select> |
-            <a class="m-2" asp-action="Index">Show Full List</a>
+            <a class="m-2" asp-action="Index" asp-route-pages="@ViewData["Pages"]">@ViewData["NumPages"]</a>
         </div>
     </form>
 </div>
@@ -116,25 +116,25 @@
     <hr />
     <table id="laPagedList" class="table-striped thead-dark">
         <thead>
-            <tr>
+            <tr class="border-top border">
                 <th class="p-4">
                     @*@Html.DisplayNameFor(model => model.Nom)*@
-                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]"><span class="h6">Name</span><i class="fa fa-fw fa-sort"></i></a>
+                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]"><span class="h6">Name</span><i class="fa fa-fw fa-sort text-warning"></i></a>
                 </th>
                 <th class="p-2 m-2">
                     @*@Html.DisplayNameFor(model => model.PrixDepart)*@
-                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["PrixDepartSortParm"]"><span class="h6">Start Price</span><i class="fa fa-fw fa-sort"></i></a>
+                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["PrixDepartSortParm"]"><span class="h6">Starting Bid</span><i class="fa fa-fw fa-sort text-warning"></i></a>
                 </th>
                 <th class="p-2 m-2">
                     @*@Html.DisplayNameFor(model => model.DateInscription)*@
-                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["DateInscritSortParm"]"><span class="h6">Inscription Date</span><i class="fa fa-fw fa-sort"></i></a>
+                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["DateInscritSortParm"]"><span class="h6">Inscription Date</span><i class="fa fa-fw fa-sort text-warning"></i></a>
                 </th>
                 <th class="p-2 m-2">
-                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["DateLimiteSortParm"]"><span class="h6">Inscription End</span><i class="fa fa-fw fa-sort"></i></a>
+                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["DateLimiteSortParm"]"><span class="h6">Inscription End</span><i class="fa fa-fw fa-sort text-warning"></i></a>
                 </th>
                 <th class="p-2 m-2">
                     @*@Html.DisplayNameFor(model => model.Categorie)*@
-                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["CategorieSortParm"]"><span class="h6">Categorie</span><i class="fa fa-fw fa-sort"></i></a>
+                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["CategorieSortParm"]"><span class="h6">Categorie</span><i class="fa fa-fw fa-sort text-warning"></i></a>
                 </th>
                 <th class="p-2 m-2">
                 </th>
@@ -142,47 +142,71 @@
         </thead>
         <tbody>
             @foreach (var item in Model) {
-                <tr class="p-2">
-                    <td class="p-2">
-                        <div class="row p-2">
-                            <div class="col-12 col-lg-6">
-                                <img src="@item.imageUrl" style="min-width:30px" class="img-fluid" />
-                            </div>
-                            <div class="col-auto col-lg-6">
-                                <span style="background-color: #FCF8E3;" class="m-1 p-1 text-dark rounded"><strong>@Html.DisplayFor(modelItem => item.Nom)</strong></span>
-                                <p class="pt-3">@Html.DisplayFor(modelItem => item.Description)</p>
-                                @*Afficher l'enchère actuellement sur l'objet qui mène*@
-                                <p style="background-color: #FFC107;" class="text-dark rounded p-2">
-                                    <strong>Currently leading bid...</strong>
-                                    @{
-                                        var enchereMenante = item.Encheres.OrderByDescending(t => t.Niveau).FirstOrDefault();
-                                        var miseurMenantEnchere = enchereMenante.Miseur;
-                                    }
-                                    <br />
-                                    <span>@miseurMenantEnchere.Prenom @miseurMenantEnchere.Nom !  |  @Html.DisplayFor(modelItem => item.Encheres.OrderByDescending(t => t.Niveau).FirstOrDefault().Niveau) $</span>
-                                </p>
-
-                            </div>
+            <tr class="p-2">
+                <td class="p-2">
+                    <div class="row p-2">
+                        <div class="col-12 col-lg-6">
+                            <img src="@item.imageUrl" style="min-width:30px" class="img-fluid border-danger border-left rounded-right" />
                         </div>
-                    </td>
+                        <div class="col-auto col-lg-6 mt-0">
+                            <p style="background-color: #FCF8E3;" class="p-1 text-dark rounded-bottom border-top border-danger"><strong>@Html.DisplayFor(modelItem => item.Nom)</strong></p>
+                            <a class="btn btn-outline-warning mb-2" role="button" asp-controller="Objets" asp-action="Details" asp-route-id="@item.ObjetID">Full specs</a>
+                            <p class="p-2">@Html.DisplayFor(modelItem => item.Description)</p>
 
-                    <td class="p-2">
-                        @Html.DisplayFor(modelItem => item.PrixDepart) $
-                    </td>
-                    <td class="p-2">
-                        @Html.DisplayFor(modelItem => item.DateInscription)
-                    </td>
-                    <td class="p-2">
-                        @Html.DisplayFor(modelItem => item.DateLimite)
-                    </td>
-                    <td class="laCategorie p-2">
-                        <p style="background-color: #FCF8E3;" class="m-1 p-1 text-dark rounded"><strong>@Html.DisplayFor(modelItem => item.Categorie.Nom)</strong></p>
-                    </td>
-                    <td class="p-2">
-                        <a class="btn btn-warning mb-2" role="button" asp-controller="Objets" asp-action="Miser" asp-route-id="@item.ObjetID">BID !</a>
-                        <a class="btn btn-outline-warning mb-2" role="button" asp-controller="Objets" asp-action="Details" asp-route-id="@item.ObjetID">Details</a>
-                    </td>
-                </tr>
+                            @*Afficher l'enchère actuellement sur l'objet qui mène*@
+                            <p style="background-color: #FCF8E3;" class="text-dark rounded-bottom border-danger border-top p-2">
+                                <strong>Currently leading bid...</strong>
+                                @{
+        var enchereMenante = item.Encheres.OrderByDescending(t => t.Niveau).FirstOrDefault();
+        var miseurMenantEnchere = enchereMenante.Miseur;
+                                }
+                                <br />
+                                <span>@miseurMenantEnchere.Prenom @miseurMenantEnchere.Nom !  |  @Html.DisplayFor(modelItem => item.Encheres.OrderByDescending(t => t.Niveau).FirstOrDefault().Niveau) $</span>
+                                @*Bouton pour afficher d'avantage.. ici un toggle hide/show*@
+                                
+                                <a class="btn btn-danger ml-3 mb-2 mt-2" role="button" asp-controller="Objets" asp-action="Miser" asp-route-id="@item.ObjetID">BID !</a>
+                                | <a class="btn btn-outline-danger" role="button" asp-route-id="@item.ObjetID">Bid History</a>
+                            </p>
+
+                        </div>
+                    </div>
+                </td>
+
+                <td class="p-2">
+                    <div class="row p-2">
+                        <div class="col-12 col-lg-6">
+                            @Html.DisplayFor(modelItem => item.PrixDepart) $
+                        </div>
+                    </div>
+                </td>
+                <td class="p-2">
+                    <div class="row p-2">
+                        <div class="col-12">
+                            @Html.DisplayFor(modelItem => item.DateInscription)
+                        </div>
+                    </div>
+                </td>
+                <td class="p-2">
+                    <div class="row p-2">
+                        <div class="col-12">
+                            @Html.DisplayFor(modelItem => item.DateLimite)
+                        </div>
+                    </div>
+                </td>
+                <td class="laCategorie p-2">
+                    <div class="row p-2">
+                        <div class="col-12">
+                            <p style="background-color: #FCF8E3;" class="m-1 p-1 text-dark rounded"><strong>@Html.DisplayFor(modelItem => item.Categorie.Nom)</strong></p>
+                        </div>
+                    </div>
+                </td>
+                <td class="p-2">
+                    <div class="row p-2">
+                        <div class="col-12">
+                        </div>
+                    </div>
+                </td>
+            </tr>
             }
         </tbody>
     </table>
