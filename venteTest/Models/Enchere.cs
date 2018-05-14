@@ -12,7 +12,9 @@ namespace venteTest.Models
         // Une enchère est une « offre d’un prix supérieur à la mise à prix, ou au prix qu’un autre a déjà offert, en parlant des choses qui se vendent ou s’afferment au plus offrant. »
         public int EnchereId { get; set; }
 
-        public double Niveau { get; set; } // mise à prix
+        public double Niveau { get; set; } // mise à prix... ex: 40
+
+        //public double MiseMax { get; set; } // mise max offert.. ex: 50
 
         public Miseur Miseur { get; set; }
 

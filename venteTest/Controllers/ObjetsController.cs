@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using venteTest.Data;
 using venteTest.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace venteTest.Controllers
 {
@@ -17,11 +19,13 @@ namespace venteTest.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IHostingEnvironment he;
+        private readonly IServiceProvider _serviceProvider;
 
-        public ObjetsController(ApplicationDbContext context, IHostingEnvironment e)
+        public ObjetsController(ApplicationDbContext context, IHostingEnvironment e, IServiceProvider serviceProvider)
         {
             _context = context;
             he = e;
+            _serviceProvider = serviceProvider;
         }
 
         // GET: Objets
@@ -48,8 +52,11 @@ namespace venteTest.Controllers
 
             // --ajout Arash ---- Lister des objets qui appartient de l'utilisateur
             string query = "SELECT * FROM Objets WHERE VendeurId = {0} AND Status={1}";
-            var objets = from o in _context.Objets.Include(o => o.Categorie).FromSql(query, "24d23d82-b8c0-4eca-bf99-47369ed68c99", 0) select o;
-            //var objets = from o in _context.Objets.Include(o => o.Categorie).FromSql(query, User.Identity.Name, 0) select o;
+            //var objets = from o in _context.Objets.Include(o => o.Categorie).FromSql(query, "24d23d82-b8c0-4eca-bf99-47369ed68c99", 0) select o;
+            var userManager = _serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            var userName = await userManager.FindByNameAsync(User.Identity.Name);
+
+            var objets = from o in _context.Objets.Include(o => o.Categorie).FromSql(query, userName.Id, 0) select o;
 
             ViewBag.Categories = _context.Categories.ToList(); //pour ComboBox
 

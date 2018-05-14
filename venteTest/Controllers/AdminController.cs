@@ -139,5 +139,16 @@ namespace venteTest.Controllers
         public IActionResult Membres() {
             return View();
         }
+        public IActionResult DeactivateMembre() {
+            //
+
+            return RedirectToAction(nameof(Membres));
+        }
+        public IActionResult SendMail() {
+            // Envoyer courriel à membre
+
+            return RedirectToAction(nameof(Membres));
+        }
+
     }
 }
