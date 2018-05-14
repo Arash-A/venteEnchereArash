@@ -14,7 +14,7 @@ namespace venteTest.Models
 
         public double Niveau { get; set; } // mise à prix... ex: 40
 
-        //public double MiseMax { get; set; } // mise max offert.. ex: 50
+        public double MiseMax { get; set; } // mise max offerte par un miseur.. ex: 50
 
         public Miseur Miseur { get; set; }
 

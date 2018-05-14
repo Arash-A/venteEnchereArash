@@ -10,5 +10,6 @@ namespace venteTest.Models
         public int ConfigurationAdminId { get; set; }
         public decimal TauxGlobalComissionAuVendeur { get; set; }
         public decimal PasGlobalEnchere { get; set; }
+        public Administrateur AdminDesVentes { get; set; }
     }
 }
