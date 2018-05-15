@@ -65,6 +65,9 @@ namespace venteTest
 
                 cfg.CreateMap<ApplicationUser, Models.AdminViewModels.MemberViewModel>();
 
+                cfg.CreateMap<Objet, Models.ObjetViewModel.AnnoncerObjectViewModel>();
+                cfg.CreateMap<Models.ObjetViewModel.AnnoncerObjectViewModel, Objet>();
+
             });
 
             // Exemples utilisés dans le contrôleur :

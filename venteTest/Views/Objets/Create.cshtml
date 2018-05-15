@@ -1,9 +1,10 @@
 ﻿@using venteTest.Resources.Views
 
-@model venteTest.Models.Objet
+@*@model venteTest.Models.Objet*@
+@model venteTest.Models.ObjetViewModel.AnnoncerObjectViewModel
 
 @{
-    ViewData["Title"] = @StringsObjets.CreateCreer ;
+    ViewData["Title"] = @StringsObjets.CreateCreer;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -22,7 +23,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
+                @*<input asp-for="Description" class="form-control" />*@
+                <textarea asp-for="Description" rows="5" cols="40" class="form-control"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -30,12 +32,23 @@
                 <input asp-for="PrixDepart" class="form-control" />
                 <span asp-validation-for="PrixDepart" class="text-danger"></span>
             </div>
-
             <div class="form-group">
-                <label asp-for="DureeMiseVente" class="control-label"></label>
-                <input asp-for="DureeMiseVente" class="form-control" />
-                <span asp-validation-for="DureeMiseVente" class="text-danger"></span>
+                <label asp-for="DateInscription" class="control-label"></label>
+                <input asp-for="DateInscription" class="form-control" hidden/>
+                <input value="@Model.DateInscription" class="form-control" disabled/>
+                <span asp-validation-for="DateInscription" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="DateLimite" class="control-label"></label>
+                @*<input asp-for="DateLimite" class="form-control" />*@
+                @Html.EditorFor(model => model.DateLimite, new { id = "DateLimite" })
+                <span asp-validation-for="DateLimite" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+            <label asp-for="DureeMiseVente" class="control-label"></label>
+            <input asp-for="DureeMiseVente" class="form-control" />
+            <span asp-validation-for="DureeMiseVente" class="text-danger"></span>
+        </div>*@
             <div class="form-group">
                 <label asp-for="imageUrl" class="control-label"></label>
                 <input type="file" name="pic" class="form-control" /><br />
@@ -45,14 +58,19 @@
                 <select asp-for="CategorieID" class="form-control" asp-items="@(new SelectList(@ViewBag.CategoryList ,"CategorieId", "Nom"))"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="@StringsObjets.BoutonCreer" class="btn btn-default" />
+                <input type="submit" value="@StringsObjets.BoutonCreer" class="btn btn-warning" />
             </div>
         </form>
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker1').datetimepicker();
+            });
+        </script>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">@StringsObjets.BackToList</a>
+    <a asp-action="Index" asp-controller="Home">@StringsObjets.BackToList</a>
 </div>
 
 @section Scripts {
