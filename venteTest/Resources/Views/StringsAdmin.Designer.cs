@@ -59,5 +59,320 @@ namespace venteTest.Resources.Views {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Créer.
+        /// </summary>
+        public static string ButtonCreer {
+            get {
+                return ResourceManager.GetString("ButtonCreer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Catégorie.
+        /// </summary>
+        public static string CreateCategorie {
+            get {
+                return ResourceManager.GetString("CreateCategorie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Créer.
+        /// </summary>
+        public static string CreateTitle {
+            get {
+                return ResourceManager.GetString("CreateTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Effacer.
+        /// </summary>
+        public static string DeleteButton {
+            get {
+                return ResourceManager.GetString("DeleteButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Êtes vous sûr de vouloir effacer ceci?.
+        /// </summary>
+        public static string DeleteMessage {
+            get {
+                return ResourceManager.GetString("DeleteMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Effacer.
+        /// </summary>
+        public static string DeleteTitle {
+            get {
+                return ResourceManager.GetString("DeleteTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De retour à la liste.
+        /// </summary>
+        public static string EditBackToList {
+            get {
+                return ResourceManager.GetString("EditBackToList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Catégorie.
+        /// </summary>
+        public static string EditCategorie {
+            get {
+                return ResourceManager.GetString("EditCategorie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sauvegarder.
+        /// </summary>
+        public static string EditSave {
+            get {
+                return ResourceManager.GetString("EditSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modifier une catégorie.
+        /// </summary>
+        public static string EditTitle {
+            get {
+                return ResourceManager.GetString("EditTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De retour à la gestion des membres.
+        /// </summary>
+        public static string EmailBackToMemberManagement {
+            get {
+                return ResourceManager.GetString("EmailBackToMemberManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Veuillez entrer les paramètres du courriel.
+        /// </summary>
+        public static string EmailParametres {
+            get {
+                return ResourceManager.GetString("EmailParametres", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Envoyer.
+        /// </summary>
+        public static string EmailSend {
+            get {
+                return ResourceManager.GetString("EmailSend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Écrire au membre.
+        /// </summary>
+        public static string EmailTitle {
+            get {
+                return ResourceManager.GetString("EmailTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Créer une nouvelle catégorie.
+        /// </summary>
+        public static string IndexCreerNouvelle {
+            get {
+                return ResourceManager.GetString("IndexCreerNouvelle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Effacer.
+        /// </summary>
+        public static string IndexDelete {
+            get {
+                return ResourceManager.GetString("IndexDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Éditer.
+        /// </summary>
+        public static string IndexEdit {
+            get {
+                return ResourceManager.GetString("IndexEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gestion des catégories.
+        /// </summary>
+        public static string IndexGestionCategories {
+            get {
+                return ResourceManager.GetString("IndexGestionCategories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opérations de l&apos;administrateur.
+        /// </summary>
+        public static string LayoutDescription {
+            get {
+                return ResourceManager.GetString("LayoutDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Membres.
+        /// </summary>
+        public static string Membres {
+            get {
+                return ResourceManager.GetString("Membres", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adresse.
+        /// </summary>
+        public static string MembresAdresse {
+            get {
+                return ResourceManager.GetString("MembresAdresse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Civilité.
+        /// </summary>
+        public static string MembresCivilite {
+            get {
+                return ResourceManager.GetString("MembresCivilite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Courriel.
+        /// </summary>
+        public static string MembresCourriel {
+            get {
+                return ResourceManager.GetString("MembresCourriel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Courriel confirmé.
+        /// </summary>
+        public static string MembresCourrielConfirme {
+            get {
+                return ResourceManager.GetString("MembresCourrielConfirme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date d&apos;enrolement.
+        /// </summary>
+        public static string MembresDateEnrolement {
+            get {
+                return ResourceManager.GetString("MembresDateEnrolement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gestion des membres.
+        /// </summary>
+        public static string MembresGestion {
+            get {
+                return ResourceManager.GetString("MembresGestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Langue.
+        /// </summary>
+        public static string MembresLangue {
+            get {
+                return ResourceManager.GetString("MembresLangue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nom.
+        /// </summary>
+        public static string MembresNom {
+            get {
+                return ResourceManager.GetString("MembresNom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prénom.
+        /// </summary>
+        public static string MembresPrenom {
+            get {
+                return ResourceManager.GetString("MembresPrenom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Numéro de téléphone.
+        /// </summary>
+        public static string MembresTelephone {
+            get {
+                return ResourceManager.GetString("MembresTelephone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configuration des mises.
+        /// </summary>
+        public static string NavBid {
+            get {
+                return ResourceManager.GetString("NavBid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gestion des catégories.
+        /// </summary>
+        public static string NavCategorie {
+            get {
+                return ResourceManager.GetString("NavCategorie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gestion des membres.
+        /// </summary>
+        public static string NavMembre {
+            get {
+                return ResourceManager.GetString("NavMembre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gestion des objets.
+        /// </summary>
+        public static string NavObjets {
+            get {
+                return ResourceManager.GetString("NavObjets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Options.
+        /// </summary>
+        public static string NavOptions {
+            get {
+                return ResourceManager.GetString("NavOptions", resourceCulture);
+            }
+        }
     }
 }

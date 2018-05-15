@@ -18,7 +18,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    <h4>Send your comments.</h4>
+    <h4>@StringsHome.ContactDescription</h4>
     <hr />
     <div class="form-group">
         @Html.LabelFor(m => m.FromEmail, new { @class = "col-md-2 control-label" })

@@ -59,5 +59,293 @@ namespace venteTest.Resources.Views {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mes achats.
+        /// </summary>
+        public static string AcheterTitre {
+            get {
+                return ResourceManager.GetString("AcheterTitre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Retourner à l&apos;accueil.
+        /// </summary>
+        public static string BackToIndex {
+            get {
+                return ResourceManager.GetString("BackToIndex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Retourner à la liste.
+        /// </summary>
+        public static string BackToList {
+            get {
+                return ResourceManager.GetString("BackToList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Créer.
+        /// </summary>
+        public static string BoutonCreer {
+            get {
+                return ResourceManager.GetString("BoutonCreer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string ButtonDelete {
+            get {
+                return ResourceManager.GetString("ButtonDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sauvegarder.
+        /// </summary>
+        public static string ButtonSauvegarder {
+            get {
+                return ResourceManager.GetString("ButtonSauvegarder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Créer.
+        /// </summary>
+        public static string CreateCreer {
+            get {
+                return ResourceManager.GetString("CreateCreer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Objet.
+        /// </summary>
+        public static string CreateObjet {
+            get {
+                return ResourceManager.GetString("CreateObjet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Êtes vous sûr de vouloir effacer ceci?.
+        /// </summary>
+        public static string DeleteConfirmation {
+            get {
+                return ResourceManager.GetString("DeleteConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Supprimer.
+        /// </summary>
+        public static string DeleteSupprimer {
+            get {
+                return ResourceManager.GetString("DeleteSupprimer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Éditer.
+        /// </summary>
+        public static string DetailsEditer {
+            get {
+                return ResourceManager.GetString("DetailsEditer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Détails.
+        /// </summary>
+        public static string DetailsTitle {
+            get {
+                return ResourceManager.GetString("DetailsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Objet.
+        /// </summary>
+        public static string EditObjet {
+            get {
+                return ResourceManager.GetString("EditObjet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modifier.
+        /// </summary>
+        public static string EditTitre {
+            get {
+                return ResourceManager.GetString("EditTitre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choisir une catégorie.
+        /// </summary>
+        public static string IndexCategorie {
+            get {
+                return ResourceManager.GetString("IndexCategorie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Catégorie.
+        /// </summary>
+        public static string IndexCategorie1 {
+            get {
+                return ResourceManager.GetString("IndexCategorie1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Créer un nouvel objet.
+        /// </summary>
+        public static string IndexCreer {
+            get {
+                return ResourceManager.GetString("IndexCreer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date d&apos;inscription.
+        /// </summary>
+        public static string IndexDateInscription {
+            get {
+                return ResourceManager.GetString("IndexDateInscription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Effacer.
+        /// </summary>
+        public static string IndexEffacer {
+            get {
+                return ResourceManager.GetString("IndexEffacer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cliquer ici pour filtrer les champs!.
+        /// </summary>
+        public static string IndexFiltrerChamps {
+            get {
+                return ResourceManager.GetString("IndexFiltrerChamps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date de fin.
+        /// </summary>
+        public static string IndexFin {
+            get {
+                return ResourceManager.GetString("IndexFin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Afficher toute la liste.
+        /// </summary>
+        public static string IndexListe {
+            get {
+                return ResourceManager.GetString("IndexListe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mise en cours.
+        /// </summary>
+        public static string IndexMiseCourante {
+            get {
+                return ResourceManager.GetString("IndexMiseCourante", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mise de départ.
+        /// </summary>
+        public static string IndexMiseDepart {
+            get {
+                return ResourceManager.GetString("IndexMiseDepart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mise présentement en avance.
+        /// </summary>
+        public static string IndexMiseEnAvance {
+            get {
+                return ResourceManager.GetString("IndexMiseEnAvance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nom.
+        /// </summary>
+        public static string IndexNom {
+            get {
+                return ResourceManager.GetString("IndexNom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Précédent.
+        /// </summary>
+        public static string IndexPrecedent {
+            get {
+                return ResourceManager.GetString("IndexPrecedent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prix.
+        /// </summary>
+        public static string IndexPrix {
+            get {
+                return ResourceManager.GetString("IndexPrix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prochain.
+        /// </summary>
+        public static string IndexProchain {
+            get {
+                return ResourceManager.GetString("IndexProchain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rechercher!.
+        /// </summary>
+        public static string IndexRechercher {
+            get {
+                return ResourceManager.GetString("IndexRechercher", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mes objets à vendre.
+        /// </summary>
+        public static string IndexTitre {
+            get {
+                return ResourceManager.GetString("IndexTitre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Historique de mes Enchères.
+        /// </summary>
+        public static string LayoutDescription {
+            get {
+                return ResourceManager.GetString("LayoutDescription", resourceCulture);
+            }
+        }
     }
 }

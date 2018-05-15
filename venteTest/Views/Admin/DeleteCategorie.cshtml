@@ -1,12 +1,14 @@
-﻿@model venteTest.Models.AdminViewModels.CategorieViewModel
+﻿@using venteTest.Resources.Views
+
+@model venteTest.Models.AdminViewModels.CategorieViewModel
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = @StringsAdmin.DeleteTitle;
 }
 
-<h2>Delete</h2>
+<h2>@StringsAdmin.DeleteTitle</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>@StringsAdmin.DeleteMessage</h3>
 <div>
     <h4>Categorie</h4>
     <hr />
@@ -27,7 +29,7 @@
 
     <form asp-action="Delete">
         <input type="hidden" asp-for="CategorieId" />
-        <input type="submit" value="Delete" class="btn btn-warning" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="@StringsAdmin.DeleteButton" class="btn btn-warning" /> |
+        <a asp-action="Index">@StringsAdmin.EditBackToList</a>
     </form>
 </div>

@@ -259,6 +259,60 @@ namespace venteTest.Resources.Views {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Une erreur s&apos;est produite lors du traitement de votre demande..
+        /// </summary>
+        public static string ErrorDescription {
+            get {
+                return ResourceManager.GetString("ErrorDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mode développeur.
+        /// </summary>
+        public static string ErrorDev1 {
+            get {
+                return ResourceManager.GetString("ErrorDev1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to L&apos;échange vers l&apos;environnement de développement affichera des informations plus détaillées sur l&apos;erreur qui s&apos;est produite..
+        /// </summary>
+        public static string ErrorDev2 {
+            get {
+                return ResourceManager.GetString("ErrorDev2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to L&apos;environnement de développement ne doit pas être activé dans les applications déployées, car il peut générer des informations sensibles à partir d&apos;exceptions affichées aux utilisateurs finaux. Pour le débogage local, l&apos;environnement de développement peut être activé en définissant la variable d&apos;environnement ASPNETCORE_ENVIRONMENT sur Développement et en redémarrant l&apos;application..
+        /// </summary>
+        public static string ErrorDev3 {
+            get {
+                return ResourceManager.GetString("ErrorDev3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ID de la requête: .
+        /// </summary>
+        public static string ErrorRequete {
+            get {
+                return ResourceManager.GetString("ErrorRequete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Erreur.
+        /// </summary>
+        public static string ErrorTitre {
+            get {
+                return ResourceManager.GetString("ErrorTitre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FAQ.
         /// </summary>
         public static string Faq {

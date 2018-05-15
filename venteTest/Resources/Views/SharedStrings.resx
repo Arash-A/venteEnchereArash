@@ -261,4 +261,22 @@
   <data name="ToutAfficherObjets" xml:space="preserve">
     <value>Afficher la liste complète des objets</value>
   </data>
+  <data name="ErrorDescription" xml:space="preserve">
+    <value>Une erreur s'est produite lors du traitement de votre demande.</value>
+  </data>
+  <data name="ErrorDev1" xml:space="preserve">
+    <value>Mode développeur</value>
+  </data>
+  <data name="ErrorDev2" xml:space="preserve">
+    <value>L'échange vers l'environnement de développement affichera des informations plus détaillées sur l'erreur qui s'est produite.</value>
+  </data>
+  <data name="ErrorDev3" xml:space="preserve">
+    <value>L'environnement de développement ne doit pas être activé dans les applications déployées, car il peut générer des informations sensibles à partir d'exceptions affichées aux utilisateurs finaux. Pour le débogage local, l'environnement de développement peut être activé en définissant la variable d'environnement ASPNETCORE_ENVIRONMENT sur Développement et en redémarrant l'application.</value>
+  </data>
+  <data name="ErrorRequete" xml:space="preserve">
+    <value>ID de la requête: </value>
+  </data>
+  <data name="ErrorTitre" xml:space="preserve">
+    <value>Erreur</value>
+  </data>
 </root>

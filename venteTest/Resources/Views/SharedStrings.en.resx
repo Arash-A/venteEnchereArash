@@ -258,4 +258,22 @@
   <data name="ToutAfficherObjets" xml:space="preserve">
     <value>Show Full List of Objects</value>
   </data>
+  <data name="ErrorDescription" xml:space="preserve">
+    <value>Une erreur s'est produite lors du traitement de votre demande.</value>
+  </data>
+  <data name="ErrorDev1" xml:space="preserve">
+    <value>Development Mode</value>
+  </data>
+  <data name="ErrorDev2" xml:space="preserve">
+    <value>Swapping to Development environment will display more detailed information about the error that occurred.</value>
+  </data>
+  <data name="ErrorDev3" xml:space="preserve">
+    <value>Development environment should not be enabled in deployed applications, as it can result in sensitive information from exceptions being displayed to end users. For local debugging, development environment can be enabled by setting the ASPNETCORE_ENVIRONMENT environment variable to Development, and restarting the application.</value>
+  </data>
+  <data name="ErrorRequete" xml:space="preserve">
+    <value>Request ID:</value>
+  </data>
+  <data name="ErrorTitre" xml:space="preserve">
+    <value>Error</value>
+  </data>
 </root>

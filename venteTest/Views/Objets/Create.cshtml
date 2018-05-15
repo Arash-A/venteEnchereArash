@@ -1,13 +1,15 @@
-﻿@model venteTest.Models.Objet
+﻿@using venteTest.Resources.Views
+
+@model venteTest.Models.Objet
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = @StringsObjets.CreateCreer ;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
+<h2>@StringsObjets.CreateCreer</h2>
 
-<h4>Objet</h4>
+<h4>@StringsObjets.CreateObjet</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -43,14 +45,14 @@
                 <select asp-for="CategorieID" class="form-control" asp-items="@(new SelectList(@ViewBag.CategoryList ,"CategorieId", "Nom"))"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="@StringsObjets.BoutonCreer" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">@StringsObjets.BackToList</a>
 </div>
 
 @section Scripts {

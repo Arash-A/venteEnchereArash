@@ -1,14 +1,16 @@
-﻿@model venteTest.Models.Objet
+﻿@using venteTest.Resources.Views
+
+@model venteTest.Models.Objet
 
 @{
-    ViewData["Title"] = "DetailsNew";
+    ViewData["Title"] = @StringsObjets.DetailsTitle;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>DetailsNew</h2>
+<h2>@StringsObjets.DetailsTitle</h2>
 
 <div>
-    <h4>Objet</h4>
+    <h4>@StringsObjets.CreateObjet</h4>
     <hr />
     <div class="row">
         <div class="col-md-3">
@@ -73,6 +75,6 @@
     </div>
 </div>
 <div>
-    <a asp-controller="Home" asp-action="Index" class="btn btn-warning mb-2">Return to Index</a>|
-    <a asp-action="Edit" asp-route-id="@Model.ObjetID" class="btn btn-warning mb-2">Edit</a> 
+    <a asp-controller="Home" asp-action="Index" class="btn btn-warning mb-2">@StringsObjets.BackToIndex</a>|
+    <a asp-action="Edit" asp-route-id="@Model.ObjetID" class="btn btn-warning mb-2">@StringsObjets.DetailsEditer</a>
 </div>
