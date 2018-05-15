@@ -1,5 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using venteTest.Models
+@using venteTest.Resources.Views
+
 @*@model IEnumerable<venteTest.Models.Objet>*@
 @model PaginatedList<venteTest.Models.Objet>
 
@@ -84,13 +86,13 @@
     <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="sr-only">
-            Précédent
+            @StringsHome.IndexPrecedent
         </span>
     </a>
     <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">
-            Prochain
+            @StringsHome.IndexProchain
         </span>
     </a>
 </div>
@@ -99,12 +101,13 @@
     <hr />
     <form class="form-inline" asp-action="Index" method="get">
         <div class="form-group mb-2">
-            <strong class="h5">Filter objects by : <mark class="p-2 mt-2 mb-2">Name</mark></strong><input type="text" name="SearchString" class="form-control m-2" value="@ViewData["currentFilter"]" />
+            <strong class="h5">Filter objects by : <mark class="p-2 mt-2 mb-2">@StringsHome.IndexNom</mark></strong><input type="text" name="SearchString" class="form-control m-2" value="@ViewData["currentFilter"]" />
             <input type="submit" value="Search !" class="btn btn-warning btn-lg m-2" /> |
-            <strong class="m-2 h5">by : <mark class="p-2 mt-2 mb-2">Categorie</mark></strong>
+            <strong class="m-2 h5">by : <mark class="p-2 mt-2 mb-2">@StringsHome.IndexCategorie</mark></strong>
             <select class="form-control w-auto mt-2 mb-2 mr-2" id="cat" onchange="filterCategories(this.value)">
-                <option>Select a categorie...</option>
-                @foreach (var item in ViewBag.Categories) {
+                <option>@StringsHome.IndexSelectCategorie</option>
+                @foreach (var item in ViewBag.Categories)
+                {
                     <option>@item.Nom</option>
                 }
             </select> |
@@ -119,94 +122,95 @@
             <tr class="border-top border">
                 <th class="p-4">
                     @*@Html.DisplayNameFor(model => model.Nom)*@
-                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]"><span class="h6">Name</span><i class="fa fa-fw fa-sort text-warning"></i></a>
+                    <a title="@StringsHome.IndexFiltrerChamps" asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]"><span class="h6">@StringsHome.IndexNom</span><i class="fa fa-fw fa-sort text-warning"></i></a>
                 </th>
                 <th class="p-2 m-2">
                     @*@Html.DisplayNameFor(model => model.PrixDepart)*@
-                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["PrixDepartSortParm"]"><span class="h6">Starting Bid</span><i class="fa fa-fw fa-sort text-warning"></i></a>
+                    <a title="@StringsHome.IndexFiltrerChamps" asp-action="Index" asp-route-sortOrder="@ViewData["PrixDepartSortParm"]"><span class="h6">@StringsHome.IndexMiseDepart</span><i class="fa fa-fw fa-sort text-warning"></i></a>
                 </th>
                 <th class="p-2 m-2">
                     @*@Html.DisplayNameFor(model => model.DateInscription)*@
-                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["DateInscritSortParm"]"><span class="h6">Inscription Date</span><i class="fa fa-fw fa-sort text-warning"></i></a>
+                    <a title="@StringsHome.IndexFiltrerChamps" asp-action="Index" asp-route-sortOrder="@ViewData["DateInscritSortParm"]"><span class="h6">@StringsHome.IndexDateInscription</span><i class="fa fa-fw fa-sort text-warning"></i></a>
                 </th>
                 <th class="p-2 m-2">
-                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["DateLimiteSortParm"]"><span class="h6">Inscription End</span><i class="fa fa-fw fa-sort text-warning"></i></a>
+                    <a title="@StringsHome.IndexFiltrerChamps" asp-action="Index" asp-route-sortOrder="@ViewData["DateLimiteSortParm"]"><span class="h6">@StringsHome.IndexFin</span><i class="fa fa-fw fa-sort text-warning"></i></a>
                 </th>
                 <th class="p-2 m-2">
                     @*@Html.DisplayNameFor(model => model.Categorie)*@
-                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["CategorieSortParm"]"><span class="h6">Categorie</span><i class="fa fa-fw fa-sort text-warning"></i></a>
+                    <a title="@StringsHome.IndexFiltrerChamps" asp-action="Index" asp-route-sortOrder="@ViewData["CategorieSortParm"]"><span class="h6">@StringsHome.IndexCategorie</span><i class="fa fa-fw fa-sort text-warning"></i></a>
                 </th>
                 <th class="p-2 m-2">
                 </th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model) {
-            <tr class="p-2">
-                <td class="p-2">
-                    <div class="row p-2">
-                        <div class="col-12 col-lg-6">
-                            <img src="@item.imageUrl" style="min-width:30px" class="img-fluid border-danger border-left rounded-right" />
-                        </div>
-                        <div class="col-auto col-lg-6 mt-0">
-                            <p style="background-color: #FCF8E3;" class="p-1 text-dark rounded-bottom border-top border-danger"><strong>@Html.DisplayFor(modelItem => item.Nom)</strong></p>
-                            <a class="btn btn-outline-warning mb-2" role="button" asp-controller="Objets" asp-action="Details" asp-route-id="@item.ObjetID">Full specs</a>
-                            <p class="p-2 mt-2">@Html.DisplayFor(modelItem => item.Description)</p>
+            @foreach (var item in Model)
+            {
+                <tr class="p-2">
+                    <td class="p-2">
+                        <div class="row p-2">
+                            <div class="col-12 col-lg-6">
+                                <img src="@item.imageUrl" style="min-width:30px" class="img-fluid border-danger border-left rounded-right" />
+                            </div>
+                            <div class="col-auto col-lg-6 mt-0">
+                                <p style="background-color: #FCF8E3;" class="p-1 text-dark rounded-bottom border-top border-danger"><strong>@Html.DisplayFor(modelItem => item.Nom)</strong></p>
+                                <a class="btn btn-outline-warning mb-2" role="button" asp-controller="Objets" asp-action="Details" asp-route-id="@item.ObjetID">Full specs</a>
+                                <p class="p-2 mt-2">@Html.DisplayFor(modelItem => item.Description)</p>
 
-                            @*Afficher l'enchère actuellement sur l'objet qui mène*@
-                            <p style="background-color: #FCF8E3;" class="text-dark rounded-bottom border-danger border-top p-2">
-                                <strong>Currently leading bid...</strong>
-                                @{
-        var enchereMenante = item.Encheres.OrderByDescending(t => t.Niveau).FirstOrDefault();
-        var miseurMenantEnchere = enchereMenante.Miseur;
-                                }
-                                <br />
-                                <span>@miseurMenantEnchere.Prenom @miseurMenantEnchere.Nom !  |  @Html.DisplayFor(modelItem => item.Encheres.OrderByDescending(t => t.Niveau).FirstOrDefault().Niveau) $</span>
-                                @*Bouton pour afficher d'avantage.. ici un toggle hide/show*@
-                                
-                                <a class="btn btn-danger ml-3 mb-2 mt-2" role="button" asp-controller="Objets" asp-action="Miser" asp-route-id="@item.ObjetID">BID !</a>
-                                | <a class="btn btn-outline-danger" role="button" asp-route-id="@item.ObjetID">Bid History</a>
-                            </p>
+                                @*Afficher l'enchère actuellement sur l'objet qui mène*@
+                                <p style="background-color: #FCF8E3;" class="text-dark rounded-bottom border-danger border-top p-2">
+                                    <strong>@StringsHome.IndexMiseEnAvance</strong>
+                                    @{
+                                        var enchereMenante = item.Encheres.OrderByDescending(t => t.Niveau).FirstOrDefault();
+                                        var miseurMenantEnchere = enchereMenante.Miseur;
+                                    }
+                                    <br />
+                                    <span>@miseurMenantEnchere.Prenom @miseurMenantEnchere.Nom !  |  @Html.DisplayFor(modelItem => item.Encheres.OrderByDescending(t => t.Niveau).FirstOrDefault().Niveau) $</span>
+                                    @*Bouton pour afficher d'avantage.. ici un toggle hide/show*@
 
-                        </div>
-                    </div>
-                </td>
+                                    <a class="btn btn-danger ml-3 mb-2 mt-2" role="button" asp-controller="Objets" asp-action="Miser" asp-route-id="@item.ObjetID">BID !</a>
+                                    | <a class="btn btn-outline-danger" role="button" asp-route-id="@item.ObjetID">Bid History</a>
+                                </p>
 
-                <td class="p-2">
-                    <div class="row p-2">
-                        <div class="col-12 col-lg-6">
-                            @Html.DisplayFor(modelItem => item.PrixDepart) $
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td class="p-2">
-                    <div class="row p-2">
-                        <div class="col-12">
-                            @Html.DisplayFor(modelItem => item.DateInscription)
+                    </td>
+
+                    <td class="p-2">
+                        <div class="row p-2">
+                            <div class="col-12 col-lg-6">
+                                @Html.DisplayFor(modelItem => item.PrixDepart) $
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td class="p-2">
-                    <div class="row p-2">
-                        <div class="col-12">
-                            @Html.DisplayFor(modelItem => item.DateLimite)
+                    </td>
+                    <td class="p-2">
+                        <div class="row p-2">
+                            <div class="col-12">
+                                @Html.DisplayFor(modelItem => item.DateInscription)
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td class="laCategorie p-2">
-                    <div class="row p-2">
-                        <div class="col-12">
-                            <p style="background-color: #FCF8E3;" class="m-1 p-1 text-dark rounded"><strong>@Html.DisplayFor(modelItem => item.Categorie.Nom)</strong></p>
+                    </td>
+                    <td class="p-2">
+                        <div class="row p-2">
+                            <div class="col-12">
+                                @Html.DisplayFor(modelItem => item.DateLimite)
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td class="p-2">
-                    <div class="row p-2">
-                        <div class="col-12">
+                    </td>
+                    <td class="laCategorie p-2">
+                        <div class="row p-2">
+                            <div class="col-12">
+                                <p style="background-color: #FCF8E3;" class="m-1 p-1 text-dark rounded"><strong>@Html.DisplayFor(modelItem => item.Categorie.Nom)</strong></p>
+                            </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
+                    </td>
+                    <td class="p-2">
+                        <div class="row p-2">
+                            <div class="col-12">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
@@ -221,13 +225,13 @@
    asp-route-page="@(Model.PageIndex - 1)"
    asp-route-currentFilter="@ViewData["CurrentFilter"]"
    class="m-2 btn btn-outline-warning btn-lg @prevDisabled">
-    Previous
+    @StringsHome.IndexPrecedent
 </a><span> | </span>
-<a asp-action="Index"
-   asp-route-sortOrder="@ViewData["CurrentSort"]"
-   asp-route-page="@(Model.PageIndex + 1)"
-   asp-route-currentFilter="@ViewData["CurrentFilter"]"
-   class="m-2 btn btn-outline-warning btn-lg @nextDisabled">
-    Next
-</a>
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-page="@(Model.PageIndex + 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="m-2 btn btn-outline-warning btn-lg @nextDisabled">
+        @StringsHome.IndexProchain
+    </a>
 

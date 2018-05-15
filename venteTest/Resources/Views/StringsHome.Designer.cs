@@ -59,5 +59,167 @@ namespace venteTest.Resources.Views {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Envoyez-nous vos commentaires..
+        /// </summary>
+        public static string ContactDescription {
+            get {
+                return ResourceManager.GetString("ContactDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Les paiements sont effectués entre les parties, lorsqu&apos;elles se rencontrent..
+        /// </summary>
+        public static string FAQ1 {
+            get {
+                return ResourceManager.GetString("FAQ1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Il y a un frais de commission sur chaque transaction qui est complétée..
+        /// </summary>
+        public static string FAQ2 {
+            get {
+                return ResourceManager.GetString("FAQ2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Les acheteurs et vendeurs évaluent chacun la transaction qui a été complétée..
+        /// </summary>
+        public static string FAQ3 {
+            get {
+                return ResourceManager.GetString("FAQ3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Si la réputation d&apos;un usager atteint la note de -6, un message est envoyé à l&apos;usager fautif..
+        /// </summary>
+        public static string FAQ4 {
+            get {
+                return ResourceManager.GetString("FAQ4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Advenant que la réputation d&apos;un usager atteigne -9, le compte de cet usager sera effacé..
+        /// </summary>
+        public static string FAQ5 {
+            get {
+                return ResourceManager.GetString("FAQ5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Si vous avez des questions, vous pouvez nous contacter via le formulaire situé à la page.
+        /// </summary>
+        public static string FAQ6 {
+            get {
+                return ResourceManager.GetString("FAQ6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lorsque vous joignez notre site d&apos;encans, vous convenez avoir compris les modalités suivantes:.
+        /// </summary>
+        public static string FAQDescription {
+            get {
+                return ResourceManager.GetString("FAQDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Catégorie.
+        /// </summary>
+        public static string IndexCategorie {
+            get {
+                return ResourceManager.GetString("IndexCategorie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date d&apos;inscription.
+        /// </summary>
+        public static string IndexDateInscription {
+            get {
+                return ResourceManager.GetString("IndexDateInscription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cliquer ici pour filtrer le champs!.
+        /// </summary>
+        public static string IndexFiltrerChamps {
+            get {
+                return ResourceManager.GetString("IndexFiltrerChamps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date de fin.
+        /// </summary>
+        public static string IndexFin {
+            get {
+                return ResourceManager.GetString("IndexFin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mise de départ.
+        /// </summary>
+        public static string IndexMiseDepart {
+            get {
+                return ResourceManager.GetString("IndexMiseDepart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mise présentement en avance.
+        /// </summary>
+        public static string IndexMiseEnAvance {
+            get {
+                return ResourceManager.GetString("IndexMiseEnAvance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nom.
+        /// </summary>
+        public static string IndexNom {
+            get {
+                return ResourceManager.GetString("IndexNom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Précédent.
+        /// </summary>
+        public static string IndexPrecedent {
+            get {
+                return ResourceManager.GetString("IndexPrecedent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prochain.
+        /// </summary>
+        public static string IndexProchain {
+            get {
+                return ResourceManager.GetString("IndexProchain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sélectionner une catégorie....
+        /// </summary>
+        public static string IndexSelectCategorie {
+            get {
+                return ResourceManager.GetString("IndexSelectCategorie", resourceCulture);
+            }
+        }
     }
 }

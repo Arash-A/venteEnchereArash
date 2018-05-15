@@ -1,13 +1,15 @@
-﻿@model venteTest.Models.Objet
+﻿@using venteTest.Resources.Views
+
+@model venteTest.Models.Objet
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = @StringsObjets.EditTitre;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+<h2>@StringsObjets.EditTitre</h2>
 
-<h4>Objet</h4>
+<h4>@StringsObjets.EditObjet</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -48,14 +50,14 @@
                 <select asp-for="CategorieID" class="form-control" asp-items="@(new SelectList(@ViewBag.CategoryList ,"CategorieId", "Nom"))"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="@StringsObjets.ButtonSauvegarder" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">@StringsObjets.BackToList</a>
 </div>
 
 @section Scripts {

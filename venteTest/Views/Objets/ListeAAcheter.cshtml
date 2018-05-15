@@ -1,4 +1,7 @@
-﻿@model PaginatedList<venteTest.Models.Objet>
+﻿@using venteTest.Resources.Views
+
+@model PaginatedList<venteTest.Models.Objet>
+
 @{
     ViewData["Title"] = "OBjets à Vendre";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -82,10 +85,10 @@
                         @*Bouton pour afficher d'avantage.. ici un toggle hide/show*@
                     </td>
                     <td class="p-2">
-                        <a class="btn btn-outline-warning mb-2" role="button" asp-controller="Objets" asp-action="Details" asp-route-id="@item.ObjetID">Détails</a>
+                        <a class="btn btn-outline-warning mb-2" role="button" asp-controller="Objets" asp-action="Details" asp-route-id="@item.ObjetID">@StringsObjets.DetailsTitle</a>
                     </td>
                 </tr>
-                            }
+            }
         </tbody>
     </table>
     <hr />

@@ -12,6 +12,9 @@ using venteTest.Data;
 using venteTest.Models;
 using venteTest.Services;
 using Hangfire;
+using System.Globalization;
+using System.Threading;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace venteTest
 {
@@ -57,6 +60,10 @@ namespace venteTest
             // Ajout Arash pour les Taches automatique selon http://docs.hangfire.io
             // aussi: http://docs.hangfire.io/en/latest/configuration/using-dashboard.html#configuring-authorization
             //services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")));
+
+            //LOCALIZATION + GLOBALIZATION
+            //services.AddLocalization(options => options.ResourcesPath = "Resources");
+            //services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix).AddDataAnnotationsLocalization();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -90,6 +97,18 @@ namespace venteTest
 
 
         }
+
+        //COOKIES IMPLEMENTATION. TO REVISIT
+        //protected void Application_AcquireRequestState(object sender, EventArgs e)
+        //{
+        //    HttpCookie cultureCookie = Request.Cookies["langue"];
+        //    if (cultureCookie != null)
+        //    {
+        //        Thread.CurrentThread.CurrentCulture = new CultureInfo(cultureCookie.Value);
+        //        Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
+        //    }
+
+        //}
 
     }
 

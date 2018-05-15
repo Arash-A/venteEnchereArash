@@ -1,17 +1,20 @@
-﻿@model venteTest.Models.AdminViewModels.SendEmailViewModel
+﻿@using venteTest.Resources.Views
+
+@model venteTest.Models.AdminViewModels.SendEmailViewModel
 
 @{
-    ViewData["Title"] = "Email-Member";
+    ViewData["Title"] = @StringsAdmin.EmailTitle;
 }
 
-<h2>Email Member</h2>
+<h2>@StringsAdmin.EmailTitle</h2>
 
-<h4>Enter email parameters</h4>
+<h4>@StringsAdmin.EmailParametres</h4>
 <hr />
 <div class="row">
     <div class="col-md-8">
         <form asp-action="EmailMember">
-            @if (!ViewData.ModelState.IsValid) {
+            @if (!ViewData.ModelState.IsValid)
+            {
                 @Html.ValidationMessage("CustomValid", "", new { @class = "text-danger mb-2" })
             }
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -31,14 +34,14 @@
                 <span asp-validation-for="Message" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Send" class="btn btn-warning" />
+                <input type="submit" value="@StringsAdmin.EmailSend" class="btn btn-warning" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Membres">Back to Member Management</a>
+    <a asp-action="Membres">@StringsAdmin.EmailBackToMemberManagement</a>
 </div>
 
 @section Scripts {

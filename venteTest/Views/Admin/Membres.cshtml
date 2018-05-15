@@ -1,9 +1,11 @@
 ﻿@model IEnumerable<venteTest.Models.AdminViewModels.MemberViewModel>
+@using venteTest.Resources.Views
+
 @{
-    ViewData["Title"] = "Membres";
+    ViewData["Title"] = @StringsAdmin.Membres;
 }
 
-<h2>Member Management</h2>
+<h2>@StringsAdmin.MembresGestion</h2>
 <h5 class="text-primary messageTempSb">@TempData["message"]</h5>
 @*<p>
         <a asp-action="CreateCategorie">Create New</a>
@@ -12,37 +14,38 @@
     <thead>
         <tr>
             <th>
-                Email
+                @StringsAdmin.MembresCourriel
             </th>
             <th>
-                Email confirmed
+                @StringsAdmin.MembresCourrielConfirme
             </th>
             <th>
-                Name
+                @StringsAdmin.MembresNom
             </th>
             <th>
-                First Name
+                @StringsAdmin.MembresPrenom
             </th>
             <th>
-                Phone Number
+                @StringsAdmin.MembresTelephone
             </th>
             <th>
-                Civility
+                @StringsAdmin.MembresCivilite
             </th>
             <th>
-                Language
+                @StringsAdmin.MembresLangue
             </th>
             <th>
-                Adress
+                @StringsAdmin.MembresLangue
             </th>
             <th>
-                Sign up Date
+                @StringsAdmin.MembresDateEnrolement
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Email)
@@ -76,9 +79,12 @@
                 <td>
                     @*<a asp-action="ToggleMember" asp-route-id="@item.CategorieId">Edit</a>*@
 
-                    @if (!item.EmailConfirmed) {
+                    @if (!item.EmailConfirmed)
+                    {
                         <a class="btn btn-outline-warning" role="button" asp-action="ToggleMember" asp-route-email="@item.Email"><i class="far fa-check-circle"></i></a>
-                    } else {
+                    }
+                    else
+                    {
                         <a class="btn btn-outline-warning" role="button" asp-action="ToggleMember" asp-route-email="@item.Email"><i class="far fa-times-circle"></i></a>
                     }
 
