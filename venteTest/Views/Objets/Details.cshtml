@@ -18,61 +18,61 @@
 
         </div>
         <div class="col-md-8">
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nom)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Nom)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.PrixDepart)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PrixDepart)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DateInscription)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DateInscription)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DateLimite)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DateLimite)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DureeMiseVente)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DureeMiseVente) Day(s)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Categorie)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Categorie.Nom)
-        </dd>
-    </dl>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Nom)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Nom)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.PrixDepart)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.PrixDepart)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.DateInscription)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.DateInscription)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.DateLimite)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.DateLimite)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Status)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Status)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.DureeMiseVente)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.DureeMiseVente) Day(s)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Categorie)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Categorie.Nom)
+                </dd>
+            </dl>
 
         </div>
     </div>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.ObjetID" class="btn btn-warning mb-2">Edit</a> |
-    <a asp-controller="Home" asp-action="Index" class="btn btn-warning mb-2">Return to Index</a>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-warning mb-2">Return to Index</a>|
+    <a asp-action="Edit" asp-route-id="@Model.ObjetID" class="btn btn-warning mb-2">Edit</a> 
 </div>
