@@ -63,6 +63,8 @@ namespace venteTest
                 cfg.CreateMap<ApplicationUser, Miseur>();
                 cfg.CreateMap<Miseur, ApplicationUser>();
 
+                cfg.CreateMap<ApplicationUser, Models.AdminViewModels.MemberViewModel>();
+
             });
 
             // Exemples utilisés dans le contrôleur :

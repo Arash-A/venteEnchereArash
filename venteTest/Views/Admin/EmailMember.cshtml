@@ -1,0 +1,46 @@
+﻿@model venteTest.Models.AdminViewModels.SendEmailViewModel
+
+@{
+    ViewData["Title"] = "Email-Member";
+}
+
+<h2>Email Member</h2>
+
+<h4>Enter email parameters</h4>
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="EmailMember">
+            @if (!ViewData.ModelState.IsValid) {
+                @Html.ValidationMessage("CustomValid", "", new { @class = "text-danger mb-2" })
+            }
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ToEmail" class="control-label"></label>
+                <input asp-for="ToEmail" class="form-control" />
+                <span asp-validation-for="ToEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Titre" class="control-label"></label>
+                <input asp-for="Titre" class="form-control" />
+                <span asp-validation-for="Titre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Message" class="control-label"></label>
+                <textarea asp-for="Message" rows="5" cols="40" class="form-control"></textarea>
+                <span asp-validation-for="Message" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Send" class="btn btn-warning" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Membres">Back to Member Management</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using venteTest.Models;
 using venteTest.Models.AdminViewModels;
 using AutoMapper;
+using venteTest.Services;
 
 namespace venteTest.Controllers
 {
@@ -18,9 +19,15 @@ namespace venteTest.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IEmailSender _emailSender;
+
         public AdminController(ApplicationDbContext context,
-            UserManager<ApplicationUser> userManager) {
+                                UserManager<ApplicationUser> userManager,
+                                IEmailSender emailSender) {
+
+            _userManager = userManager;
             _context = context;
+            _emailSender = emailSender;
         }
         // CATEGORIES
         public async Task<IActionResult> Index()
@@ -52,6 +59,7 @@ namespace venteTest.Controllers
                 categ.Description = categ.Description.First().ToString().ToUpper() + categ.Description.Substring(1);
                 _context.Add(categ);
                 await _context.SaveChangesAsync();
+                TempData["message"] = $"Categorie '{categ.Nom}' has been created.";
                 return RedirectToAction(nameof(Index));
             }
             return View(categViewModel);
@@ -91,6 +99,7 @@ namespace venteTest.Controllers
                 try {
                     _context.Update(categorie);
                     await _context.SaveChangesAsync();
+                    TempData["message"] = $"Categorie '{categorie.Nom}' has been updated.";
                 } catch (DbUpdateConcurrencyException) {
                     if (!CategorieExists(categorie.CategorieId)) {
                         return NotFound();
@@ -126,28 +135,107 @@ namespace venteTest.Controllers
             var categorie = await _context.Categories.SingleOrDefaultAsync(m => m.CategorieId == id);
             _context.Categories.Remove(categorie);
             await _context.SaveChangesAsync();
+            TempData["message"] = $"Categorie '{categorie.Nom}' has been deleted.";
             return RedirectToAction(nameof(Index));
         }
 
         private bool CategorieExists(int id) {
             return _context.Categories.Any(e => e.CategorieId == id);
         }
+        // FIN CATEGORIES
+        // ****************************************************************** ///
 
 
         // ****************************************************************** ///
         // MEMBRES
-        public IActionResult Membres() {
+        public async Task<IActionResult> Membres() {
+
+            IList<ApplicationUser> lstMembers =  await _userManager.GetUsersInRoleAsync("Member");
+            IList<MemberViewModel> model = Mapper.Map<IList<ApplicationUser>, IList<MemberViewModel>>(lstMembers);
+            return View(model);
+        }
+        public async Task<IActionResult> ToggleMember(string email) {
+            //
+            if (email == null) {
+                return RedirectToAction(nameof(Index));
+            }
+            var _user = await _userManager.FindByEmailAsync(email);
+            if (_user == null) {
+                throw new ApplicationException($"Unable to load user with email '{email}'.");
+            }
+            //Toggle la propriété pour désactivé membre
+            if (_user.EmailConfirmed) {
+                _user.EmailConfirmed = false;
+                TempData["message"] = $"Member '{email}' has been deactivated.";
+            } else {
+                _user.EmailConfirmed = true;
+                TempData["message"] = $"Member '{email}' has been activated.";
+            }               
+
+            var result = await _userManager.UpdateAsync(_user); // MAJ
+            if (result.Succeeded) {
+                //Montre un message de succès...
+
+            } else {
+                TempData["message"] = $"Failed to update activation status of '{email}'.";
+            }
+
+            return RedirectToAction(nameof(Membres));
+        }
+        public async Task<IActionResult> EmailMember(string email) {
+            if (email == null) {
+                TempData["message"] = $"Enter an email adress.";
+                return RedirectToAction(nameof(Membres));
+            }
+            var _user = await _userManager.FindByEmailAsync(email);
+            if (_user == null) {
+                throw new ApplicationException($"Unable to load user with email '{email}'.");
+            }
+            SendEmailViewModel model = new SendEmailViewModel { ToEmail = email };
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EmailMember(SendEmailViewModel emailVM) {
+            
+            // Valider existence du membre
+            var _user = await _userManager.FindByEmailAsync(emailVM.ToEmail);
+            if (_user == null) {
+                ModelState.AddModelError("CustomValid", $"Error. No member with email '{emailVM.ToEmail}' exists in the system.");
+                return View(emailVM);
+            }
+            // Fin valider existence du membre
+
+            // Envoyer courriel à membre
+            await _emailSender.SendEmailAsync(emailVM.ToEmail, emailVM.Titre, emailVM.Message);
+            TempData["message"] = $"Message sent to member with email '{emailVM.ToEmail}'.";
+            return RedirectToAction(nameof(Membres));
+        }
+        // FIN MEMBRES
+        // ****************************************************************** ///
+
+        // ****************************************************************** ///
+        // BidConfiguration
+        public async Task<IActionResult> BidConfiguration() {
+
+            // afficher la config des enchères et pouvoir en creer
+
             return View();
         }
-        public IActionResult DeactivateMembre() {
-            //
 
-            return RedirectToAction(nameof(Membres));
-        }
-        public IActionResult SendMail() {
-            // Envoyer courriel à membre
 
-            return RedirectToAction(nameof(Membres));
+        // FIN BidConfiguration
+        // ****************************************************************** ///
+
+        // ****************************************************************** ///
+        // List objets en vente, en cours, vendu, etc.
+
+        public async Task<IActionResult> Objets() {
+
+            // afficher la config des enchères et pouvoir en creer
+
+            return View();
         }
 
     }

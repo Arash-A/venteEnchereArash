@@ -142,18 +142,24 @@
             //filter les catégories
             for (var i = 1, row; row = table.rows[i]; i++) {
                 //iterate through rows
-                var leText = row.cells[noColCategorie].innerText.replace(/(^\s+|\s+$)/g, ''); 
+                var leText = row.cells[noColCategorie].innerText.replace(/(^\s+|\s+$)/g, '');
                 var premier = nomCategorie.substring(0, 6);
                 if (leText == nomCategorie || premier == "Select") {
                     row.style.display = '';
                 } else {
                     row.style.display = 'none';
                 }
-                    
+
             }
 
         }
-
+    
+    </script>
+    <script>
+        $(".messageTempSb").show().css("background-color", "#FFEEBA");
+        setTimeout(function () {
+            $(".messageTempSb").fadeOut();
+        }, 3000);
     </script>
 
     @RenderSection("Scripts", required: false)

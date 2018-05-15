@@ -1,39 +1,89 @@
-﻿
-@{
-    ViewData["Title"] = "Membres";
-}
+﻿@model IEnumerable<venteTest.Models.AdminViewModels.MemberViewModel>
+    @{
+        ViewData["Title"] = "Membres";
+    }
 
-<h2>Member Management</h2>
+    <h2>Member Management</h2>
+    <h5 class="text-primary messageTempSb">@TempData["message"]</h5>
+    @*<p>
+            <a asp-action="CreateCategorie">Create New</a>
+        </p>*@
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Email confirmed
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    First Name
+                </th>
+                <th>
+                    Phone Number
+                </th>
+                <th>
+                    Civility
+                </th>
+                <th>
+                    Language
+                </th>
+                <th>
+                    Adress
+                </th>
+                <th>
+                    Sign up Date
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                    <a class="btn btn-outline-warning" role="button" asp-action="EmailMember" asp-route-email="@item.Email"><i class="fa fa-envelope"></i></a>
 
-@*<p>
-    <a asp-action="CreateCategorie">Create New</a>
-</p>*@
-@*<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nom)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nom)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                <a asp-action="EditCategorie" asp-route-id="@item.CategorieId">Edit</a> |
-                <a asp-action="DeleteCategorie" asp-route-id="@item.CategorieId">Delete</a>
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>*@
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmailConfirmed)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Prenom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Civilite)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Langue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Adresse)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateInscription)
+                </td>
+                <td>
+                    @*<a asp-action="ToggleMember" asp-route-id="@item.CategorieId">Edit</a>*@
+
+                    @if (!item.EmailConfirmed) {
+                <a class="btn btn-outline-warning" role="button" asp-action="ToggleMember" asp-route-email="@item.Email"><i class="far fa-check-circle"></i></a>
+                    } else {
+                <a class="btn btn-outline-warning" role="button" asp-action="ToggleMember" asp-route-email="@item.Email"><i class="far fa-times-circle"></i></a>
+                    }
+
+                </td>
+            </tr>
+            }
+</tbody>
+    </table>
