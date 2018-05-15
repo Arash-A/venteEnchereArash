@@ -1,48 +1,48 @@
 ﻿@model IEnumerable<venteTest.Models.AdminViewModels.MemberViewModel>
-    @{
-        ViewData["Title"] = "Membres";
-    }
+@{
+    ViewData["Title"] = "Membres";
+}
 
-    <h2>Member Management</h2>
-    <h5 class="text-primary messageTempSb">@TempData["message"]</h5>
-    @*<p>
-            <a asp-action="CreateCategorie">Create New</a>
-        </p>*@
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    Email
-                </th>
-                <th>
-                    Email confirmed
-                </th>
-                <th>
-                    Name
-                </th>
-                <th>
-                    First Name
-                </th>
-                <th>
-                    Phone Number
-                </th>
-                <th>
-                    Civility
-                </th>
-                <th>
-                    Language
-                </th>
-                <th>
-                    Adress
-                </th>
-                <th>
-                    Sign up Date
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model) {
+<h2>Member Management</h2>
+<h5 class="text-primary messageTempSb">@TempData["message"]</h5>
+@*<p>
+        <a asp-action="CreateCategorie">Create New</a>
+    </p>*@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Email
+            </th>
+            <th>
+                Email confirmed
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                First Name
+            </th>
+            <th>
+                Phone Number
+            </th>
+            <th>
+                Civility
+            </th>
+            <th>
+                Language
+            </th>
+            <th>
+                Adress
+            </th>
+            <th>
+                Sign up Date
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Email)
@@ -77,13 +77,13 @@
                     @*<a asp-action="ToggleMember" asp-route-id="@item.CategorieId">Edit</a>*@
 
                     @if (!item.EmailConfirmed) {
-                <a class="btn btn-outline-warning" role="button" asp-action="ToggleMember" asp-route-email="@item.Email"><i class="far fa-check-circle"></i></a>
+                        <a class="btn btn-outline-warning" role="button" asp-action="ToggleMember" asp-route-email="@item.Email"><i class="far fa-check-circle"></i></a>
                     } else {
-                <a class="btn btn-outline-warning" role="button" asp-action="ToggleMember" asp-route-email="@item.Email"><i class="far fa-times-circle"></i></a>
+                        <a class="btn btn-outline-warning" role="button" asp-action="ToggleMember" asp-route-email="@item.Email"><i class="far fa-times-circle"></i></a>
                     }
 
                 </td>
             </tr>
-            }
-</tbody>
-    </table>
+        }
+    </tbody>
+</table>

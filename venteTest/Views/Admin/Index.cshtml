@@ -1,12 +1,13 @@
 ﻿@model IEnumerable<venteTest.Models.AdminViewModels.CategorieViewModel>
 
-@{
-    ViewData["Title"] = "Index";
+@{ ViewData["Title"] = "Index";
 }
 
 <h2>Object Categorie Management</h2>
 <h5 class="text-primary messageTempSb">@TempData["message"]</h5>
-
+@*@if (!ViewData.ModelState.IsValid) {
+    @Html.ValidationMessage("CustomValid", "", new { @class = "text-danger mb-2" })
+}*@
 <p>
     <a asp-action="CreateCategorie">Create New</a>
 </p>

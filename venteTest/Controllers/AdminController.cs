@@ -123,6 +123,21 @@ namespace venteTest.Controllers
             if (categorie == null) {
                 return NotFound();
             }
+
+            // Valider que la catégorie n'est pas un objet en vente ou vendu...
+            if (_context.Objets.FirstOrDefault(p => p.CategorieID == id) != null) {
+                //ModelState.AddModelError("CustomValid", $"Error. You cannot delete the categorie '{categorie.Nom}'. An object for sale with this categorie name already exists.");
+                if (_context.Objets.FirstOrDefault(p => p.CategorieID == id).Acheteur != null)
+                    TempData["message"] = $"Error. You cannot delete the categorie '{categorie.Nom}'. An object already sold with this categorie name already exists.";
+                else
+                    TempData["message"] = $"Error. You cannot delete the categorie '{categorie.Nom}'. An object currently for sale with this categorie name already exists.";
+
+                IList<Categorie> lstCateg = await _context.Categories.ToListAsync();
+                IList<CategorieViewModel> lstCategViewModel = Mapper.Map<IList<Categorie>, IList<CategorieViewModel>>(lstCateg);
+                return View("Index", lstCategViewModel);
+            }
+            // Fin validation
+
             var categViewModel = Mapper.Map<Categorie, CategorieViewModel>(categorie);
             return View(categViewModel);
         }
@@ -131,6 +146,7 @@ namespace venteTest.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteCategorieConfirmed([Bind("CategorieId")] CategorieViewModel categViewModel) {
+            
             int id = categViewModel.CategorieId;
             var categorie = await _context.Categories.SingleOrDefaultAsync(m => m.CategorieId == id);
             _context.Categories.Remove(categorie);
@@ -220,8 +236,98 @@ namespace venteTest.Controllers
         public async Task<IActionResult> BidConfiguration() {
 
             // afficher la config des enchères et pouvoir en creer
+            IList<ConfigurationAdmin> lstConfigs = await _context.ConfigurationAdmins.ToListAsync();
+            IList<ConfigurationAdminViewModel> lstConfigsViewModel = Mapper.Map<IList<ConfigurationAdmin>, IList<ConfigurationAdminViewModel>>(lstConfigs);
+            return View(lstConfigsViewModel);
+        }
 
+        public IActionResult CreateBidConfiguration() {
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateBidConfiguration([Bind("TauxGlobalComissionAuVendeur,PasGlobalEnchere")]  ConfigurationAdminViewModel configurationVM) {
+
+            // validation manuelle:
+            string errMsg = "Please correct the following errors : \n";
+            bool error = false;
+            decimal pasEnchere;
+            decimal tauxGlobalComissionAuVendeur;
+            if (!decimal.TryParse(configurationVM.PasGlobalEnchere.ToString(), out pasEnchere) || pasEnchere <= 0 || pasEnchere >= 50) {
+                errMsg += " - The bid step must be a value between 0 and 50 \n";
+                error = true;
+            }
+            if (!decimal.TryParse(configurationVM.TauxGlobalComissionAuVendeur.ToString(), out tauxGlobalComissionAuVendeur) || tauxGlobalComissionAuVendeur <= 0 || (tauxGlobalComissionAuVendeur) >= 50) {
+                errMsg += " - The bid commision cost value between 0 and 50 \n";
+                error = true;
+            }
+
+            if (error) {
+                ModelState.AddModelError("CustomValid", errMsg);
+                return View(configurationVM);
+            }
+
+            // AUCUNE ERREUR: 
+            configurationVM.ConfigurationAdminId = 0;
+            configurationVM.PasGlobalEnchere = pasEnchere / 100m;
+            configurationVM.TauxGlobalComissionAuVendeur = tauxGlobalComissionAuVendeur / 100m;
+            //if (ModelState.IsValid) {
+
+            var configuration = new ConfigurationAdmin {
+                ConfigurationAdminId = 0,
+                PasGlobalEnchere = configurationVM.PasGlobalEnchere,
+                TauxGlobalComissionAuVendeur = configurationVM.TauxGlobalComissionAuVendeur
+            };
+                
+                _context.Add(configuration);
+                await _context.SaveChangesAsync();
+                TempData["message"] = $"Created sucessfully new configuration # '{configuration.ConfigurationAdminId}'.";
+                return RedirectToAction(nameof(BidConfiguration));
+            //}
+        }
+
+        // GET:
+        public async Task<IActionResult> DeleteBidConfiguration(int? id) {
+            if (id == null) {
+                return NotFound();
+            }
+
+            var configuration = await _context.ConfigurationAdmins
+                .SingleOrDefaultAsync(m => m.ConfigurationAdminId == id);
+            if (configuration == null) {
+                return NotFound();
+            }
+
+            // Valider que la configuration n'est pas un objet en vente ou vendu...
+            if (_context.Objets.FirstOrDefault(p => p.ConfigurationAdmin.ConfigurationAdminId == id) != null) {
+                TempData["message"] = $"Error. You cannot delete this bid configuration. An object already sold or for sale with this bid configuration already exists.";
+
+                IList<ConfigurationAdmin> lstConfigs = await _context.ConfigurationAdmins.ToListAsync();
+                IList<ConfigurationAdminViewModel> lstConfigsViewModel = Mapper.Map<IList<ConfigurationAdmin>, IList<ConfigurationAdminViewModel>>(lstConfigs);
+                return View("BidConfiguration", lstConfigsViewModel);
+            }
+            // Fin validation
+
+            var model = Mapper.Map<ConfigurationAdmin, ConfigurationAdminViewModel>(configuration);
+            return View(model);
+        }
+
+        // POST:
+        [HttpPost, ActionName("DeleteBidConfiguration")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteBidConfigurationConfirmed(ConfigurationAdminViewModel configVM) {
+
+            int id = configVM.ConfigurationAdminId;
+            var configuration = await _context.ConfigurationAdmins.SingleOrDefaultAsync(m => m.ConfigurationAdminId == id);
+            _context.ConfigurationAdmins.Remove(configuration);
+            await _context.SaveChangesAsync();
+            TempData["message"] = $"Bid configuration '{configuration.ConfigurationAdminId}' has been deleted.";
+            return RedirectToAction(nameof(BidConfiguration));
+        }
+
+        private bool ConfigurationExists(int id) {
+            return _context.ConfigurationAdmins.Any(e => e.ConfigurationAdminId == id);
         }
 
 

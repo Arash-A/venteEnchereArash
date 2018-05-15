@@ -1,0 +1,47 @@
+﻿@model IEnumerable<venteTest.Models.AdminViewModels.ConfigurationAdminViewModel>
+
+@{
+    ViewData["Title"] = "BidConfiguration";
+}
+
+<h2>Bid Configuration</h2>
+<h5 class="text-primary messageTempSb">@TempData["message"]</h5>
+<p>
+    <a asp-action="CreateBidConfiguration">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ConfigurationAdminId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TauxGlobalComissionAuVendeur)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PasGlobalEnchere)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ConfigurationAdminId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TauxGlobalComissionAuVendeur)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PasGlobalEnchere)
+                </td>
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+                    @Html.ActionLink("Delete", "DeleteBidConfiguration", new { id = item.ConfigurationAdminId })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

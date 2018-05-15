@@ -1,0 +1,46 @@
+﻿@model venteTest.Models.AdminViewModels.ConfigurationAdminViewModel
+
+@{
+    ViewData["Title"] = "CreateBidConfiguration";
+}
+
+<h2>Create</h2>
+
+<h4>Bid Configuration</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateBidConfiguration">
+            @if (!ViewData.ModelState.IsValid) {
+                @Html.ValidationMessage("CustomValid", "", new { @class = "text-danger mb-2" })
+           }
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<div class="form-group">
+            <label asp-for="ConfigurationAdminId" class="control-label"></label>
+            <input asp-for="ConfigurationAdminId" class="form-control" />
+            <span asp-validation-for="ConfigurationAdminId" class="text-danger"></span>
+        </div>*@
+            <div class="form-group">
+                <label asp-for="TauxGlobalComissionAuVendeur" class="control-label"></label>
+                <input asp-for="TauxGlobalComissionAuVendeur" class="form-control" />
+                <span asp-validation-for="TauxGlobalComissionAuVendeur" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PasGlobalEnchere" class="control-label"></label>
+                <input asp-for="PasGlobalEnchere" class="form-control" />
+                <span asp-validation-for="PasGlobalEnchere" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-warning" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="BidConfiguration">Back to Bid Configurations</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
