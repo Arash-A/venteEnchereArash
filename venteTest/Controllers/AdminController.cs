@@ -270,7 +270,7 @@ namespace venteTest.Controllers
 
             // AUCUNE ERREUR: 
             configurationVM.ConfigurationAdminId = 0;
-            configurationVM.PasGlobalEnchere = pasEnchere / 100m;
+            configurationVM.PasGlobalEnchere = pasEnchere;
             configurationVM.TauxGlobalComissionAuVendeur = tauxGlobalComissionAuVendeur / 100m;
             //if (ModelState.IsValid) {
 
