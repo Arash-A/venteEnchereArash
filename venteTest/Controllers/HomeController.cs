@@ -19,6 +19,8 @@ using Microsoft.Extensions.Logging;
 using System.Text.Encodings.Web;
 using System.Net;
 using System.Net.Mail;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Http;
 
 namespace venteTest.Controllers
 {
@@ -32,9 +34,10 @@ namespace venteTest.Controllers
             _context = context;
         }
 
-        public HomeController()
-        {
-        }
+        //public HomeController()
+        //{
+
+        //}
 
         public async Task<IActionResult> Index(
             string sortOrder,
@@ -172,6 +175,16 @@ namespace venteTest.Controllers
         public ActionResult Sent()
         {
             return View();
+        }
+
+        public IActionResult SetLanguage(string culture, string returnUrl)
+        {
+            Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
+            );
+            return LocalRedirect(returnUrl);
         }
 
         public IActionResult Error()

@@ -15,6 +15,8 @@ using Hangfire;
 using System.Globalization;
 using System.Threading;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Options;
 
 namespace venteTest
 {
@@ -49,7 +51,27 @@ namespace venteTest
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
-            services.AddMvc();
+            //services.AddMvc();
+            services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+            .AddDataAnnotationsLocalization();
+
+            services.AddApplicationInsightsTelemetry(Configuration);
+            services.AddLocalization(options => options.ResourcesPath = "Ressources");
+
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new[]
+                {
+                new CultureInfo("en"),
+                new CultureInfo("fr"),
+            };
+
+                options.DefaultRequestCulture = new RequestCulture(culture: "en", uiCulture: "en");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+            });
+            //fin ajout carles
+
 
             // Ajout SB pour email sender
             services.AddSingleton<IEmailSender, EmailSender>();
@@ -68,6 +90,14 @@ namespace venteTest
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider) {
+
+
+            //ajout carles localisation
+            var localizationOption = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(localizationOption.Value);
+            //Fin ajout carles
+
+
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();
