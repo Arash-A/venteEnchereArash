@@ -101,9 +101,9 @@
     <hr />
     <form class="form-inline" asp-action="Index" method="get">
         <div class="form-group mb-2">
-            <strong class="h5">Filter objects by : <mark class="p-2 mt-2 mb-2">@StringsHome.IndexNom</mark></strong><input type="text" name="SearchString" class="form-control m-2" value="@ViewData["currentFilter"]" />
-            <input type="submit" value="Search !" class="btn btn-warning btn-lg m-2" /> |
-            <strong class="m-2 h5">by : <mark class="p-2 mt-2 mb-2">@StringsHome.IndexCategorie</mark></strong>
+            <strong class="h5">@StringsHome.IndexFiltrerPar <mark class="p-2 mt-2 mb-2">@StringsHome.IndexNom</mark></strong><input type="text" name="SearchString" class="form-control m-2" value="@ViewData["currentFilter"]" />
+            <input type="submit" value="@StringsHome.IndexRechercher" class="btn btn-warning btn-lg m-2" /> |
+            <strong class="m-2 h5">@StringsHome.IndexRechercherPar <mark class="p-2 mt-2 mb-2">@StringsHome.IndexCategorie</mark></strong>
             <select class="form-control w-auto mt-2 mb-2 mr-2" id="cat" onchange="filterCategories(this.value)">
                 <option>@StringsHome.IndexSelectCategorie</option>
                 @foreach (var item in ViewBag.Categories)
@@ -154,7 +154,7 @@
                             </div>
                             <div class="col-auto col-lg-6 mt-0">
                                 <p style="background-color: #FCF8E3;" class="p-1 text-dark rounded-bottom border-top border-danger"><strong>@Html.DisplayFor(modelItem => item.Nom)</strong></p>
-                                <a class="btn btn-outline-warning mb-2" role="button" asp-controller="Objets" asp-action="Details" asp-route-id="@item.ObjetID">Full specs</a>
+                                <a class="btn btn-outline-warning mb-2" role="button" asp-controller="Objets" asp-action="Details" asp-route-id="@item.ObjetID">@StringsHome.IndexSpecs</a>
                                 <p class="p-2 mt-2">@Html.DisplayFor(modelItem => item.Description)</p>
 
                                 @*Afficher l'enchère actuellement sur l'objet qui mène*@
@@ -168,8 +168,8 @@
                                     <span>@miseurMenantEnchere.Prenom @miseurMenantEnchere.Nom !  |  @Html.DisplayFor(modelItem => item.Encheres.OrderByDescending(t => t.Niveau).FirstOrDefault().Niveau) $</span>
                                     @*Bouton pour afficher d'avantage.. ici un toggle hide/show*@
 
-                                    <a class="btn btn-danger ml-3 mb-2 mt-2" role="button" asp-controller="Objets" asp-action="Miser" asp-route-id="@item.ObjetID">BID !</a>
-                                    | <a class="btn btn-outline-danger" role="button" asp-route-id="@item.ObjetID">Bid History</a>
+                                    <a class="btn btn-danger ml-3 mb-2 mt-2" role="button" asp-controller="Objets" asp-action="Miser" asp-route-id="@item.ObjetID">@StringsHome.IndexMise</a>
+                                    | <a class="btn btn-outline-danger" role="button" asp-route-id="@item.ObjetID">@StringsHome.IndexMiseHistorique</a>
                                 </p>
 
                             </div>

@@ -150,14 +150,23 @@
   <data name="IndexFiltrerChamps" xml:space="preserve">
     <value>Click here to filter field!</value>
   </data>
+  <data name="IndexFiltrerPar" xml:space="preserve">
+    <value>Filter objects by: </value>
+  </data>
   <data name="IndexFin" xml:space="preserve">
     <value>End date</value>
+  </data>
+  <data name="IndexMise" xml:space="preserve">
+    <value>BID!</value>
   </data>
   <data name="IndexMiseDepart" xml:space="preserve">
     <value>Starting bid</value>
   </data>
   <data name="IndexMiseEnAvance" xml:space="preserve">
     <value>Currently leading bid</value>
+  </data>
+  <data name="IndexMiseHistorique" xml:space="preserve">
+    <value>History</value>
   </data>
   <data name="IndexNom" xml:space="preserve">
     <value>Name</value>
@@ -168,7 +177,16 @@
   <data name="IndexProchain" xml:space="preserve">
     <value>Next</value>
   </data>
+  <data name="IndexRechercher" xml:space="preserve">
+    <value>Search!</value>
+  </data>
+  <data name="IndexRechercherPar" xml:space="preserve">
+    <value>By:</value>
+  </data>
   <data name="IndexSelectCategorie" xml:space="preserve">
     <value>Select a category...</value>
+  </data>
+  <data name="IndexSpecs" xml:space="preserve">
+    <value>Full specs</value>
   </data>
 </root>

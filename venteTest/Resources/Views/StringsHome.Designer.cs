@@ -160,11 +160,29 @@ namespace venteTest.Resources.Views {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Filtrer les objets par:.
+        /// </summary>
+        public static string IndexFiltrerPar {
+            get {
+                return ResourceManager.GetString("IndexFiltrerPar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date de fin.
         /// </summary>
         public static string IndexFin {
             get {
                 return ResourceManager.GetString("IndexFin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MISER!.
+        /// </summary>
+        public static string IndexMise {
+            get {
+                return ResourceManager.GetString("IndexMise", resourceCulture);
             }
         }
         
@@ -183,6 +201,15 @@ namespace venteTest.Resources.Views {
         public static string IndexMiseEnAvance {
             get {
                 return ResourceManager.GetString("IndexMiseEnAvance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Historique.
+        /// </summary>
+        public static string IndexMiseHistorique {
+            get {
+                return ResourceManager.GetString("IndexMiseHistorique", resourceCulture);
             }
         }
         
@@ -214,11 +241,38 @@ namespace venteTest.Resources.Views {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rechercher!.
+        /// </summary>
+        public static string IndexRechercher {
+            get {
+                return ResourceManager.GetString("IndexRechercher", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Par: .
+        /// </summary>
+        public static string IndexRechercherPar {
+            get {
+                return ResourceManager.GetString("IndexRechercherPar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sélectionner une catégorie....
         /// </summary>
         public static string IndexSelectCategorie {
             get {
                 return ResourceManager.GetString("IndexSelectCategorie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spécifications complètes.
+        /// </summary>
+        public static string IndexSpecs {
+            get {
+                return ResourceManager.GetString("IndexSpecs", resourceCulture);
             }
         }
     }
