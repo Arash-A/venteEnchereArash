@@ -29,6 +29,11 @@ namespace venteTest.Controllers
             _context = context;
             _emailSender = emailSender;
         }
+
+        public AdminController()
+        {
+        }
+
         // CATEGORIES
         public async Task<IActionResult> Index()
         {

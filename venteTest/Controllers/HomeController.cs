@@ -32,6 +32,10 @@ namespace venteTest.Controllers
             _context = context;
         }
 
+        public HomeController()
+        {
+        }
+
         public async Task<IActionResult> Index(
             string sortOrder,
             string currentFilter,
