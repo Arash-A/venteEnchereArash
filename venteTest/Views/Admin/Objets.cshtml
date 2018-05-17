@@ -1,0 +1,143 @@
+﻿@model IEnumerable<venteTest.Models.AdminViewModels.ObjetsViewModel>
+
+@{
+    ViewData["Title"] = "Objets";
+
+    string headerBidCurrentEnd = "";
+    string headerLeaderOrWinner = "";
+
+    if (@ViewBag.StateObjects == "Sold") {
+        headerBidCurrentEnd = "Bid End Price";
+        headerLeaderOrWinner = "Bid Winner";
+    } else {
+        headerBidCurrentEnd = "Current Bid Price";
+        headerLeaderOrWinner = "Bid Leader";
+    }
+}
+
+    <h2>Objects</h2>
+    <p>
+        @* Afficher tout Ou nouveaux depuis 24h *@
+        <div class="btn-group">
+            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Objects display options <small>&#x25BC;</small>
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" role="menuitem" asp-action="Objets" asp-route-objects="AllObjects">All Objects</a>
+                <a class="dropdown-item" role="menuitem" asp-action="Objets" asp-route-objects="NewObjets">New Objects (24h)</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" role="menuitem" asp-action="Objets" asp-route-state="SoldObjects">Sold Objects</a>
+                <a class="dropdown-item" role="menuitem" asp-action="Objets" asp-route-state="SaleObjets">Objects for sale</a>
+            </div>
+        </div>
+        <div class="mt-2">
+            <h6>Objects sale history by user :</h6>
+            <select class="form-control w-auto m-2" id="lesUsers" onchange="location = this.value;">
+                <option>Select Email...</option>
+                @foreach (var item in ViewBag.lstMembers)
+                {
+                    if (ViewBag.EmailSel == @item.Email) {
+                        <option value="/Admin/Objets/?email=@item.Email" selected>@item.Email</option>
+                    } else {
+                        <option value="/Admin/Objets/?email=@item.Email">@item.Email</option>
+                    }
+                }
+            </select>
+        </div>
+        @{
+        var blah = (@ViewBag.StateObjects == "Sold") ? "sold" : (@ViewBag.StateObjects == "OnSale") ? "on sale" : "";
+
+        if (@ViewBag.AllObjects == "all") {
+            <h6 class="mt-4">Displaying New Objects (24h) @blah : </h6>
+        } else {
+            <h6 class="mt-4">Displaying All Objects @blah :</h6>
+        }
+        }
+        @* Fin afficher tout Ou nouveaux depuis 24h *@
+    </p>
+
+    <table class="table-striped">
+        <thead>
+            <tr class="border-top border">
+                <th class="p-2">
+                    @*@Html.DisplayNameFor(model => model.imageUrl)*@
+                </th>
+                <th class="p-2">
+                    Name
+                </th>
+                <th class="p-2">
+                    Description
+                </th>
+                <th class="p-2">
+                    Bid Start Price
+                </th>
+                <th class="p-2">
+                    @headerBidCurrentEnd
+                </th>
+                <th class="p-2">
+                    Bid Start Date
+                </th>
+                <th class="p-2">
+                    Bid End Date
+                </th>
+                <th class="p-2">
+                    Days since Bid Start
+                </th>
+                <th class="p-2">
+                    Object state
+                </th>
+                <th class="p-2">
+                    @headerLeaderOrWinner
+                </th>
+                @*<th></th>*@
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+
+            <tr>
+                <td class="p-2">
+                    <img src="/@item.imageUrl" width="100" height="100" class="m-2" />
+                </td>
+                <td class="p-2">
+                    @Html.DisplayFor(modelItem => item.Nom)
+                </td>
+                <td class="p-2">
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td class="p-2">
+                    @Html.DisplayFor(modelItem => item.PrixDepart)
+                </td>
+                <td class="p-2">
+                    @{
+                    var enchereMenante = item.Encheres.OrderByDescending(t => t.Niveau).FirstOrDefault();
+                    var miseurMenantEnchere = enchereMenante.Miseur;
+
+                    var leader = miseurMenantEnchere.Prenom + " " + miseurMenantEnchere.Nom;
+                    }
+                    @Html.DisplayFor(modelItem => item.Encheres.OrderByDescending(t => t.Niveau).FirstOrDefault().Niveau) $
+                </td>
+                <td class="p-2">
+                    @Html.DisplayFor(modelItem => item.DateInscription)
+                </td>
+                <td class="p-2">
+                    @Html.DisplayFor(modelItem => item.DateLimite)
+                </td>
+                <td class="p-2">
+                    @Html.DisplayFor(modelItem => item.DureeMiseVente)
+                </td>
+                <td class="p-2">
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td class="p-2">
+                    @leader
+                </td>
+                @*<td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>*@
+            </tr>
+    }
+        </tbody>
+    </table>
