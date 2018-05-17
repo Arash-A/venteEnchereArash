@@ -16,9 +16,14 @@ using System.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Rewrite;
 using venteTest.Models.ObjetViewModel;
+using venteTest.Services;
 using AutoMapper;
+
 using System.Collections;
 using System.Net.Mail;
+
+
+using Hangfire;
 
 namespace venteTest.Controllers
 {
@@ -222,10 +227,19 @@ namespace venteTest.Controllers
                 await _context.SaveChangesAsync();
                 //Fin ajout BD
 
+                //Ajout Arash pour mettre objet en status Vendu apres certain temp !!!!!!!!!!!!!! ces ligne du code doit être exactement ici !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+               // BackgroundJob.Schedule(() => ChangeStatus(objet.ObjetID), objet.DateLimite);
+               
+
                 TempData["message"] = $"Objet '{objet.Nom}' has been created for bidding starting now and ending at '{objet.DateLimite}'.";
                 return RedirectToAction(nameof(Index));
             }
             return View(objetVM);
+        }
+        public void ChangeStatus(int objId) {
+            var objetNew = _context.Objets.Find(objId);
+            objetNew.Status = Status.Vendu;
+            _context.SaveChanges();
         }
 
         // POST: Objets/Create

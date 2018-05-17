@@ -7,37 +7,57 @@
 
 <h2>@StringsAdmin.MembresGestion</h2>
 <h5 class="text-primary messageTempSb">@TempData["message"]</h5>
-@*<p>
-        <a asp-action="CreateCategorie">Create New</a>
-    </p>*@
-<table class="table">
+
+<p>
+    @* Afficher tout Ou nouveaux depuis 24h *@
+    <div class="btn-group">
+        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Members display options <small>&#x25BC;</small>
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" role="menuitem" asp-action="Membres" asp-route-members="AllMembers">All Members</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" role="menuitem" asp-action="Membres" asp-route-members="NewMembers">New Members (24h)</a>
+        </div>
+    </div>
+    @{
+        if (@ViewBag.AllMembers == "all") {
+            <h6 class="mt-2">Displaying New Members (24h) :</h6>
+        } else {
+            <h6 class="mt-2">Displaying All Members :</h6>
+        }
+    }
+    @* Fin afficher tout Ou nouveaux depuis 24h *@
+</p>
+
+<table class="table-striped">
     <thead>
-        <tr>
-            <th>
+        <tr class="border-top border">
+            <th class="p-2">
                 @StringsAdmin.MembresCourriel
             </th>
-            <th>
+            <th class="p-2">
                 @StringsAdmin.MembresCourrielConfirme
             </th>
-            <th>
+            <th class="p-2">
                 @StringsAdmin.MembresNom
             </th>
-            <th>
+            <th class="p-2">
                 @StringsAdmin.MembresPrenom
             </th>
-            <th>
+            <th class="p-2">
                 @StringsAdmin.MembresTelephone
             </th>
-            <th>
+            <th class="p-2">
                 @StringsAdmin.MembresCivilite
             </th>
-            <th>
+            <th class="p-2">
                 @StringsAdmin.MembresLangue
             </th>
-            <th>
+            <th class="p-2">
                 @StringsAdmin.MembresAdresse
             </th>
-            <th>
+            <th class="p-2">
                 @StringsAdmin.MembresDateEnrolement
             </th>
             <th></th>

@@ -30,10 +30,6 @@ namespace venteTest.Controllers
             _emailSender = emailSender;
         }
 
-        public AdminController()
-        {
-        }
-
         // CATEGORIES
         public async Task<IActionResult> Index()
         {
@@ -169,12 +165,22 @@ namespace venteTest.Controllers
 
         // ****************************************************************** ///
         // MEMBRES
-        public async Task<IActionResult> Membres() {
+        public async Task<IActionResult> Membres(string members = "") {
 
             IList<ApplicationUser> lstMembers =  await _userManager.GetUsersInRoleAsync("Member");
+
+            if (!(members == "" || members == "AllMembers")) {
+                // Afficher les nouveaux membres inscrits depuis 24 heures
+                lstMembers = lstMembers.Where(p => p.DateInscription > DateTime.Now.Subtract(TimeSpan.FromDays(1))).ToList();
+                ViewBag.AllMembers = "all";
+            }
             IList<MemberViewModel> model = Mapper.Map<IList<ApplicationUser>, IList<MemberViewModel>>(lstMembers);
+
             return View(model);
+
         }
+
+
         public async Task<IActionResult> ToggleMember(string email) {
             //
             if (email == null) {
@@ -342,11 +348,50 @@ namespace venteTest.Controllers
         // ****************************************************************** ///
         // List objets en vente, en cours, vendu, etc.
 
-        public async Task<IActionResult> Objets() {
+        public async Task<IActionResult> Objets(string objects = "", string state = "", string email = "") {
 
-            // afficher la config des enchères et pouvoir en creer
+            IList<ApplicationUser> lstMembers = await _userManager.GetUsersInRoleAsync("Member");
+            ViewBag.lstMembers = lstMembers;
 
-            return View();
+            string query = "SELECT * FROM Objets"; //
+
+            //on load bcp de paramètres...
+            var objets = from o in _context.Objets.
+                         Include(o => o.Categorie).
+                         Include(o => o.Vendeur).
+                         Include(o => o.Acheteur).
+                         Include(o => o.Fichiers).
+                         Include(o => o.Encheres).
+                            ThenInclude(o => o.Miseur).
+                         FromSql(query, 0)
+                         select o;
+
+            if (!(objects == "" || objects == "AllObjects")) {
+                // Afficher nouveaux
+                ViewBag.AllObjects = "all";
+                objets = objets.Where(p => p.DateInscription > DateTime.Now.Subtract(TimeSpan.FromDays(1)));
+            }
+
+            if (!(state == "")) {
+                // Afficher nouveaux
+                if (state == "SoldObjects") { 
+                   ViewBag.StateObjects = "Sold";
+                   objets = objets.Where(p => p.Status == Status.Vendu);
+                } else {
+                    ViewBag.StateObjects = "OnSale";
+                   objets = objets.Where(p => p.Status == Status.EnVente);
+                }
+            }
+
+            if (email != "") {
+                objets = objets.Where(p => p.Vendeur.Email.Equals(email));
+                ViewBag.EmailSel = email;
+            }
+
+            IList<Objet> obs = objets.ToList();
+
+            IList<ObjetsViewModel> model = Mapper.Map<IList<Objet>, IList<ObjetsViewModel>>(obs);
+            return View(model);
         }
 
     }
