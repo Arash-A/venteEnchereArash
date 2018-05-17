@@ -228,7 +228,7 @@ namespace venteTest.Controllers
                 //Fin ajout BD
 
                 //Ajout Arash pour mettre objet en status Vendu apres certain temp !!!!!!!!!!!!!! ces ligne du code doit être exactement ici !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-               // BackgroundJob.Schedule(() => ChangeStatus(objet.ObjetID), objet.DateLimite);
+                BackgroundJob.Schedule(() => ChangeStatus(objet.ObjetID), objet.DateLimite);
                
 
                 TempData["message"] = $"Objet '{objet.Nom}' has been created for bidding starting now and ending at '{objet.DateLimite}'.";
@@ -492,6 +492,7 @@ namespace venteTest.Controllers
         int pageSize = 4;
         return View(await PaginatedList<Objet>.CreateAsync(objets.AsNoTracking(), page ?? 1, pageSize));
     }
+        [Authorize(Roles = "Member, Admin, Manager")]
         public async Task<IActionResult> Miser(int id)
         {
             var objet = await _context.Objets

@@ -62,15 +62,15 @@ namespace venteTest.Tests
         //}
 
         //THIS TEST WILL FAIL ON PURPOSE
-        [Fact]
-        public void AdminTest1()
-        {
-            AdminController sut = new venteTest.Controllers.AdminController();
-
-            IActionResult result = (IActionResult)sut.Index();
-
-            Assert.IsType<ViewResult>(result);
-        }
+      // [Fact]
+      // public void AdminTest1()
+      // {
+      //     AdminController sut = new venteTest.Controllers.AdminController();
+      //
+      //     IActionResult result = (IActionResult)sut.Index();
+      //
+      //     Assert.IsType<ViewResult>(result);
+      // }
 
         //[Fact]
         //public async Task Create_ReturnsBadRequest_GivenInvalidModel()
