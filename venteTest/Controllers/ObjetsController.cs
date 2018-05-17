@@ -17,6 +17,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Rewrite;
 using venteTest.Models.ObjetViewModel;
 using AutoMapper;
+using System.Collections;
+using System.Net.Mail;
 
 namespace venteTest.Controllers
 {
@@ -25,6 +27,8 @@ namespace venteTest.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IHostingEnvironment he;
         private readonly IServiceProvider _serviceProvider;
+        private int index = 0;
+      
 
         public ObjetsController(ApplicationDbContext context, IHostingEnvironment e, IServiceProvider serviceProvider)
         {
@@ -474,6 +478,113 @@ namespace venteTest.Controllers
         int pageSize = 4;
         return View(await PaginatedList<Objet>.CreateAsync(objets.AsNoTracking(), page ?? 1, pageSize));
     }
-}
+        public async Task<IActionResult> Miser(int id)
+        {
+            var objet = await _context.Objets
+                            .Include(o => o.Encheres)
+                            .ThenInclude(o => o.Miseur)
+                            .Include(o => o.ConfigurationAdmin)
+                            .Include(o => o.Acheteur)
+                            .Include(o => o.Vendeur)
+                            .SingleOrDefaultAsync(m => m.ObjetID == id);
+
+            var encheres = objet.Encheres.ToList();
+
+            Double[] enchereTableau = new Double[encheres.Count];
+           
+            var i = 0;
+            foreach (Enchere item in encheres)
+            {
+                enchereTableau[i] = item.Niveau;
+                i++;
+            }
+
+            var bestBid = Max(enchereTableau);
+
+            Enchere newBid = new Enchere { Objet = objet, Niveau = bestBid,ObjetId=id};
+
+            return View(newBid);
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> Miser(Enchere enchere)
+        {
+            var objet = await _context.Objets
+                .Include(o => o.Encheres)
+                .ThenInclude(o => o.Miseur)
+                .Include(o => o.ConfigurationAdmin)
+                .Include(o => o.Acheteur)
+                .Include(o => o.Vendeur)
+                .SingleOrDefaultAsync(m => m.ObjetID == enchere.ObjetId);
+
+            var mise = enchere.MiseMax;
+            //objet.ConfigurationAdmin = _context.ConfigurationAdmins.Last();
+
+            var pas = objet.ConfigurationAdmin.PasGlobalEnchere;
+            var encheres = objet.Encheres.ToList();
+           
+            Double[] enchereTableau = new Double[encheres.Count];
+            Miseur[] lesMiseurs = new Miseur[encheres.Count];
+
+            var  i = 0;
+            foreach (Enchere item in encheres)
+            {
+                enchereTableau[i] = item.MiseMax;
+                lesMiseurs[i] = item.Miseur;
+                i++;
+            }
+
+            var bestBid = Max(enchereTableau);
+
+            if (mise> bestBid)
+            {
+
+                Miseur losingBidder = lesMiseurs[index];
+
+                //envoyer un message a losingBidder TAF
+               
+
+                var niveauEnchere = ((bestBid + (double)pas)< mise)? (bestBid + (double)pas):mise;
+                var userManager = _serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+                var userName = await userManager.FindByNameAsync(User.Identity.Name);
+                Miseur miseur = (Miseur)userName;
+
+           
+                objet.Fichiers = new List<Fichier>();
+
+                enchere.Niveau = niveauEnchere;
+                enchere.MiseMax = mise;
+                enchere.Miseur = miseur;
+
+                objet.Encheres.Add(enchere);
+                _context.Update(objet);
+                await _context.SaveChangesAsync();
+
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+        
+    
+        private double Max( double[] tab)
+        {
+           double  max = tab[0];
+
+            for(int i=1;i < tab.Length; i++)
+            {
+
+                if (tab[i]>max)
+                {
+                    max = tab[i];
+                    index = i;
+                }
+            }
+
+            return max;
+        }
+
+
+
+    }
 
 }
