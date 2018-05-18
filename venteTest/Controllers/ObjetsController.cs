@@ -24,6 +24,8 @@ using System.Net.Mail;
 
 
 using Hangfire;
+using System.Net;
+using System.Text;
 
 namespace venteTest.Controllers
 {
@@ -33,6 +35,7 @@ namespace venteTest.Controllers
         private readonly IHostingEnvironment he;
         private readonly IServiceProvider _serviceProvider;
         private int index = 0;
+        private  static decimal bidMove = 0;
       
 
         public ObjetsController(ApplicationDbContext context, IHostingEnvironment e, IServiceProvider serviceProvider)
@@ -495,6 +498,7 @@ namespace venteTest.Controllers
         [Authorize(Roles = "Member, Admin, Manager")]
         public async Task<IActionResult> Miser(int id)
         {
+
             var objet = await _context.Objets
                             .Include(o => o.Encheres)
                             .ThenInclude(o => o.Miseur)
@@ -504,7 +508,7 @@ namespace venteTest.Controllers
                             .SingleOrDefaultAsync(m => m.ObjetID == id);
 
             var encheres = objet.Encheres.ToList();
-
+            bidMove = objet.ConfigurationAdmin.PasGlobalEnchere;
             Double[] enchereTableau = new Double[encheres.Count];
            
             var i = 0;
@@ -522,17 +526,30 @@ namespace venteTest.Controllers
         }
         
         [HttpPost]
-        public async Task<IActionResult> Miser(Enchere enchere)
+        public async Task<IActionResult> Miser(Enchere newEnchere)
         {
+
+            var userManager = _serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            var userName = await userManager.FindByNameAsync(User.Identity.Name);
+            Miseur miseur = (Miseur)userName;
+
+            if (newEnchere.MiseMax< newEnchere.Niveau)
+            {
+                var nextMinBid = newEnchere.Niveau + (double)bidMove;
+                ModelState.AddModelError(string.Empty, "Prochain montant d'enchère valide est:$"+ nextMinBid);
+                return View(newEnchere);
+            }
+                
+
             var objet = await _context.Objets
                 .Include(o => o.Encheres)
                 .ThenInclude(o => o.Miseur)
                 .Include(o => o.ConfigurationAdmin)
                 .Include(o => o.Acheteur)
                 .Include(o => o.Vendeur)
-                .SingleOrDefaultAsync(m => m.ObjetID == enchere.ObjetId);
+                .SingleOrDefaultAsync(m => m.ObjetID == newEnchere.ObjetId);
 
-            var mise = enchere.MiseMax;
+            var newMaxBid = newEnchere.MiseMax;
             //objet.ConfigurationAdmin = _context.ConfigurationAdmins.Last();
 
             var pas = objet.ConfigurationAdmin.PasGlobalEnchere;
@@ -550,34 +567,76 @@ namespace venteTest.Controllers
             }
 
             var bestBid = Max(enchereTableau);
+            var newBid = 0.00;
 
-            if (mise> bestBid)
+            var msgFr = "Un autre membre a surenchérit sur l'objet.Si vous n'augmentez pas votre enchère maximum vous perdrez l'objet";
+            var msgEn = "Another member outbid the object .If you do not increase your maximum bid you will lose the item";
+            var msg = msgFr;
+
+            if (newMaxBid > bestBid)
             {
+                for(int j=0;j<encheres.Count; j++)
+                {
+                    //Le système surenchérit automatiquement pour tous à l'enchère maximum.
+                    encheres[j].Niveau = encheres[j].MiseMax;
+                    //envoyerun message aux concernés les avisant q un autre mebre a surencherit sur l'objet 
+                    
+                    if (encheres[j].Miseur.Langue == "en")
+                    {
+                        msg = msgEn;
+                    }
+                    notifyBiders(miseur.Email, msg);
+                }
 
-                Miseur losingBidder = lesMiseurs[index];
+                newBid = bestBid + (double)pas;
+            }
+            else
+            {
+                for (int j = 0; j < encheres.Count; j++)
+                {
+                    if(newMaxBid > encheres[j].MiseMax)
+                    {
+                        //Le système surenchérit automatiquement pour tous à l'enchère maximum.
+                        encheres[j].Niveau = encheres[j].MiseMax;
+                        //envoyerun message aux concernés les avisant q un autre mebre a surencherit sur l objet 
 
-                //envoyer un message a losingBidder TAF
-               
+                        if (encheres[j].Miseur.Langue == "en")
+                        {
+                            msg = msgEn;
+                        }
+                        notifyBiders(miseur.Email, msg);
+                    }
 
-                var niveauEnchere = ((bestBid + (double)pas)< mise)? (bestBid + (double)pas):mise;
-                var userManager = _serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-                var userName = await userManager.FindByNameAsync(User.Identity.Name);
-                Miseur miseur = (Miseur)userName;
+                    if (newMaxBid <= encheres[j].MiseMax)
+                    {
+                        //Le système surenchérit automatiquement pour tous à l'enchère maximum.
+                        encheres[j].Niveau = ((newMaxBid + (double)pas)< encheres[j].MiseMax)?(newMaxBid + (double)pas):encheres[j].MiseMax;
 
-           
-                objet.Fichiers = new List<Fichier>();
-
-                enchere.Niveau = niveauEnchere;
-                enchere.MiseMax = mise;
-                enchere.Miseur = miseur;
-
-                objet.Encheres.Add(enchere);
-                _context.Update(objet);
-                await _context.SaveChangesAsync();
-
+                        //on avise le miseur actuel selon sa langue parlée
+                        if (encheres[j].Miseur.Langue=="en")
+                        {
+                            msg = msgEn;
+                        }
+                        notifyBiders(miseur.Email, msg);
+                    }
+                }
+                newBid = newMaxBid;
             }
 
-            return RedirectToAction(nameof(Index));
+           Miseur losingBidder = lesMiseurs[index];
+
+       
+        objet.Fichiers = new List<Fichier>();
+
+        newEnchere.Niveau = newBid;
+        newEnchere.MiseMax = newMaxBid;
+        newEnchere.Miseur = miseur;
+
+        objet.Encheres.Add(newEnchere);
+        _context.Update(objet);
+        await _context.SaveChangesAsync();
+
+        return RedirectToAction(nameof(Index));
         }
         
     
@@ -587,18 +646,55 @@ namespace venteTest.Controllers
 
             for(int i=1;i < tab.Length; i++)
             {
-
                 if (tab[i]>max)
                 {
                     max = tab[i];
                     index = i;
                 }
             }
-
             return max;
         }
 
+       
+        private MailMessage BuildMailMessage(string recipient,string content)
+        {
+            var message = new StringBuilder();
+            //message.AppendFormat("Date: {0:yyyy-MM-dd hh:mm}\n", DateTime.Now);
+           // message.AppendFormat("Subject:Notification \n");
+            message.AppendFormat(content);
 
+            return new MailMessage(
+            "VenteEnchereM9@gmail.com", // From
+             recipient, // To
+            content, // Subject
+            message.ToString() // Body
+            );
+        }
+
+
+
+       private void notifyBiders(string recipient,string content) 
+        {
+            using (var smtpClient = new SmtpClient())
+            {
+                var credential = new NetworkCredential
+                {
+                    UserName = "VenteEnchereM9@gmail.com",  // replace with valid value
+                    Password = "!qwerty123"  // replace with valid value
+                };
+
+                smtpClient.Credentials = credential;
+                smtpClient.Host = "smtp.gmail.com";
+                smtpClient.Port = 587;
+                smtpClient.EnableSsl = true;
+
+                using (var mailMessage = BuildMailMessage(recipient, content))
+                {
+                    smtpClient.Send(mailMessage);
+                }
+            } 
+           
+        }
 
     }
 
