@@ -15,7 +15,7 @@ namespace venteTest.Models
 
         public string NomLocale { get; set; }
 
-        public DateTime verseLe { get; private set; }
+        public DateTime verseLe { get;  set; }
 
         public string Remarques { get; set; }
 

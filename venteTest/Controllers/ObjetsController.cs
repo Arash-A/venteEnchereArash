@@ -181,7 +181,7 @@ namespace venteTest.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(AnnoncerObjectViewModel objetVM, IFormFile pic) {
+        public async Task<IActionResult> Create(AnnoncerObjectViewModel objetVM, IFormFile pic, IList<IFormFile> attachments) {
 
              if (ModelState.IsValid) {
 
@@ -207,12 +207,29 @@ namespace venteTest.Controllers
 
                 objet.Vendeur = (Vendeur)userName;
                 objet.DateInscription = DateTime.Now;
-                if (pic != null) {
+         
+
+                if (pic != null)
+                {
                     var file = Path.GetFileName(pic.FileName);
                     var fileName = System.IO.Path.Combine(he.WebRootPath, "Uploads") + $@"\{file}";
                     pic.CopyTo(new FileStream(fileName, FileMode.Create));
                     objet.imageUrl = "Uploads/" + file;
                 }
+
+                //carles 
+                foreach (IFormFile item in attachments)
+                {
+
+                    if (item != null)
+                    {
+                        var attachmentfile = Path.GetFileName(item.FileName);
+                        var attachmentFileName = System.IO.Path.Combine(he.WebRootPath, "Attachments") + $@"\{attachmentfile}";
+                        item.CopyTo(new FileStream(attachmentFileName, FileMode.Create));
+                        objet.Fichiers.Add(new Fichier() {NomOriginal= attachmentfile,NomLocale= attachmentFileName ,verseLe=DateTime.Now});
+                    }
+                }
+
                 objet.Categorie = _context.Categories.FirstOrDefault(p => p.CategorieId == objetVM.CategorieID);
                 objet.ConfigurationAdmin = _context.ConfigurationAdmins.Last();
                 objet.Encheres = new List<Enchere>();
@@ -223,6 +240,7 @@ namespace venteTest.Controllers
                 objet.Encheres.Add(new Enchere() { Objet = objet, Niveau = objet.PrixDepart, MiseMax = objet.PrixDepart, Miseur = miseur });
                 // Fin affection 1e mise 
 
+              
                 // Fin affectation des autres propriétés requises
 
                 //Ajout à la BD de l'Objet à vendre ainsi qu'une première mise par défaut
@@ -239,6 +257,8 @@ namespace venteTest.Controllers
             }
             return View(objetVM);
         }
+
+
         public void ChangeStatus(int objId) {
             var objetNew = _context.Objets.Find(objId);
             objetNew.Status = Status.Vendu;
@@ -623,9 +643,8 @@ namespace venteTest.Controllers
                 newBid = newMaxBid;
             }
 
-           Miseur losingBidder = lesMiseurs[index];
+        Miseur losingBidder = lesMiseurs[index];
 
-       
         objet.Fichiers = new List<Fichier>();
 
         newEnchere.Niveau = newBid;
@@ -635,8 +654,7 @@ namespace venteTest.Controllers
         objet.Encheres.Add(newEnchere);
         _context.Update(objet);
         await _context.SaveChangesAsync();
-
-        return RedirectToAction(nameof(Index));
+        return RedirectToAction("Index", "Home");
         }
         
     

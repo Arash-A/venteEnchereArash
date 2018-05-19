@@ -34,8 +34,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="DateInscription" class="control-label"></label>
-                <input asp-for="DateInscription" class="form-control" hidden/>
-                <input value="@Model.DateInscription" class="form-control" disabled/>
+                <input asp-for="DateInscription" class="form-control" hidden />
+                <input value="@Model.DateInscription" class="form-control" disabled />
                 <span asp-validation-for="DateInscription" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -57,6 +57,13 @@
                 <label asp-for="Categorie" class="control-label"></label>
                 <select asp-for="CategorieID" class="form-control" asp-items="@(new SelectList(@ViewBag.CategoryList ,"CategorieId", "Nom"))"></select>
             </div>
+
+            <div class="form-group">
+                <label  class="control-label">Piece jointes</label>
+                <input type="file" name="attachments" multiple class="form-control" /><br />
+            </div>
+
+
             <div class="form-group">
                 <input type="submit" value="@StringsObjets.BoutonCreer" class="btn btn-warning" />
             </div>
