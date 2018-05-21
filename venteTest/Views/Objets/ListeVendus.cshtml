@@ -1,0 +1,111 @@
+﻿@using venteTest.Resources.Views
+
+@model PaginatedList<venteTest.Models.Objet>
+
+@{
+    ViewData["Title"] = "OBjets à Vendre";
+    Layout = "~/Views/Objets/_Layout.cshtml";
+}
+
+<h3 align="center">Mes objets Vendus</h3>
+<div class="mt-4">
+    <form class="form-inline" asp-action="Index" method="get">
+        <div class="form-group mb-2 mx-auto">
+            <strong class="h5">Name</strong><input type="text" name="SearchString" class="form-control m-2" value="@ViewData["currentFilter"]" />
+            <input type="submit" value="Search !" class="btn btn-warning m-2" /> |
+            @*<strong class="m-2 h5">by : <mark class="p-2 m-2">Categorie</mark></strong> |*@
+            <select class="form-control w-auto m-2" id="cat" onchange="filterCategories(this.value)">
+                <option>Select a categorie...</option>
+                @foreach (var item in ViewBag.Categories) {
+                    <option>@item.Nom</option>
+                }
+            </select> |
+            <a class="m-2" asp-action="Index">Show Full List</a>
+        </div>
+    </form>
+</div>
+<div class="mt-2">
+    <hr />
+    <table id="laPagedList" class="table-striped thead-dark">
+        <thead>
+            <tr>
+                <th class="p-2 m-2">
+                </th>
+                <th class="p-4">
+                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]"><span class="h6">Nom</span><i class="fa fa-fw fa-sort"></i></a>
+                </th>
+                <th class="p-2 m-2">
+                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["PrixDepartSortParm"]"><span class="h6">Prix</span><i class="fa fa-fw fa-sort"></i></a>
+                </th>
+                <th class="p-2 m-2">
+                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["DateInscritSortParm"]"><span class="h6">Date Inscrit</span><i class="fa fa-fw fa-sort"></i></a>
+                </th>
+                <th class="p-2 m-2">
+                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["DureeMiseVenteSortParm"]"><span class="h6">Jour En Vente</span><i class="fa fa-fw fa-sort"></i></a>
+                </th>
+                <th class="p-2 m-2">
+                    <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["CategorieSortParm"]"><span class="h6">Categorie</span><i class="fa fa-fw fa-sort"></i></a>
+                </th>
+                <th class="p-2 m-2"><span class="h6 currentBid">Current Bid</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+                <tr class="p-2">
+                    <td class="p-2">
+                        <img src="~/@item.imageUrl" width="100" height="100" />
+                        @*<img src="~/Uploads/Brush.jpg" width="100" height="100" />*@
+                    </td>
+                    <td class="p-2 h5">
+                        @Html.DisplayFor(modelItem => item.Nom)
+                    </td>
+                    <td class="p-2">
+                        @Html.DisplayFor(modelItem => item.PrixDepart)$
+                    </td>
+                    <td class="p-2">
+                        @Html.DisplayFor(modelItem => item.DateInscription)
+                    </td>
+                    <td class="p-2">
+                        @Html.DisplayFor(modelItem => item.DureeMiseVente)
+                    </td>
+                    <td class="laCategorie p-2">
+                        @Html.DisplayFor(modelItem => item.Categorie.Nom)
+                    </td>
+                    <td>
+                        @{
+                            var enchereMenante = item.Encheres.OrderByDescending(t => t.Niveau).FirstOrDefault();
+                            var miseurMenantEnchere = enchereMenante.Miseur;
+                        }
+                        <br />
+                        <span class="courriel">@miseurMenantEnchere.Prenom @miseurMenantEnchere.Nom </span><span class="currentBid"><br /><strong>@Html.DisplayFor(modelItem => item.Encheres.OrderByDescending(t => t.Niveau).FirstOrDefault().Niveau) $</strong></span>
+                        @*Bouton pour afficher d'avantage.. ici un toggle hide/show*@
+                    </td>
+                    <td class="p-2">
+                        <a class="btn btn-outline-warning mb-2" role="button" asp-controller="Objets" asp-action="Details" asp-route-id="@item.ObjetID">@StringsObjets.DetailsTitle</a>
+                        <a class="btn btn-danger ml-3 mb-2 mt-2" role="button" asp-controller="Objets" asp-action="Miser" asp-route-id="@item.ObjetID">@StringsHome.IndexMise</a>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <hr />
+</div>
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="m-2 btn btn-warning @prevDisabled">
+    Previous
+</a><span> | </span>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="m-2 btn btn-warning @nextDisabled">
+    Next
+</a>
