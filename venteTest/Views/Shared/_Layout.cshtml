@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - VenteEnchère</title>
-    
+
     <environment include="Development">
         @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />*@
         <link rel="stylesheet" href="~/lib/css/bootstrap.css" />
@@ -26,14 +26,21 @@
                   asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
             <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />*@
     </environment>
+
+    <!-- -Custom CSS -->
+    <link rel="stylesheet" href="~/css/encheres.css" type="text/css" />
+
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand"><img src="~/images/hammer.png" class="pull-left" width="40" height="40" alt="" /><span class="ml-2">VenteEnchères </span></a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
+            @*<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>*@
+            <button class="navbar-toggler ml-auto custom-toggler m-2" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -45,29 +52,32 @@
                     <li class="nav-item">
                         <a asp-area="" asp-controller="Home" asp-action="Contact" class="nav-link">@SharedStrings.Contact</a>
                     </li>
+                    @await Html.PartialAsync("_MembersPartial")
+
                 </ul>
-                <div class="dropdown mx-auto">
-                    <button class="btn dropdown-toggle" type="button" id="lang" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img id="langSel" src="~/images/icon-francais.gif" alt="..." class="img-thumbnail icon-small" width="35">FR
+
+                <div class="dropdown mx-auto" style="position:relative;">
+                    <button style="background:#403A34;" class="btn dropdown-toggle" type="button" id="lang" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img id="langSel" src="~/images/icon-francais.gif" alt="..." class="img-thumbnail icon-small mr-1" width="35"><span class="text-white-50">FR</span>
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="about-us">
+                    <div class="dropdown-menu" aria-labelledby="about-us" style="width: 200px; top:auto">
                         @*<a asp-area="" asp-controller="Home" asp-action="Faq" class="dropdown-item"><img id="langSelFR" src="~/images/icon-francais.gif" alt="..." class="img-thumbnail icon-small" width="35">Francais</a>
-        <a asp-area="" asp-controller="Home" asp-action="Faq" class="dropdown-item"><img id="langSelEN" src="~/images/icon-anglais.gif" alt="..." class="img-thumbnail icon-small" width="35">Anglais</a>*@
-                        <a asp-area="" asp-controller="Home" asp-action="SetLanguage" asp-route-culture="fr" asp-route-returnUrl="@Context.Request.Path" class="dropdown-item"><img id="langSelFR" src="~/images/icon-francais.gif" alt="..." class="img-thumbnail icon-small" width="35px">Francais</a>
-                        <a asp-area="" asp-controller="Home" asp-action="SetLanguage" asp-route-culture="en" asp-route-returnUrl="@Context.Request.Path" class="dropdown-item"><img id="langSelEN" src="~/images/icon-anglais.gif" alt="..." class="img-thumbnail icon-small" width="35px">Anglais</a>
+                    <a asp-area="" asp-controller="Home" asp-action="Faq" class="dropdown-item"><img id="langSelEN" src="~/images/icon-anglais.gif" alt="..." class="img-thumbnail icon-small" width="35">Anglais</a>*@
+                        <a asp-area="" asp-controller="Home" asp-action="SetLanguage" asp-route-culture="fr" asp-route-returnUrl="@Context.Request.Path" class="dropdown-item"><img id="langSelFR" src="~/images/icon-francais.gif" alt="..." class="img-thumbnail icon-small mr-1" width="35">Francais</a>
+                        <a asp-area="" asp-controller="Home" asp-action="SetLanguage" asp-route-culture="en" asp-route-returnUrl="@Context.Request.Path" class="dropdown-item"><img id="langSelEN" src="~/images/icon-anglais.gif" alt="..." class="img-thumbnail icon-small mr-1" width="35">Anglais</a>
                     </div>
                 </div>
                 @*<form class="form-inline mx-auto" action="">
-                        <select class="form-control mr-2" id="cat">
-                            <option>Catégorie 1......</option>
-                            <option>Catégorie 2......</option>
-                            <option>Catégorie 3......</option>
-                            <option>Catégorie 4......</option>
-                            <option>Catégorie 5......</option>
-                        </select>
-                        <input class="form-control mr-sm-2" type="text" id="cherche" placeholder="Rechercher...">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>*@
+                <select class="form-control mr-2" id="cat">
+                    <option>Catégorie 1......</option>
+                    <option>Catégorie 2......</option>
+                    <option>Catégorie 3......</option>
+                    <option>Catégorie 4......</option>
+                    <option>Catégorie 5......</option>
+                </select>
+                <input class="form-control mr-sm-2" type="text" id="cherche" placeholder="Rechercher...">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>*@
                 @await Html.PartialAsync("_LoginPartial")
             </div>
         </nav>
@@ -76,9 +86,54 @@
 
     <div class="container body-content mt-3">
         @RenderBody()
-        <hr />
+        <hr style="height:2px;border:none;color:#DC3545;background-color:#DC3545;"/>
         <footer>
             <p>&copy; 2018 - VenteEnchère</p>
+            <div class="row">
+
+                <div class="col-md-2">
+                    <a asp-controller="Home" asp-action="Index">
+                        <img src="~/images/hammer.png" alt="" class="img-fluid p-3 rounded" style="background-color: rgba(52, 58, 64,.8) !important;">
+                    </a>
+                    <p class="h4">VenteEnchères</p>
+                </div>
+                <div class="col-md-2 offset-md-1">
+                    <h6>VenteEnchères</h6>
+                    <ul>
+                        <li>2030 Pie-IX</li>
+                        <li>Montréal, Québec</li>
+                        <li>Phone: (514) 111-1111 </li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h6>Start</h6>
+                    <ul>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Acceuil</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h6>About</h6>
+                    <ul>
+                        <li>
+                            <a asp-area="" asp-controller="Home" asp-action="Contact">@SharedStrings.Contact</a>
+                        </li>
+                        <li><a href="#">Revues</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h6>Support</h6>
+                    <ul>
+                        <li>
+                            <a asp-area="" asp-controller="Home" asp-action="Faq">@SharedStrings.Faq</a>
+                        </li>
+                        <li><a href="#">Forums</a></li>
+                    </ul>
+                </div>
+
+
+
+
+            </div>
         </footer>
     </div>
 
@@ -128,7 +183,35 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
     @*fin datepicker*@
+    <script>
+        $(document).ready(function () {
+            // executes when HTML-Document is loaded and DOM is ready
+            //alert("ready");
+            // breakpoint and up  
+            $(window).resize(function () {
+                if ($(window).width() >= 980) {
 
+                    // when you hover a toggle show its dropdown menu
+                    $(".navbar .dropdown-toggle").hover(function () {
+                        $(this).parent().toggleClass("show");
+                        $(this).parent().find(".dropdown-menu").toggleClass("show");
+                    });
+
+                    // hide the menu when the mouse leaves the dropdown
+                    $(".navbar .dropdown-menu").mouseleave(function () {
+                        $(this).removeClass("show");
+                    });
+
+                    // do something here
+                }
+            });
+
+
+
+            // document ready  
+        });
+
+    </script>
     <script>
         // filtrer categories dans la pagedList de la page Index
         function filterCategories(nomCategorie) {
@@ -162,6 +245,33 @@
             }
 
         }
+
+        // filtrer les noms/prenoms/emails ds la liste de membres   
+        function showParNomPrenomEmail(valRech) {
+            debugger;
+            var rech = valRech.trim().toUpperCase();
+            var table = document.getElementById("tabledeMembresAcc");
+
+           // Chercher ds ces colonnes...
+           // 0 Email 	1 Last name	    2 First name
+
+            //iterate through rows
+            for (var i = 1, row; row = table.rows[i]; i++) {
+
+                //colonnes
+                for (var j = 0, col; col = table.rows[i].cells[j]; j++) {
+                    var leText = col.innerText.replace(/(^\s+|\s+$)/g, '').toUpperCase(); // texte de la cellule
+                    
+                    if (leText.indexOf(rech) >= 0) {
+                        row.style.display = '';
+                        break;
+                    } else {
+                        row.style.display = 'none';
+                    }
+                }
+            }
+        }
+
 
     </script>
     <script>

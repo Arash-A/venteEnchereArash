@@ -1,0 +1,107 @@
+﻿@using venteTest.Resources.Views
+@using Microsoft.AspNetCore.Identity
+
+@inject UserManager<ApplicationUser> _userManager
+
+@{
+    IList<ApplicationUser> lstMembers = await _userManager.GetUsersInRoleAsync("Member");
+    IList<ApplicationUser> lstAdmin = await _userManager.GetUsersInRoleAsync("Admin");
+
+    lstMembers.Add(lstAdmin.FirstOrDefault()); //ajouter l'admin à liste de membres
+    var members = lstMembers.Where(p => p.EmailConfirmed == true);
+
+}
+
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <strong><i class="far fa-user"></i><i class="far fa-user"></i><i class="far fa-user"></i> &#8230;</strong>
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <span class="text-uppercase text-dark h5">Active Members</span>
+                    <div class="form-inline my-2 my-lg-0 mt-1">
+                        <input id="srchParams" class="form-control mr-sm-2" type="search" placeholder="Search..." aria-label="Search">
+                        <button class="btn btn-outline-light my-2 my-sm-0" onclick="showParNomPrenomEmail(document.getElementById('srchParams').value)"><i class="fa fa-search"></i></button>
+                        <span class="text-white ml-2"> | </span>
+                        <a class="text-white ml-2 btn btn-outline-secondary" role="button" onclick="document.getElementById('srchParams').value=''; showParNomPrenomEmail(document.getElementById('srchParams').value); document.getElementById('srchParams').focus()"> Reset</a>
+                    </div>
+                    <table id="tabledeMembresAcc" class="table-hover mt-2 table-responsive">
+                        <thead>
+                            <tr class="border-top border-bottom text-white-50" style="background-color: rgba(52, 58, 64,.8) !important; ">
+                                <th class="p-2">
+                                    @StringsAdmin.MembresCourriel
+                                </th>
+                                <th class="p-2">
+                                    @StringsAdmin.MembresNom
+                                </th>
+                                <th class="p-2">
+                                    @StringsAdmin.MembresPrenom
+                                </th>
+                                <th class="p-2">
+                                    @StringsAdmin.MembresCivilite
+                                </th>
+                                <th class="p-2">
+                                    @StringsAdmin.MembresDateEnrolement
+                                </th>
+                                <th class="p-2">
+                                    Seller Rating (-3 : +3)
+                                </th>
+                                <th class="p-2">
+                                    Buyer Rating (-3 : +3)
+                                </th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in members) {
+
+                            <tr class="border-bottom">
+                                <td class="p-2">
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+                                <td class="p-2">
+                                    @Html.DisplayFor(modelItem => item.Nom)
+                                </td>
+                                <td class="p-2">
+                                    @Html.DisplayFor(modelItem => item.Prenom)
+                                </td>
+                                <td class="p-2">
+                                    @Html.DisplayFor(modelItem => item.Civilite)
+                                </td>
+                                <td class="p-2">
+                                    @Html.DisplayFor(modelItem => item.DateInscription)
+                                </td>
+                                <td class="p-2">
+                                    @* Seller rating... *@
+
+                                </td>
+                                <td class="p-2">
+                                    @* Buyer rating... *@
+
+                                </td>
+                                <td class="p-2">
+                                    <span><a class="btn btn-outline-danger" role="button" asp-controller="Member" asp-action="Index" asp-route-email="@item.Email"><i class="far fa-user"></i> Profile</a></span>
+                                </td>
+                                <td>
+                                    <a asp-controller="Home" asp-action="Index" asp-route-email="@item.Email">Display active objects</a>
+                                </td>
+                            </tr>
+
+}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+        <!--  /.container  -->
+
+
+    </div>
+</li>

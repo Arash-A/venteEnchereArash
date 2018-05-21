@@ -14,12 +14,12 @@
             <ul class="nav navbar-nav navbar-right">
 
                 <li>
-                    <div class="dropdown">
-                        <button class="btn btn-default dropdown-toggle mr-4" type="button" id="menu1" data-toggle="dropdown">
+                    <div class="dropdown" style="position:relative;">
+                        <button class="btn dropdown-toggle mr-4" style="background:#403A34;" type="button" id="menu1" data-toggle="dropdown">
                             <img src="~/images/auction_user.png" class="pull-left dropdown-toggle" width="30" height="30" alt="" />
                             <span class="caret"></span>
                         </button>
-                        <div class="dropdown-menu">
+                        <div class="dropdown-menu" style="width: 300px;">
                             <a asp-area="" asp-controller="Objets" asp-action="Create" class="dropdown-item" role="menuitem" tabindex="-1">@SharedStrings.ObjetAjouter</a>
                             <a asp-area="" asp-controller="Objets" asp-action="Index" class="dropdown-item" role="menuitem" tabindex="-1">Mes Listes</a>
 
