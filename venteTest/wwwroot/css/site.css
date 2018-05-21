@@ -55,7 +55,12 @@ dd {
 .monCardRow {
     margin-bottom: 10px;
 }
-
+.courriel {
+    color:cadetblue;
+}
+.currentBid {
+    color: #FF7B00;
+}
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
     /* Hide captions */

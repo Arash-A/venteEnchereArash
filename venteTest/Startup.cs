@@ -81,7 +81,7 @@ namespace venteTest
 
             // Ajout Arash pour les Taches automatique selon http://docs.hangfire.io
             // aussi: http://docs.hangfire.io/en/latest/configuration/using-dashboard.html#configuring-authorization
-            //services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")));
 
             //LOCALIZATION + GLOBALIZATION
             //services.AddLocalization(options => options.ResourcesPath = "Resources");
@@ -122,8 +122,8 @@ namespace venteTest
 
 
             // Ajour Arash pour Hangfire
-            //app.UseHangfireServer();
-            //app.UseHangfireDashboard();
+            app.UseHangfireServer();
+            app.UseHangfireDashboard();
 
 
         }
