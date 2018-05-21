@@ -44,7 +44,8 @@ namespace venteTest.Controllers
             string currentFilter,
             string searchString,
             string pages,
-            int? page) {
+            int? page,
+            string email) {
 
             //var applicationDbContext = _context.Objets.Include(o => o.Categorie);
 
@@ -81,6 +82,12 @@ namespace venteTest.Controllers
                 objets = objets.Where(s => s.Nom.Contains(searchString)
                 || s.Description.Contains(searchString));
             }
+
+            //ajout pour email..
+            if (!String.IsNullOrEmpty(email)) {
+                objets = objets.Where(s => s.Vendeur.Email.Equals(email));
+            }
+
 
             switch (sortOrder) {
                 case "name_desc":

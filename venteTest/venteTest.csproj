@@ -30,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Models\MemberViewModels\" />
     <Folder Include="Views\Partials\" />
     <Folder Include="wwwroot\Attachments\" />
   </ItemGroup>
