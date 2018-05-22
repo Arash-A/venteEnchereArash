@@ -28,6 +28,12 @@ namespace venteTest.Models {
         [Display(Name = "Price")]
         public double PrixDepart { get; set; }
 
+        [Display(Name = "Price Sold")]
+        public double PrixVenteBrute { get; set; }
+
+        [Display(Name = "CommissionAuVendeur")]
+        public double Commission { get; set; }
+
         [Required]
         [DataType(DataType.Date)]
         [Display(Name = "Date added")]

@@ -14,5 +14,11 @@ namespace venteTest.Controllers
         {
             return View();
         }
+        //public IActionResult PartialListeUsers() {
+
+        //    IList<Article> lArt = _articleManager.lstArticles;
+        //    IList<ArticleViewModel> model = Mapper.Map<IList<Article>, IList<ArticleViewModel>>(lArt);
+        //    return PartialView(model);
+        //}
     }
 }

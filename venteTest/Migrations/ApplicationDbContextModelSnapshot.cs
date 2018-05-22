@@ -269,8 +269,6 @@ namespace venteTest.Migrations
 
                     b.Property<string>("Numero");
 
-                    b.Property<int>("ObjetId");
-
                     b.HasKey("EvaluationID");
 
                     b.ToTable("Evaluations");
@@ -306,9 +304,13 @@ namespace venteTest.Migrations
                     b.Property<int>("ObjetID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int?>("AchatEvaluationEvaluationID");
+
                     b.Property<string>("AcheteurId");
 
                     b.Property<int>("CategorieID");
+
+                    b.Property<double>("Commission");
 
                     b.Property<int?>("ConfigurationAdminId");
 
@@ -325,15 +327,23 @@ namespace venteTest.Migrations
 
                     b.Property<double>("PrixDepart");
 
+                    b.Property<double>("PrixVenteBrute");
+
                     b.Property<int>("Status");
 
                     b.Property<string>("VendeurId")
                         .IsRequired();
 
+                    b.Property<int?>("VenteEvaluationEvaluationID");
+
                     b.Property<string>("imageUrl")
                         .HasMaxLength(1024);
 
                     b.HasKey("ObjetID");
+
+                    b.HasIndex("AchatEvaluationEvaluationID")
+                        .IsUnique()
+                        .HasFilter("[AchatEvaluationEvaluationID] IS NOT NULL");
 
                     b.HasIndex("AcheteurId");
 
@@ -342,6 +352,10 @@ namespace venteTest.Migrations
                     b.HasIndex("ConfigurationAdminId");
 
                     b.HasIndex("VendeurId");
+
+                    b.HasIndex("VenteEvaluationEvaluationID")
+                        .IsUnique()
+                        .HasFilter("[VenteEvaluationEvaluationID] IS NOT NULL");
 
                     b.ToTable("Objets");
                 });
@@ -362,9 +376,6 @@ namespace venteTest.Migrations
 
                     b.Property<string>("VendeurId");
 
-                    b.HasIndex("ObjetId")
-                        .IsUnique();
-
                     b.HasIndex("VendeurId");
 
                     b.ToTable("AchatEvaluation");
@@ -379,9 +390,6 @@ namespace venteTest.Migrations
                     b.Property<string>("AcheteurId");
 
                     b.HasIndex("AcheteurId");
-
-                    b.HasIndex("ObjetId")
-                        .IsUnique();
 
                     b.ToTable("VenteEvaluation");
 
@@ -482,6 +490,10 @@ namespace venteTest.Migrations
 
             modelBuilder.Entity("venteTest.Models.Objet", b =>
                 {
+                    b.HasOne("venteTest.Models.AchatEvaluation", "AchatEvaluation")
+                        .WithOne("Objet")
+                        .HasForeignKey("venteTest.Models.Objet", "AchatEvaluationEvaluationID");
+
                     b.HasOne("venteTest.Models.Miseur", "Acheteur")
                         .WithMany("Objets")
                         .HasForeignKey("AcheteurId");
@@ -499,15 +511,14 @@ namespace venteTest.Migrations
                         .WithMany()
                         .HasForeignKey("VendeurId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("venteTest.Models.VenteEvaluation", "VenteEvaluation")
+                        .WithOne("Objet")
+                        .HasForeignKey("venteTest.Models.Objet", "VenteEvaluationEvaluationID");
                 });
 
             modelBuilder.Entity("venteTest.Models.AchatEvaluation", b =>
                 {
-                    b.HasOne("venteTest.Models.Objet", "Objet")
-                        .WithOne("AchatEvaluation")
-                        .HasForeignKey("venteTest.Models.AchatEvaluation", "ObjetId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("venteTest.Models.Vendeur", "Vendeur")
                         .WithMany()
                         .HasForeignKey("VendeurId");
@@ -518,11 +529,6 @@ namespace venteTest.Migrations
                     b.HasOne("venteTest.Models.Miseur", "Acheteur")
                         .WithMany()
                         .HasForeignKey("AcheteurId");
-
-                    b.HasOne("venteTest.Models.Objet", "Objet")
-                        .WithOne("VenteEvaluation")
-                        .HasForeignKey("venteTest.Models.VenteEvaluation", "ObjetId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
