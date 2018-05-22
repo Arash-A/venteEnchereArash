@@ -4,14 +4,18 @@
     Layout = "/Views/Shared/_Layout.cshtml";
 }
 
-    <h2>@StringsObjets.LayoutDescription</h2>
 
 <div>
-    @*<h4>Administrative Operations</h4>*@
     <hr />
     <div class="row">
         <div class="col-md-3">
-            @await Html.PartialAsync("_AdminNav")
+            <ul class="list-group mb-4">
+                <li class="list-group-item list-group-item-warning"><a asp-action="Index">Mes Objets À vendre</a></li>
+                <li class="list-group-item list-group-item-warning"><a asp-action="ListeAAcheter">Mes Enchères en cours</a></li>
+                <li class="list-group-item list-group-item-warning"><a asp-action="ListePerdues">Mes Enchères perdues</a></li>
+                <li class="list-group-item list-group-item-warning"><a asp-action="ListeGagnant">Mes Enchères gagnants</a></li>
+                <li class="list-group-item list-group-item-warning"><a asp-action="ListeVendus">Mes Objets Vendus</a></li>
+            </ul>
         </div>
         <div class="col-md-9">
             @RenderBody()

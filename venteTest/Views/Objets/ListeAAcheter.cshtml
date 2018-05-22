@@ -4,12 +4,10 @@
 
 @{
     ViewData["Title"] = "OBjets à Vendre";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Objets/_Layout.cshtml";
 }
 
 <h3 align="center">Mes objets à Acheter</h3>
-
-<h5><i class="fas fa-plus-square" style="color:blue;"></i><a asp-action="Create" class="mb-5" role="button"> Créer Nouveau Objet</a></h5>
 <div class="mt-4">
     <form class="form-inline" asp-action="Index" method="get">
         <div class="form-group mb-2 mx-auto">
@@ -49,7 +47,7 @@
                 <th class="p-2 m-2">
                     <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["CategorieSortParm"]"><span class="h6">Categorie</span><i class="fa fa-fw fa-sort"></i></a>
                 </th>
-                <th class="p-2 m-2"><span class="h6">Current Bid</span></th>
+                <th class="p-2 m-2"><span class="h6 currentBid">Current Bid</span></th>
             </tr>
         </thead>
         <tbody>
@@ -64,7 +62,7 @@
                         @Html.DisplayFor(modelItem => item.Nom)
                     </td>
                     <td class="p-2">
-                        @Html.DisplayFor(modelItem => item.PrixDepart)
+                        @Html.DisplayFor(modelItem => item.PrixDepart)$
                     </td>
                     <td class="p-2">
                         @Html.DisplayFor(modelItem => item.DateInscription)
@@ -77,15 +75,17 @@
                     </td>
                     <td>
                         @{
-                            var enchereMenante = item.Encheres.OrderByDescending(t => t.Niveau).FirstOrDefault();
-                            var miseurMenantEnchere = enchereMenante.Miseur;
+        var enchereMenante = item.Encheres.OrderByDescending(t => t.Niveau).FirstOrDefault();
+        var miseurMenantEnchere = enchereMenante.Miseur;
                         }
                         <br />
-                        <span>@miseurMenantEnchere.Prenom @miseurMenantEnchere.Nom <br />@Html.DisplayFor(modelItem => item.Encheres.OrderByDescending(t => t.Niveau).FirstOrDefault().Niveau) $</span>
+                        <span class="courriel">@miseurMenantEnchere.Prenom @miseurMenantEnchere.Nom </span><span class="currentBid"><br /><strong>@Html.DisplayFor(modelItem => item.Encheres.OrderByDescending(t => t.Niveau).FirstOrDefault().Niveau) $</strong></span>
                         @*Bouton pour afficher d'avantage.. ici un toggle hide/show*@
                     </td>
                     <td class="p-2">
                         <a class="btn btn-outline-warning mb-2" role="button" asp-controller="Objets" asp-action="Details" asp-route-id="@item.ObjetID">@StringsObjets.DetailsTitle</a>
+                        <a class="btn btn-danger ml-3 mb-2 mt-2" role="button" asp-controller="Objets" asp-action="Miser" asp-route-id="@item.ObjetID">@StringsHome.IndexMise</a>
+
                     </td>
                 </tr>
             }
