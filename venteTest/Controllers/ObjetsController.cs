@@ -232,11 +232,45 @@ namespace venteTest.Controllers {
         }
 
 
+        /*    public void ChangeStatus(int objId) {
+                var objetNew = _context.Objets.Find(objId);
+                objetNew.Status = Status.Vendu;
+                _context.SaveChanges();
+            }
+        */
         public void ChangeStatus(int objId) {
-            var objetNew = _context.Objets.Find(objId);
+            string query = "SELECT * FROM Objets WHERE ObjetId = {0}";
+
+            var objetNewQry = from o in _context.Objets.
+                             Include(o => o.ConfigurationAdmin).
+                             Include(o => o.Categorie).
+                             Include(o => o.Vendeur).
+                             Include(o => o.Acheteur).
+                             Include(o => o.Fichiers).
+                             Include(o => o.Encheres).
+                                ThenInclude(o => o.Miseur).
+                             FromSql(query, objId)
+                              select o;
+
+            Objet objetNew = objetNewQry.FirstOrDefault();
+
             objetNew.Status = Status.Vendu;
+
+            // déterminer le gagnant et l'enregistrer:
+            var enchereMenante = objetNew.Encheres.OrderByDescending(t => t.Niveau).FirstOrDefault();
+            var miseurMenantEnchere = enchereMenante.Miseur;
+            objetNew.Acheteur = miseurMenantEnchere;
+            // fin déterminer gagnant
+
+            // enregistrer le prix de vente burte
+            objetNew.PrixVenteBrute = enchereMenante.Niveau;
+
+            // enregistrer la commission sur cette vente
+            objetNew.Commission = enchereMenante.Niveau * (double)objetNew.ConfigurationAdmin.TauxGlobalComissionAuVendeur;
+
             _context.SaveChanges();
         }
+
 
         // POST: Objets/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
