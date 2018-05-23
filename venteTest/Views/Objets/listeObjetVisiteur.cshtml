@@ -1,0 +1,93 @@
+﻿@model IEnumerable<venteTest.Models.Objet>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" charset="utf-8" initial-scale=1 />
+    <title>listeObjetVisiteur</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <ul class="nav navbar-nav">
+            <li>
+                <div class="">
+                    <h1>Vente Enchères</h1>
+                    <img src="~/images/hammer.png" class="" width="50" height="50" alt="" />
+                </div>
+            </li>
+        </ul>
+        <span class="ltitIcon">
+            <strong>Liste Des objets en Vente</strong>
+
+        </span>
+    </header>
+    <article>
+        <table class="table">
+            <thead class="rotHead">
+                <tr>
+                    <th>
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nom)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th>
+                        Prix initial
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateInscription)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateLimite)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Categorie)
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model) {
+                    <tr class="rotRow">
+                        <td>
+                            <img src="@item.imageUrl" width="100" height="100" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nom)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PrixDepart)$
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateInscription)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateLimite)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Categorie.Nom)
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </article>
+
+</body>
+</html>

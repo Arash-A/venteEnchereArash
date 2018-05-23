@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Rewrite;
 using venteTest.Models.ObjetViewModel;
 using venteTest.Services;
 using AutoMapper;
-
+using Rotativa.AspNetCore;
 using System.Collections;
 using System.Net.Mail;
 
@@ -339,7 +339,7 @@ namespace venteTest.Controllers {
                         Include(o => o.Fichiers).
                         Include(o => o.Encheres).
                             ThenInclude(m => m.Miseur).
-                            FromSql(q1, userName.Id,0, userName.Id)
+                            FromSql(q1, userName.Id, 0, userName.Id)
                          select o;
 
             ViewBag.Categories = _context.Categories.ToList(); //pour ComboBox
@@ -424,7 +424,7 @@ namespace venteTest.Controllers {
                         Include(o => o.Fichiers).
                         Include(o => o.Encheres).
                             ThenInclude(m => m.Miseur).
-                            FromSql(q1,1, userName.Id, userName.Id)
+                            FromSql(q1, 1, userName.Id, userName.Id)
                          select o;
 
             ViewBag.Categories = _context.Categories.ToList(); //pour ComboBox
@@ -586,7 +586,7 @@ namespace venteTest.Controllers {
                         Include(o => o.Fichiers).
                         Include(o => o.Encheres).
                             ThenInclude(m => m.Miseur).
-                            FromSql(q1,1, userName.Id)
+                            FromSql(q1, 1, userName.Id)
                          select o;
 
             ViewBag.Categories = _context.Categories.ToList(); //pour ComboBox
@@ -633,12 +633,53 @@ namespace venteTest.Controllers {
             return View(await PaginatedList<Objet>.CreateAsync(objets.AsNoTracking(), page ?? 1, pageSize));
         }
 
+
+        //----------- Ajout Arash , envoyer une liste des objets à visiteur --------------//
         [HttpPost]
-        public async Task<IActionResult> listeVisiteur(String visiteurEmail) {
-            String path = "wwwroot/images/icon-francais.gif";
-            EnvoyerCourrielAttached(visiteurEmail, path, "test3");
+        public async Task<IActionResult> ListeVisiteur(String visiteurEmail) {
+            //--------preparer la liste
+            String q1 = "SELECT * FROM Objets WHERE Status={0}";
+            var objets = from o in _context.Objets.
+                        Include(o => o.Categorie).
+                        Include(o => o.Vendeur).
+                        Include(o => o.Acheteur).
+                        Include(o => o.Fichiers).
+                        Include(o => o.Encheres).
+                            ThenInclude(m => m.Miseur).
+                            FromSql(q1, 0)
+                         select o;
+            List<Objet> visListe = objets.ToList();
+            /////////////////////////////////
+
+            //-----------preparer le chemin et le nom pour enregistrer le fichier-----------
+            string nom = visiteurEmail.Replace("@", " ");
+            nom = nom.Replace(".", "");
+            string webRootPath = he.WebRootPath + "/Attachments/ListeVisiteurPDF/";
+            webRootPath = webRootPath.Trim();
+            var path = Path.Combine(webRootPath, "liste" + nom + ".pdf");
+            ///////////////////////////////////////////////////////////////////////////////
+
+            //---------- création du rapport en format PDF (et l'enregistrer sur serveur) ---//
+            var report = new ViewAsPdf("listeObjetVisiteur", visListe) {
+                FileName = "Liste Vente.pdf",
+                PageMargins = { Left = 20, Bottom = 20, Right = 20, Top = 20 },
+                SaveOnServerPath = path,
+                CustomSwitches =
+                        "--footer-center \"  Date: " +
+                            DateTime.Now.ToString("MMM ddd d HH:mm yyyy") + "      Page: [page]/[toPage]\"" +
+                        " --footer-line --footer-font-size \"12\" --footer-spacing 1 --footer-font-name \"Segoe UI\""
+            };
+            var binary = report.BuildFile(this.ControllerContext);
+
+            //----- ( celui est utiliser dans le nom)
+            
+
+            // --------- Envoyer le courriel avec la méthode "EnvoyerCourrielAttached()" défini en bas------//
+            string pathFich = path.ToString();
+            EnvoyerCourrielAttached(visiteurEmail, path, "Vente Enchères: Liste des objets En vente");
 
             return RedirectToAction("Index", "Home");
+
         }
 
 
@@ -801,26 +842,32 @@ namespace venteTest.Controllers {
             );
         }
 
-        private void EnvoyerCourrielAttached(string recipient, String fichier,String sujet) {
-            MailMessage mail = new MailMessage();
-            mail.From =new MailAddress("VenteEnchereM9@gmail.com");
-            mail.To.Add(recipient);
-            mail.Subject = sujet;
-            mail.Body = sujet;
-            Attachment attachment = new Attachment(fichier);
-            mail.Attachments.Add(attachment);
+        private async void EnvoyerCourrielAttached(string recipient, string fichier, string sujet) {
+            try {
+                await Task.Run(() => {
+                    MailMessage mail = new MailMessage();
+                    mail.From = new MailAddress("VenteEnchereM9@gmail.com");
+                    mail.To.Add(recipient);
+                    mail.Subject = sujet;
+                    mail.Body = sujet;
+                    Attachment attachment = new Attachment(fichier);
+                    mail.Attachments.Add(attachment);
 
-            SmtpClient smtpClient = new SmtpClient();
-                var credential = new NetworkCredential {
-                    UserName = "VenteEnchereM9@gmail.com",  // replace with valid value
-                    Password = "!qwerty123"  // replace with valid value
-                };
-                smtpClient.Credentials = credential;
-                smtpClient.Host = "smtp.gmail.com";
-                smtpClient.Port = 587;
+                    SmtpClient smtpClient = new SmtpClient();
+                    var credential = new NetworkCredential {
+                        UserName = "VenteEnchereM9@gmail.com",  // replace with valid value
+                        Password = "!qwerty123"  // replace with valid value
+                    };
+                    smtpClient.Credentials = credential;
+                    smtpClient.Host = "smtp.gmail.com";
+                    smtpClient.Port = 587;
 
-                smtpClient.EnableSsl = true;
-                smtpClient.Send(mail);
+                    smtpClient.EnableSsl = true;
+                    smtpClient.Send(mail);
+                });
+            } catch (Exception ex) {
+                throw ex;
+            }
         }
 
 

@@ -17,6 +17,7 @@ using System.Threading;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Options;
+using Rotativa.AspNetCore;
 
 namespace venteTest
 {
@@ -119,11 +120,11 @@ namespace venteTest
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-
+            RotativaConfiguration.Setup(env);
 
             // Ajour Arash pour Hangfire
-// app.UseHangfireServer();
-// app.UseHangfireDashboard();
+            // app.UseHangfireServer();
+            // app.UseHangfireDashboard();
 
 
         }
