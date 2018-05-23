@@ -12,19 +12,19 @@
     @* Afficher tout Ou nouveaux depuis 24h *@
     <div class="btn-group">
         <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Members display options <small>&#x25BC;</small>
+            @StringsAdmin.MembersDisplay <small>&#x25BC;</small>
         </button>
         <div class="dropdown-menu">
-            <a class="dropdown-item" role="menuitem" asp-action="Membres" asp-route-members="AllMembers">All Members</a>
+            <a class="dropdown-item" role="menuitem" asp-action="Membres" asp-route-members="AllMembers">@StringsAdmin.MembersAll</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" role="menuitem" asp-action="Membres" asp-route-members="NewMembers">New Members (24h)</a>
+            <a class="dropdown-item" role="menuitem" asp-action="Membres" asp-route-members="NewMembers">@StringsAdmin.Members24</a>
         </div>
     </div>
     @{
         if (@ViewBag.AllMembers == "all") {
-            <h6 class="mt-2">Displaying New Members (24h) :</h6>
+            <h6 class="mt-2">@StringsAdmin.Members24 :</h6>
         } else {
-            <h6 class="mt-2">Displaying All Members :</h6>
+            <h6 class="mt-2">@StringsAdmin.MembersAll :</h6>
         }
     }
     @* Fin afficher tout Ou nouveaux depuis 24h *@
@@ -33,34 +33,34 @@
 <table class="table-hover">
     <thead>
         <tr class="border border-info">
-            <th class="p-2">
-                @StringsAdmin.MembresCourriel
-            </th>
-            <th class="p-2">
-                @StringsAdmin.MembresCourrielConfirme
-            </th>
-            <th class="p-2">
-                @StringsAdmin.MembresNom
-            </th>
-            <th class="p-2">
-                @StringsAdmin.MembresPrenom
-            </th>
-            <th class="p-2">
-                @StringsAdmin.MembresTelephone
-            </th>
-            <th class="p-2">
-                @StringsAdmin.MembresCivilite
-            </th>
-            <th class="p-2">
-                @StringsAdmin.MembresLangue
-            </th>
-            <th class="p-2">
-                @StringsAdmin.MembresAdresse
-            </th>
-            <th class="p-2">
-                @StringsAdmin.MembresDateEnrolement
-            </th>
-            <th></th>
+                <th class="p-2">
+                    @StringsAdmin.MembresCourriel
+                </th>
+                <th class="p-2">
+                    @StringsAdmin.MembresCourrielConfirme
+                </th>
+                <th class="p-2">
+                    @StringsAdmin.MembresNom
+                </th>
+                <th class="p-2">
+                    @StringsAdmin.MembresPrenom
+                </th>
+                <th class="p-2">
+                    @StringsAdmin.MembresTelephone
+                </th>
+                <th class="p-2">
+                    @StringsAdmin.MembresCivilite
+                </th>
+                <th class="p-2">
+                    @StringsAdmin.MembresLangue
+                </th>
+                <th class="p-2">
+                    @StringsAdmin.MembresAdresse
+                </th>
+                <th class="p-2">
+                    @StringsAdmin.MembresDateEnrolement
+                </th>
+                <th></th>
         </tr>
     </thead>
     <tbody>

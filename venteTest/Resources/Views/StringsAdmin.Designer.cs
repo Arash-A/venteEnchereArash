@@ -232,6 +232,33 @@ namespace venteTest.Resources.Views {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nouveaux membres (24 hrs).
+        /// </summary>
+        public static string Members24 {
+            get {
+                return ResourceManager.GetString("Members24", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tous les membres.
+        /// </summary>
+        public static string MembersAll {
+            get {
+                return ResourceManager.GetString("MembersAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Option d&apos;affichage des membres.
+        /// </summary>
+        public static string MembersDisplay {
+            get {
+                return ResourceManager.GetString("MembersDisplay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Membres.
         /// </summary>
         public static string Membres {

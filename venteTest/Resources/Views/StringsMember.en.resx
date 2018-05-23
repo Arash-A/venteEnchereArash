@@ -117,118 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ButtonCreer" xml:space="preserve">
-    <value>Créer</value>
+  <data name="Actif" xml:space="preserve">
+    <value>Active members</value>
   </data>
-  <data name="CreateCategorie" xml:space="preserve">
-    <value>Catégorie</value>
+  <data name="BuyerRating" xml:space="preserve">
+    <value>Buyer rating</value>
   </data>
-  <data name="CreateTitle" xml:space="preserve">
-    <value>Créer</value>
+  <data name="BuyerRatingEx" xml:space="preserve">
+    <value>Buyer Rating : Average rating given by the seller to his winners</value>
   </data>
-  <data name="DeleteButton" xml:space="preserve">
-    <value>Effacer</value>
+  <data name="DisplayActive" xml:space="preserve">
+    <value>Display active objects</value>
   </data>
-  <data name="DeleteMessage" xml:space="preserve">
-    <value>Êtes vous sûr de vouloir effacer ceci?</value>
+  <data name="Profile" xml:space="preserve">
+    <value>Profile</value>
   </data>
-  <data name="DeleteTitle" xml:space="preserve">
-    <value>Effacer</value>
+  <data name="RatingsExplanation" xml:space="preserve">
+    <value>Ratings go from -3 to 3 in ascending order of evaluation</value>
   </data>
-  <data name="EditBackToList" xml:space="preserve">
-    <value>De retour à la liste</value>
+  <data name="Rechercher" xml:space="preserve">
+    <value>Search...</value>
   </data>
-  <data name="EditCategorie" xml:space="preserve">
-    <value>Catégorie</value>
+  <data name="Reset" xml:space="preserve">
+    <value>Reset</value>
   </data>
-  <data name="EditSave" xml:space="preserve">
-    <value>Sauvegarder</value>
+  <data name="SellerRating" xml:space="preserve">
+    <value>Seller rating</value>
   </data>
-  <data name="EditTitle" xml:space="preserve">
-    <value>Modifier une catégorie</value>
-  </data>
-  <data name="EmailBackToMemberManagement" xml:space="preserve">
-    <value>De retour à la gestion des membres</value>
-  </data>
-  <data name="EmailParametres" xml:space="preserve">
-    <value>Veuillez entrer les paramètres du courriel</value>
-  </data>
-  <data name="EmailSend" xml:space="preserve">
-    <value>Envoyer</value>
-  </data>
-  <data name="EmailTitle" xml:space="preserve">
-    <value>Écrire au membre</value>
-  </data>
-  <data name="IndexCreerNouvelle" xml:space="preserve">
-    <value>Créer une nouvelle catégorie</value>
-  </data>
-  <data name="IndexDelete" xml:space="preserve">
-    <value>Effacer</value>
-  </data>
-  <data name="IndexEdit" xml:space="preserve">
-    <value>Éditer</value>
-  </data>
-  <data name="IndexGestionCategories" xml:space="preserve">
-    <value>Gestion des catégories</value>
-  </data>
-  <data name="LayoutDescription" xml:space="preserve">
-    <value>Opérations de l'administrateur</value>
-  </data>
-  <data name="Members24" xml:space="preserve">
-    <value>Nouveaux membres (24 hrs)</value>
-  </data>
-  <data name="MembersAll" xml:space="preserve">
-    <value>Tous les membres</value>
-  </data>
-  <data name="MembersDisplay" xml:space="preserve">
-    <value>Option d'affichage des membres</value>
-  </data>
-  <data name="Membres" xml:space="preserve">
-    <value>Membres</value>
-  </data>
-  <data name="MembresAdresse" xml:space="preserve">
-    <value>Adresse</value>
-  </data>
-  <data name="MembresCivilite" xml:space="preserve">
-    <value>Civilité</value>
-  </data>
-  <data name="MembresCourriel" xml:space="preserve">
-    <value>Courriel</value>
-  </data>
-  <data name="MembresCourrielConfirme" xml:space="preserve">
-    <value>Courriel confirmé</value>
-  </data>
-  <data name="MembresDateEnrolement" xml:space="preserve">
-    <value>Date d'enrolement</value>
-  </data>
-  <data name="MembresGestion" xml:space="preserve">
-    <value>Gestion des membres</value>
-  </data>
-  <data name="MembresLangue" xml:space="preserve">
-    <value>Langue</value>
-  </data>
-  <data name="MembresNom" xml:space="preserve">
-    <value>Nom</value>
-  </data>
-  <data name="MembresPrenom" xml:space="preserve">
-    <value>Prénom</value>
-  </data>
-  <data name="MembresTelephone" xml:space="preserve">
-    <value>Numéro de téléphone</value>
-  </data>
-  <data name="NavBid" xml:space="preserve">
-    <value>Configuration des mises</value>
-  </data>
-  <data name="NavCategorie" xml:space="preserve">
-    <value>Gestion des catégories</value>
-  </data>
-  <data name="NavMembre" xml:space="preserve">
-    <value>Gestion des membres</value>
-  </data>
-  <data name="NavObjets" xml:space="preserve">
-    <value>Gestion des objets</value>
-  </data>
-  <data name="NavOptions" xml:space="preserve">
-    <value>Options</value>
+  <data name="SellerRatingEx" xml:space="preserve">
+    <value>Seller Rating : Average rating received by the seller</value>
   </data>
 </root>

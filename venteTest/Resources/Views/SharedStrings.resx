@@ -279,4 +279,25 @@
   <data name="ErrorTitre" xml:space="preserve">
     <value>Erreur</value>
   </data>
+  <data name="Anglais" xml:space="preserve">
+    <value>Anglais</value>
+  </data>
+  <data name="Francais" xml:space="preserve">
+    <value>Français</value>
+  </data>
+  <data name="Langue" xml:space="preserve">
+    <value>Langue</value>
+  </data>
+  <data name="ListeAVendre" xml:space="preserve">
+    <value>Liste des objets a vendre</value>
+  </data>
+  <data name="ListeCourriel" xml:space="preserve">
+    <value>Votre courriel</value>
+  </data>
+  <data name="ListeDescription" xml:space="preserve">
+    <value>Vous allez recevoir une liste de tous les objets à vendre</value>
+  </data>
+  <data name="ListeEmailHeader" xml:space="preserve">
+    <value>Liste des objets</value>
+  </data>
 </root>
