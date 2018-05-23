@@ -676,7 +676,7 @@ namespace venteTest.Controllers {
 
             // --------- Envoyer le courriel avec la méthode "EnvoyerCourrielAttached()" défini en bas------//
             string pathFich = path.ToString();
-            EnvoyerCourrielAttached(visiteurEmail, path, "Vente Enchères: Liste des objets En vente");
+            EnvoyerCourrielAttached(visiteurEmail, pathFich, "Vente Enchères: Liste des objets En vente");
 
             return RedirectToAction("Index", "Home");
 
