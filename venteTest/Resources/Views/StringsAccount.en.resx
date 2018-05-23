@@ -141,6 +141,9 @@
   <data name="ClickToLogin" xml:space="preserve">
     <value>Please click here to log in.</value>
   </data>
+  <data name="CompteLocal" xml:space="preserve">
+    <value>Use a local account to log in.</value>
+  </data>
   <data name="ConfirmerCourriel" xml:space="preserve">
     <value>Confirm email</value>
   </data>
@@ -155,6 +158,9 @@
   </data>
   <data name="EntrerCourrielST" xml:space="preserve">
     <value>Enter your email.</value>
+  </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>Connect</value>
   </data>
   <data name="MDPOublie" xml:space="preserve">
     <value>Forgot your password?</value>

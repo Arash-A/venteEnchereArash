@@ -22,14 +22,14 @@ namespace venteTest.Resources.Models {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class StringsManage {
+    public class StringsObjets {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal StringsManage() {
+        internal StringsObjets() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace venteTest.Resources.Models {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("venteTest.Resources.Models.StringsManage", typeof(StringsManage).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("venteTest.Resources.Models.StringsObjets", typeof(StringsObjets).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,101 +61,101 @@ namespace venteTest.Resources.Models {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Code de vérification.
+        ///   Looks up a localized string similar to Commission au vendeur.
         /// </summary>
-        public static string CodeVerif {
+        public static string Commission {
             get {
-                return ResourceManager.GetString("CodeVerif", resourceCulture);
+                return ResourceManager.GetString("Commission", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mot de passe actuel.
+        ///   Looks up a localized string similar to Date d&apos;ajout.
         /// </summary>
-        public static string UsagerActuelP {
+        public static string DateAjout {
             get {
-                return ResourceManager.GetString("UsagerActuelP", resourceCulture);
+                return ResourceManager.GetString("DateAjout", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adresse.
+        ///   Looks up a localized string similar to Temps depuis le début.
         /// </summary>
-        public static string UsagerAdresse {
+        public static string Duree {
             get {
-                return ResourceManager.GetString("UsagerAdresse", resourceCulture);
+                return ResourceManager.GetString("Duree", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Civilité.
+        ///   Looks up a localized string similar to Image.
         /// </summary>
-        public static string UsagerCivilite {
+        public static string Image {
             get {
-                return ResourceManager.GetString("UsagerCivilite", resourceCulture);
+                return ResourceManager.GetString("Image", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Confirmer le nouveau mot de passe.
+        ///   Looks up a localized string similar to Description.
         /// </summary>
-        public static string UsagerConfirmerP {
+        public static string ObjetDescription {
             get {
-                return ResourceManager.GetString("UsagerConfirmerP", resourceCulture);
+                return ResourceManager.GetString("ObjetDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Courriel.
+        ///   Looks up a localized string similar to Image.
         /// </summary>
-        public static string UsagerCourriel {
+        public static string ObjetImage {
             get {
-                return ResourceManager.GetString("UsagerCourriel", resourceCulture);
+                return ResourceManager.GetString("ObjetImage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Langue.
+        ///   Looks up a localized string similar to Date de départ.
         /// </summary>
-        public static string UsagerLangue {
+        public static string ObjetMiseDateDepart {
             get {
-                return ResourceManager.GetString("UsagerLangue", resourceCulture);
+                return ResourceManager.GetString("ObjetMiseDateDepart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date de fin.
+        /// </summary>
+        public static string ObjetMiseDateFin {
+            get {
+                return ResourceManager.GetString("ObjetMiseDateFin", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Nom.
         /// </summary>
-        public static string UsagerNom {
+        public static string ObjetNom {
             get {
-                return ResourceManager.GetString("UsagerNom", resourceCulture);
+                return ResourceManager.GetString("ObjetNom", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nouveau mot de passe.
+        ///   Looks up a localized string similar to Prix.
         /// </summary>
-        public static string UsagerPassword {
+        public static string ObjetPrix {
             get {
-                return ResourceManager.GetString("UsagerPassword", resourceCulture);
+                return ResourceManager.GetString("ObjetPrix", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Prénom.
+        ///   Looks up a localized string similar to Prix vendu.
         /// </summary>
-        public static string UsagerPrenom {
+        public static string PrixVendu {
             get {
-                return ResourceManager.GetString("UsagerPrenom", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Téléphone.
-        /// </summary>
-        public static string UsagerTelephone {
-            get {
-                return ResourceManager.GetString("UsagerTelephone", resourceCulture);
+                return ResourceManager.GetString("PrixVendu", resourceCulture);
             }
         }
     }

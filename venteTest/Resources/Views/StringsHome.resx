@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Accueil" xml:space="preserve">
+    <value>Accueil</value>
+  </data>
+  <data name="APropos" xml:space="preserve">
+    <value>À propos</value>
+  </data>
   <data name="ContactDescription" xml:space="preserve">
     <value>Envoyez-nous vos commentaires.</value>
   </data>
@@ -140,6 +146,9 @@
   </data>
   <data name="FAQDescription" xml:space="preserve">
     <value>Lorsque vous joignez notre site d'encans, vous convenez avoir compris les modalités suivantes:</value>
+  </data>
+  <data name="Forums" xml:space="preserve">
+    <value>Forums</value>
   </data>
   <data name="IndexCategorie" xml:space="preserve">
     <value>Catégorie</value>
@@ -188,5 +197,11 @@
   </data>
   <data name="IndexSpecs" xml:space="preserve">
     <value>Spécifications complètes</value>
+  </data>
+  <data name="Revues" xml:space="preserve">
+    <value>Revues</value>
+  </data>
+  <data name="Support" xml:space="preserve">
+    <value>Support</value>
   </data>
 </root>

@@ -59,5 +59,41 @@ namespace venteTest.Resources.Models {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirmer le mot de passe.
+        /// </summary>
+        public static string ConfirmerMdp {
+            get {
+                return ResourceManager.GetString("ConfirmerMdp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Courriel.
+        /// </summary>
+        public static string Courriel {
+            get {
+                return ResourceManager.GetString("Courriel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mot de passe.
+        /// </summary>
+        public static string Mdp {
+            get {
+                return ResourceManager.GetString("Mdp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Se souvenir de moi.
+        /// </summary>
+        public static string SeSouvenir {
+            get {
+                return ResourceManager.GetString("SeSouvenir", resourceCulture);
+            }
+        }
     }
 }

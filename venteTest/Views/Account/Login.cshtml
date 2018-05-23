@@ -8,7 +8,7 @@
 @inject SignInManager<ApplicationUser> SignInManager
 
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = @StringsAccount.LogIn;
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -16,7 +16,7 @@
     <div class="col-md-4">
         <section>
             <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
-                <h4>Use a local account to log in.</h4>
+                <h4>@StringsAccount.CompteLocal</h4>
                 <hr />
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
@@ -38,14 +38,14 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-warning">Log in</button>
+                    <button type="submit" class="btn btn-warning"> @StringsAccount.LogIn</button>
                 </div>
                 <div class="form-group">
                     <p>
-                        <a asp-action="ForgotPassword">Forgot your password?</a>
+                        <a asp-action="ForgotPassword"> @StringsAccount.MDPOublie</a>
                     </p>
                     <p>
-                        <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Register as a new user?</a>
+                        <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]"> @StringsAccount.CreerCompte</a>
                     </p>
                 </div>
             </form>

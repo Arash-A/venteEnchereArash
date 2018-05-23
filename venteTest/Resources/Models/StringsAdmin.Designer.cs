@@ -59,5 +59,131 @@ namespace venteTest.Resources.Models {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Courriel du membre.
+        /// </summary>
+        public static string CourrielMembre {
+            get {
+                return ResourceManager.GetString("CourrielMembre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Facteur de commission.
+        /// </summary>
+        public static string FacteurComm {
+            get {
+                return ResourceManager.GetString("FacteurComm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Id Mise.
+        /// </summary>
+        public static string IdMise {
+            get {
+                return ResourceManager.GetString("IdMise", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Message.
+        /// </summary>
+        public static string Message {
+            get {
+                return ResourceManager.GetString("Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pas de la mise.
+        /// </summary>
+        public static string MisePas {
+            get {
+                return ResourceManager.GetString("MisePas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date de départ.
+        /// </summary>
+        public static string ObjetDateDepart {
+            get {
+                return ResourceManager.GetString("ObjetDateDepart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date de fin.
+        /// </summary>
+        public static string ObjetDateFin {
+            get {
+                return ResourceManager.GetString("ObjetDateFin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string ObjetDescription {
+            get {
+                return ResourceManager.GetString("ObjetDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Durée depuis le début de la vente.
+        /// </summary>
+        public static string ObjetDuree {
+            get {
+                return ResourceManager.GetString("ObjetDuree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Image.
+        /// </summary>
+        public static string ObjetImage {
+            get {
+                return ResourceManager.GetString("ObjetImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Le chemin de votre image est trop long car il dépasse 1024 caractères. Réessayer!.
+        /// </summary>
+        public static string ObjetImageErreur {
+            get {
+                return ResourceManager.GetString("ObjetImageErreur", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mise de départ.
+        /// </summary>
+        public static string ObjetMiseDepart {
+            get {
+                return ResourceManager.GetString("ObjetMiseDepart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nom.
+        /// </summary>
+        public static string ObjetNom {
+            get {
+                return ResourceManager.GetString("ObjetNom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Titre.
+        /// </summary>
+        public static string Titre {
+            get {
+                return ResourceManager.GetString("Titre", resourceCulture);
+            }
+        }
     }
 }

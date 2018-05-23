@@ -19,36 +19,74 @@ namespace venteTest.Tests
     //    <PackageReference Include = "FluentAssertions" Version="4.19.2" />
     //    <PackageReference Include = "Moq" Version="4.7.63" />
 
+    //DO NOT ADD Install-Package MyTested.AspNetCore.Mvc.Universe -Version 1.1.0
+    //AS IT WILL BREAK THE STRUCTURE.
+
     public class UnitTest1
     {
-        //[Fact]
-        //public void HomeTest1()
-        //{
-        //    HomeController sut = new venteTest.Controllers.HomeController();
 
+        //[Fact]
+        //public void AccountController()
+        //{
+        //    //    AccountController sut = new venteTest.Controllers.AccountController();
+
+        //    //    Assert.IsType<ViewResult>(result);
+        //}
+
+        //[Fact]
+        //public void AdminController()
+        //{
+        //    //    AdminController sut = new venteTest.Controllers.AdminController();
+
+        //    //    Assert.IsType<ViewResult>(result);
+        //}
+
+        //[Fact]
+        //public void HomeController()
+        //{
+        //    //HomeController sut = new venteTest.Controllers.HomeController();
+        //    //IActionResult result = sut.Contact();
+        //    //IActionResult result = sut.Error();
+        //    //IActionResult result = sut.Faq();
+        //    //IActionResult result = sut.Sent();
+        //    //Assert.IsType<ViewResult>(result);
+        //}
+
+        //[Fact]
+        //public void ManageController()
+        //{
+        //    //    ManageController sut = new venteTest.Controllers.ManageController();
+
+        //    //    Assert.IsType<ViewResult>(result);
+        //}
+
+        //[Fact]
+        //public void MemberController()
+        //{
+        //    //    MemberController sut = new venteTest.Controllers.MemberController();
+
+        //    //    Assert.IsType<ViewResult>(result);
+        //}
+
+        //[Fact]
+        //public void ObjetsController()
+        //{
+        //    //    ObjetsController sut = new venteTest.Controllers.ObjetsController();
+
+        //    //    Assert.IsType<ViewResult>(result);
+        //}
+
+
+        //[Fact]
+        //public void HomeTest1() {
+        //    HomeController sut = new venteTest.Controllers.HomeController();
         //    IActionResult result = sut.Contact();
-
-        //    Assert.IsType<ViewResult>(result);
-        //}
-
-        //[Fact]
-        //public void HomeTest2()
-        //{
-        //    HomeController sut = new venteTest.Controllers.HomeController();
-
+        //    IActionResult result = sut.Error();
         //    IActionResult result = sut.Faq();
-
-        //    Assert.IsType<ViewResult>(result);
-        //}
-        //[Fact]
-        //public void HomeTest3()
-        //{
-        //    HomeController sut = new venteTest.Controllers.HomeController();
-
         //    IActionResult result = sut.Sent();
-
         //    Assert.IsType<ViewResult>(result);
         //}
+
 
         ////THIS TEST WILL FAIL ON PURPOSE
         //[Fact]
@@ -62,15 +100,15 @@ namespace venteTest.Tests
         //}
 
         //THIS TEST WILL FAIL ON PURPOSE
-      // [Fact]
-      // public void AdminTest1()
-      // {
-      //     AdminController sut = new venteTest.Controllers.AdminController();
-      //
-      //     IActionResult result = (IActionResult)sut.Index();
-      //
-      //     Assert.IsType<ViewResult>(result);
-      // }
+        // [Fact]
+        // public void AdminTest1()
+        // {
+        //     AdminController sut = new venteTest.Controllers.AdminController();
+        //
+        //     IActionResult result = (IActionResult)sut.Index();
+        //
+        //     Assert.IsType<ViewResult>(result);
+        // }
 
         //[Fact]
         //public async Task Create_ReturnsBadRequest_GivenInvalidModel()

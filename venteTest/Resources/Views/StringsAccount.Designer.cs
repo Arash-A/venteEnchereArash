@@ -133,6 +133,15 @@ namespace venteTest.Resources.Views {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Utilisez votre compte pour vous connecter.
+        /// </summary>
+        public static string CompteLocal {
+            get {
+                return ResourceManager.GetString("CompteLocal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirmation de courriel.
         /// </summary>
         public static string ConfirmerCourriel {
@@ -151,7 +160,7 @@ namespace venteTest.Resources.Views {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Créer un nouvelle compte.
+        ///   Looks up a localized string similar to Créer un nouveau compte.
         /// </summary>
         public static string CreerCompte {
             get {
@@ -174,6 +183,15 @@ namespace venteTest.Resources.Views {
         public static string EntrerCourrielST {
             get {
                 return ResourceManager.GetString("EntrerCourrielST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Se Connecter.
+        /// </summary>
+        public static string LogIn {
+            get {
+                return ResourceManager.GetString("LogIn", resourceCulture);
             }
         }
         

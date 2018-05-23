@@ -16,9 +16,9 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="6.2.2" />
     <PackageReference Include="HangFire" Version="1.6.19" />
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.2" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.3" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.4" PrivateAssets="All" />
     <PackageReference Include="ReflectionIT.Mvc.Paging" Version="2.4.0" />
     <PackageReference Include="Sendgrid" Version="9.9.0" />
   </ItemGroup>
@@ -60,6 +60,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>StringsManage.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Models\StringsObjets.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>StringsObjets.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\Models\StringsShared.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -128,6 +133,13 @@
     <EmbeddedResource Update="Resources\Models\StringsManage.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>StringsManage.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Models\StringsObjets.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>StringsObjets.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Models\StringsOnjets.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Models\StringsShared.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

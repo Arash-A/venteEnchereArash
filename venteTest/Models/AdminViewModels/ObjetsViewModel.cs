@@ -3,32 +3,33 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using venteTest.Resources.Models;
 
 namespace venteTest.Models.AdminViewModels {
     public class ObjetsViewModel {
         [StringLength(75, MinimumLength = 10, ErrorMessage = "Please enter object name between 10 and 75 characters")]
-        [Display(Name = "Name")]
+        [Display(Name = "ObjetNom", ResourceType = typeof(StringsAdmin))]
         public string Nom { get; set; }
 
         [StringLength(300, MinimumLength = 10, ErrorMessage = "Please enter object description between 10 and 300 characters")]
-        [Display(Name = "Description")]
+        [Display(Name = "ObjetDescription", ResourceType = typeof(StringsAdmin))]
         public string Description { get; set; }
 
-        [Display(Name = "Bid Price Start")]
+        [Display(Name = "ObjetMiseDepart", ResourceType = typeof(StringsAdmin))]
         [Range(10, double.MaxValue, ErrorMessage = "The starting bid value must be greater than 10.")]
         public double PrixDepart { get; set; }
 
         [DataType(DataType.Date)]
-        [Display(Name = "Bid Start Date")]
+        [Display(Name = "ObjetDateDepart", ResourceType = typeof(StringsAdmin))]
         public DateTime DateInscription { get; set; }
         //par défault on va mettre DateInscription à DateTime.Now à la création de l'annonce
 
 
         [DataType(DataType.Date)]
-        [Display(Name = "Bid end date")]
+        [Display(Name = "ObjetDateFin", ResourceType = typeof(StringsAdmin))]
         public DateTime DateLimite { get; set; } // fixé par le Vendeur à l'ajout dans ce ViewModel
 
-        [Display(Name = "Time since start of sell")]
+        [Display(Name = "ObjetDuree", ResourceType = typeof(StringsAdmin))]
         public String DureeMiseVente {
             get {
                 TimeSpan diff1 = DateTime.Now.Subtract(DateInscription);
@@ -39,7 +40,7 @@ namespace venteTest.Models.AdminViewModels {
 
         public Status Status { get; set; }
 
-        [Display(Name = "Image")]
+        [Display(Name = "ObjetImage", ResourceType = typeof(StringsAdmin))]
         [StringLength(1024, ErrorMessage = "Your image path is too long because exceeding 1024 characters. Try again!")]
         public string imageUrl { get; set; }
 

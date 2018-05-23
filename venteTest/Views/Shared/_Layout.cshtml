@@ -36,10 +36,10 @@
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand"><img src="~/images/hammer.png" class="pull-left" width="40" height="40" alt="" /><span class="ml-2">VenteEnchères </span></a>
             @*<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>*@
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>*@
             <button class="navbar-toggler ml-auto custom-toggler m-2" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -62,22 +62,22 @@
                     </button>
                     <div class="dropdown-menu" aria-labelledby="about-us" style="width: 200px; top:auto">
                         @*<a asp-area="" asp-controller="Home" asp-action="Faq" class="dropdown-item"><img id="langSelFR" src="~/images/icon-francais.gif" alt="..." class="img-thumbnail icon-small" width="35">Francais</a>
-                            <a asp-area="" asp-controller="Home" asp-action="Faq" class="dropdown-item"><img id="langSelEN" src="~/images/icon-anglais.gif" alt="..." class="img-thumbnail icon-small" width="35">Anglais</a>*@
+                    <a asp-area="" asp-controller="Home" asp-action="Faq" class="dropdown-item"><img id="langSelEN" src="~/images/icon-anglais.gif" alt="..." class="img-thumbnail icon-small" width="35">Anglais</a>*@
                         <a asp-area="" asp-controller="Home" asp-action="SetLanguage" asp-route-culture="fr" asp-route-returnUrl="@Context.Request.Path" class="dropdown-item"><img id="langSelFR" src="~/images/icon-francais.gif" alt="..." class="img-thumbnail icon-small mr-1" width="35">Francais</a>
                         <a asp-area="" asp-controller="Home" asp-action="SetLanguage" asp-route-culture="en" asp-route-returnUrl="@Context.Request.Path" class="dropdown-item"><img id="langSelEN" src="~/images/icon-anglais.gif" alt="..." class="img-thumbnail icon-small mr-1" width="35">Anglais</a>
                     </div>
                 </div>
                 @*<form class="form-inline mx-auto" action="">
-                        <select class="form-control mr-2" id="cat">
-                            <option>Catégorie 1......</option>
-                            <option>Catégorie 2......</option>
-                            <option>Catégorie 3......</option>
-                            <option>Catégorie 4......</option>
-                            <option>Catégorie 5......</option>
-                        </select>
-                        <input class="form-control mr-sm-2" type="text" id="cherche" placeholder="Rechercher...">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>*@
+                <select class="form-control mr-2" id="cat">
+                    <option>Catégorie 1......</option>
+                    <option>Catégorie 2......</option>
+                    <option>Catégorie 3......</option>
+                    <option>Catégorie 4......</option>
+                    <option>Catégorie 5......</option>
+                </select>
+                <input class="form-control mr-sm-2" type="text" id="cherche" placeholder="Rechercher...">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>*@
                 @await Html.PartialAsync("_LoginPartial")
             </div>
         </nav>
@@ -85,32 +85,8 @@
     </header>
 
     <div class="container body-content mt-3">
-        <div id="myModal" class="modal fade">
-            <div class="modal-dialog modal-newsletter">
-                <div class="modal-content">
-                    <form asp-controller="Objets" asp-action="listeVisiteur" method="post" enctype="multipart/form-data">
-                        <div class="modal-header">
-                            <div class="icon-box">
-                                <i class="fa fa-envelope-open-o"></i>
-                            </div>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span>&times;</span></button>
-                        </div>
-                        <div class="modal-body text-center">
-                            <h4>Liste des objets</h4>
-                            <p>Vous allez recevoir une liste de tous les objets à vendre</p>
-                            <div class="input-group">
-                                <input type="email" id="visiteurEmail" name="visiteurEmail" class="form-control" placeholder="Votre courriel" required>
-                                <span class="input-group-btn">
-                                    <input type="submit" class="btn btn-primary" value="M'envoyer">
-                                </span>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
         @RenderBody()
-        <hr style="height:2px;border:none;color:#DC3545;background-color:#DC3545;" />
+        <hr style="height:2px;border:none;color:#DC3545;background-color:#DC3545;"/>
         <footer>
             <p>&copy; 2018 - VenteEnchère</p>
             <div class="row">
@@ -132,29 +108,28 @@
                 <div class="col-md-2">
                     <h6>Start</h6>
                     <ul>
-                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Acceuil</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index">@StringsHome.Accueil</a></li>
                     </ul>
                 </div>
                 <div class="col-md-2">
-                    <h6>About</h6>
+                    <h6>@StringsHome.APropos</h6>
                     <ul>
                         <li>
                             <a asp-area="" asp-controller="Home" asp-action="Contact">@SharedStrings.Contact</a>
                         </li>
-                        <li><a href="#">Revues</a></li>
-
+                        <li><a href="#">@StringsHome.Revues</a></li>
                     </ul>
                 </div>
                 <div class="col-md-2">
-                    <h6>Support</h6>
+                    <h6>@StringsHome.Support</h6>
                     <ul>
                         <li>
                             <a asp-area="" asp-controller="Home" asp-action="Faq">@SharedStrings.Faq</a>
                         </li>
                         <li><a href="#">Forums</a></li>
                     </ul>
-                   
                 </div>
+
 
 
 
@@ -212,7 +187,7 @@
         $(document).ready(function () {
             // executes when HTML-Document is loaded and DOM is ready
             //alert("ready");
-            // breakpoint and up
+            // breakpoint and up  
             $(window).resize(function () {
                 if ($(window).width() >= 980) {
 
@@ -233,7 +208,7 @@
 
 
 
-            // document ready
+            // document ready  
         });
 
     </script>
@@ -271,14 +246,14 @@
 
         }
 
-        // filtrer les noms/prenoms/emails ds la liste de membres
+        // filtrer les noms/prenoms/emails ds la liste de membres   
         function showParNomPrenomEmail(valRech) {
             debugger;
             var rech = valRech.trim().toUpperCase();
             var table = document.getElementById("tabledeMembresAcc");
 
-            // Chercher ds ces colonnes...
-            // 0 Email 	1 Last name	    2 First name
+           // Chercher ds ces colonnes...
+           // 0 Email 	1 Last name	    2 First name
 
             //iterate through rows
             for (var i = 1, row; row = table.rows[i]; i++) {
@@ -286,7 +261,7 @@
                 //colonnes
                 for (var j = 0, col; col = table.rows[i].cells[j]; j++) {
                     var leText = col.innerText.replace(/(^\s+|\s+$)/g, '').toUpperCase(); // texte de la cellule
-
+                    
                     if (leText.indexOf(rech) >= 0) {
                         row.style.display = '';
                         break;
