@@ -59,5 +59,23 @@ namespace venteTest.Resources.Models {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Votre message.
+        /// </summary>
+        public static string VotreCourriel {
+            get {
+                return ResourceManager.GetString("VotreCourriel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Votre courriel.
+        /// </summary>
+        public static string VotreEmail {
+            get {
+                return ResourceManager.GetString("VotreEmail", resourceCulture);
+            }
+        }
     }
 }

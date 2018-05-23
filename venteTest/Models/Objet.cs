@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using venteTest.Resources.Models;
 
 namespace venteTest.Models {
     public enum Status {
@@ -20,28 +21,28 @@ namespace venteTest.Models {
 
         [Required]
         [MaxLength(400)]
-        [Display(Name = "Description")]
+        [Display(Name = "ObjetDescription", ResourceType = typeof(StringsObjets))]
         public string Description { get; set; }
 
 
         [Required]
-        [Display(Name = "Price")]
+        [Display(Name = "ObjetPrix", ResourceType = typeof(StringsObjets))]
         public double PrixDepart { get; set; }
 
-        [Display(Name = "Price Sold")]
+        [Display(Name = "PrixVendu", ResourceType = typeof(StringsObjets))]
         public double PrixVenteBrute { get; set; }
 
-        [Display(Name = "CommissionAuVendeur")]
+        [Display(Name = "Commission", ResourceType = typeof(StringsObjets))]
         public double Commission { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
-        [Display(Name = "Date added")]
+        [Display(Name = "DateAjout", ResourceType = typeof(StringsObjets))]
         public DateTime DateInscription { get; set; } // fixé par le Vendeur à l'ajout
 
         public DateTime DateLimite { get; set; } // fixé par le Vendeur à l'ajout
 
-        [Display(Name = "Time since start of sell")]
+        [Display(Name = "Duree", ResourceType = typeof(StringsObjets))]
         public String DureeMiseVente {
             get {
                 TimeSpan diff1 = DateTime.Now.Subtract(DateInscription);
@@ -51,7 +52,7 @@ namespace venteTest.Models {
         }
         public Status Status { get; set; }
 
-        [DisplayName("Image")]
+        [Display(Name = "Image", ResourceType = typeof(StringsObjets))]
         [StringLength(1024)]
         public string imageUrl { get; set; }
 

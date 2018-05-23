@@ -141,6 +141,9 @@
   <data name="ClickToLogin" xml:space="preserve">
     <value>Veuillez cliquer ici pour vous connecter.</value>
   </data>
+  <data name="CompteLocal" xml:space="preserve">
+    <value>Utilisez votre compte pour vous connecter</value>
+  </data>
   <data name="ConfirmerCourriel" xml:space="preserve">
     <value>Confirmation de courriel</value>
   </data>
@@ -148,13 +151,16 @@
     <value>Merci de confirmer votre courriel.</value>
   </data>
   <data name="CreerCompte" xml:space="preserve">
-    <value>Créer un nouvelle compte</value>
+    <value>Créer un nouveau compte</value>
   </data>
   <data name="EntrerCourriel" xml:space="preserve">
     <value>Veuillez entrer une adresse courriel pour le site ci-dessous et cliquez le bouton s'enregistrer pour compléter la connexion.</value>
   </data>
   <data name="EntrerCourrielST" xml:space="preserve">
     <value>Entrez votre courriel.</value>
+  </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>Se Connecter</value>
   </data>
   <data name="MDPOublie" xml:space="preserve">
     <value>Mot de passe oublié?</value>

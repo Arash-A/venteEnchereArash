@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using venteTest.Resources.Models;
 
 namespace venteTest.Models.HomeViewModels
 {
@@ -6,11 +7,11 @@ namespace venteTest.Models.HomeViewModels
     {
 
         //COURRIEL
-        [Required, Display(Name = "Your email"), EmailAddress]
+        [Required, Display(Name = "VotreEmail", ResourceType = typeof(StringsHome))]
         public string FromEmail { get; set; }
 
         //MESSAGE
-        [Required]
+        [Required, Display(Name = "VotreCourriel", ResourceType = typeof(StringsHome))]
         public string Message { get; set; }
 
         ////Verification is the reCaptcha

@@ -117,37 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CodeVerif" xml:space="preserve">
-    <value>Code de vérification</value>
+  <data name="Commission" xml:space="preserve">
+    <value>Commission au vendeur</value>
   </data>
-  <data name="UsagerActuelP" xml:space="preserve">
-    <value>Mot de passe actuel</value>
+  <data name="DateAjout" xml:space="preserve">
+    <value>Date d'ajout</value>
   </data>
-  <data name="UsagerAdresse" xml:space="preserve">
-    <value>Adresse</value>
+  <data name="Duree" xml:space="preserve">
+    <value>Temps depuis le début</value>
   </data>
-  <data name="UsagerCivilite" xml:space="preserve">
-    <value>Civilité</value>
+  <data name="Image" xml:space="preserve">
+    <value>Image</value>
   </data>
-  <data name="UsagerConfirmerP" xml:space="preserve">
-    <value>Confirmer le nouveau mot de passe</value>
+  <data name="ObjetDescription" xml:space="preserve">
+    <value>Description</value>
   </data>
-  <data name="UsagerCourriel" xml:space="preserve">
-    <value>Courriel</value>
+  <data name="ObjetImage" xml:space="preserve">
+    <value>Image</value>
   </data>
-  <data name="UsagerLangue" xml:space="preserve">
-    <value>Langue</value>
+  <data name="ObjetMiseDateDepart" xml:space="preserve">
+    <value>Date de départ</value>
   </data>
-  <data name="UsagerNom" xml:space="preserve">
+  <data name="ObjetMiseDateFin" xml:space="preserve">
+    <value>Date de fin</value>
+  </data>
+  <data name="ObjetNom" xml:space="preserve">
     <value>Nom</value>
   </data>
-  <data name="UsagerPassword" xml:space="preserve">
-    <value>Nouveau mot de passe</value>
+  <data name="ObjetPrix" xml:space="preserve">
+    <value>Prix</value>
   </data>
-  <data name="UsagerPrenom" xml:space="preserve">
-    <value>Prénom</value>
-  </data>
-  <data name="UsagerTelephone" xml:space="preserve">
-    <value>Téléphone</value>
+  <data name="PrixVendu" xml:space="preserve">
+    <value>Prix vendu</value>
   </data>
 </root>

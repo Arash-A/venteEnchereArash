@@ -61,6 +61,24 @@ namespace venteTest.Resources.Views {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Accueil.
+        /// </summary>
+        public static string Accueil {
+            get {
+                return ResourceManager.GetString("Accueil", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to À propos.
+        /// </summary>
+        public static string APropos {
+            get {
+                return ResourceManager.GetString("APropos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Envoyez-nous vos commentaires..
         /// </summary>
         public static string ContactDescription {
@@ -129,6 +147,15 @@ namespace venteTest.Resources.Views {
         public static string FAQDescription {
             get {
                 return ResourceManager.GetString("FAQDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forums.
+        /// </summary>
+        public static string Forums {
+            get {
+                return ResourceManager.GetString("Forums", resourceCulture);
             }
         }
         
@@ -273,6 +300,24 @@ namespace venteTest.Resources.Views {
         public static string IndexSpecs {
             get {
                 return ResourceManager.GetString("IndexSpecs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Revues.
+        /// </summary>
+        public static string Revues {
+            get {
+                return ResourceManager.GetString("Revues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Support.
+        /// </summary>
+        public static string Support {
+            get {
+                return ResourceManager.GetString("Support", resourceCulture);
             }
         }
     }
