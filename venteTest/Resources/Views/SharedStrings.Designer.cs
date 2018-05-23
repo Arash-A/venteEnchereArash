@@ -70,6 +70,15 @@ namespace venteTest.Resources.Views {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Anglais.
+        /// </summary>
+        public static string Anglais {
+            get {
+                return ResourceManager.GetString("Anglais", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to À propos.
         /// </summary>
         public static string APropos {
@@ -340,11 +349,65 @@ namespace venteTest.Resources.Views {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Français.
+        /// </summary>
+        public static string Francais {
+            get {
+                return ResourceManager.GetString("Francais", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manage your account.
         /// </summary>
         public static string GererCompte {
             get {
                 return ResourceManager.GetString("GererCompte", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Langue.
+        /// </summary>
+        public static string Langue {
+            get {
+                return ResourceManager.GetString("Langue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Liste des objets a vendre.
+        /// </summary>
+        public static string ListeAVendre {
+            get {
+                return ResourceManager.GetString("ListeAVendre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Votre courriel.
+        /// </summary>
+        public static string ListeCourriel {
+            get {
+                return ResourceManager.GetString("ListeCourriel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vous allez recevoir une liste de tous les objets à vendre.
+        /// </summary>
+        public static string ListeDescription {
+            get {
+                return ResourceManager.GetString("ListeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Liste des objets.
+        /// </summary>
+        public static string ListeEmailHeader {
+            get {
+                return ResourceManager.GetString("ListeEmailHeader", resourceCulture);
             }
         }
         

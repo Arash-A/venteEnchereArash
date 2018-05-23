@@ -91,6 +91,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>StringsHome.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\Views\StringsMember.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>StringsMember.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\Views\StringsObjets.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -175,6 +180,13 @@
     <EmbeddedResource Update="Resources\Views\StringsHome.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>StringsHome.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\StringsMember.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\StringsMember.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>StringsMember.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Views\StringsObjets.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

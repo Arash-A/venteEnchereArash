@@ -2,6 +2,7 @@
 @using Microsoft.AspNetCore.Identity
 @using venteTest.Data
 @using Microsoft.EntityFrameworkCore;
+@using venteTest.Resources.Views
 
 @inject UserManager<ApplicationUser> _userManager
 @inject ApplicationDbContext _context
@@ -26,12 +27,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <span class="text-uppercase text-dark h5">Active Members</span>
+                    <span class="text-uppercase text-dark h5">@StringsMember.Actif</span>
                     <div class="form-inline my-2 my-lg-0 mt-1">
-                        <input id="srchParams" class="form-control mr-sm-2" type="search" placeholder="Search..." aria-label="Search">
+                        <input id="srchParams" class="form-control mr-sm-2" type="search" placeholder="@StringsMember.Rechercher" aria-label="Search">
                         <button class="btn btn-outline-light my-2 my-sm-0" onclick="showParNomPrenomEmail(document.getElementById('srchParams').value)"><i class="fa fa-search"></i></button>
                         <span class="text-white ml-2"> | </span>
-                        <a class="text-white ml-2 btn btn-outline-secondary" role="button" onclick="document.getElementById('srchParams').value=''; showParNomPrenomEmail(document.getElementById('srchParams').value); document.getElementById('srchParams').focus()"> Reset</a>
+                        <a class="text-white ml-2 btn btn-outline-secondary" role="button" onclick="document.getElementById('srchParams').value=''; showParNomPrenomEmail(document.getElementById('srchParams').value); document.getElementById('srchParams').focus()"> @StringsMember.Reset</a>
                     </div>
                     <table id="tabledeMembresAcc" class="table-hover mt-2 table-responsive">
                         <thead>
@@ -52,104 +53,107 @@
                                     @StringsAdmin.MembresDateEnrolement
                                 </th>
                                 <th class="p-2">
-                                    <span>Seller Rating</span>
+                                    <span>@StringsMember.SellerRating</span>
                                 </th>
                                 <th class="p-2">
-                                    <span>Buyer Rating</span>
+                                    <span>@StringsMember.BuyerRating</span>
                                 </th>
                                 <th></th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in members) {
+                            @foreach (var item in members)
+                            {
 
-        string query = "SELECT * FROM Objets WHERE Status = {0} AND VendeurId = {1} ";
+                                string query = "SELECT * FROM Objets WHERE Status = {0} AND VendeurId = {1} ";
 
-        var objetsDuMembre = from o in _context.Objets.
-                                     Include(o => o.VenteEvaluation).
-                                        ThenInclude(o => o.Acheteur).
-                                     Include(o => o.AchatEvaluation).
-                                        ThenInclude(o => o.Vendeur).
-                                     FromSql(query, 1, item.Id)
-                             select o;
+                                var objetsDuMembre = from o in _context.Objets.
+                                                             Include(o => o.VenteEvaluation).
+                                                                ThenInclude(o => o.Acheteur).
+                                                             Include(o => o.AchatEvaluation).
+                                                                ThenInclude(o => o.Vendeur).
+                                                             FromSql(query, 1, item.Id)
+                                                     select o;
 
-        //var objetsDuMembre = lstMembers.Where(t => t.Email.Equals(item.Email)).FirstOrDefault().Objets;
-        if (objetsDuMembre != null) {
-            ratingMoyenVente = 0d; ratingMoyenAchat = 0d; int cmpt = 0;
-            foreach (var objItem in objetsDuMembre) {
+                                //var objetsDuMembre = lstMembers.Where(t => t.Email.Equals(item.Email)).FirstOrDefault().Objets;
+                                if (objetsDuMembre != null)
+                                {
+                                    ratingMoyenVente = 0d; ratingMoyenAchat = 0d; int cmpt = 0;
+                                    foreach (var objItem in objetsDuMembre)
+                                    {
 
-                //on affecte 0 par défaut si aucune évaluation n'a encore été fait
-                var ratingV = objItem.VenteEvaluation == null ? 0 : Convert.ToDouble(objItem.VenteEvaluation.Cote); //N.B. la vente évaluation est faite par l'acheteur
-                ratingMoyenVente += ratingV;
+                                        //on affecte 0 par défaut si aucune évaluation n'a encore été fait
+                                        var ratingV = objItem.VenteEvaluation == null ? 0 : Convert.ToDouble(objItem.VenteEvaluation.Cote); //N.B. la vente évaluation est faite par l'acheteur
+                                        ratingMoyenVente += ratingV;
 
-                var ratingA = objItem.AchatEvaluation == null ? 0 : Convert.ToDouble(objItem.AchatEvaluation.Cote); //N.B. la vente évaluation est faite par l'acheteur
-                ratingMoyenAchat += ratingA;
+                                        var ratingA = objItem.AchatEvaluation == null ? 0 : Convert.ToDouble(objItem.AchatEvaluation.Cote); //N.B. la vente évaluation est faite par l'acheteur
+                                        ratingMoyenAchat += ratingA;
 
-                cmpt++;
-            }
+                                        cmpt++;
+                                    }
 
-            ratingMoyenVente = (cmpt != 0) ? ratingMoyenVente / Convert.ToDouble(cmpt) : 0;
-            ratingMoyenAchat = (cmpt != 0) ? ratingMoyenAchat / Convert.ToDouble(cmpt) : 0;
-        }
-        // N.B. :
-        // VenteEvaluation = évaluation de vente fait par le vendeur sur l'acheteur
-        // AchatEvaluation = évaluation d'achat fait par l'acheteur sur le vendeur
+                                    ratingMoyenVente = (cmpt != 0) ? ratingMoyenVente / Convert.ToDouble(cmpt) : 0;
+                                    ratingMoyenAchat = (cmpt != 0) ? ratingMoyenAchat / Convert.ToDouble(cmpt) : 0;
+                                }
+                                // N.B. :
+                                // VenteEvaluation = évaluation de vente fait par le vendeur sur l'acheteur
+                                // AchatEvaluation = évaluation d'achat fait par l'acheteur sur le vendeur
 
 
-                        <tr class="border-bottom">
-                            <td class="p-2">
-                                @Html.DisplayFor(modelItem => item.Email)
-                            </td>
-                            <td class="p-2">
-                                @Html.DisplayFor(modelItem => item.Nom)
-                            </td>
-                            <td class="p-2">
-                                @Html.DisplayFor(modelItem => item.Prenom)
-                            </td>
-                            <td class="p-2">
-                                @Html.DisplayFor(modelItem => item.Civilite)
-                            </td>
-                            <td class="p-2">
-                                @Html.DisplayFor(modelItem => item.DateInscription)
-                            </td>
-                            <td class="p-2">
-                                @* Seller rating... *@
+                                <tr class="border-bottom">
+                                    <td class="p-2">
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </td>
+                                    <td class="p-2">
+                                        @Html.DisplayFor(modelItem => item.Nom)
+                                    </td>
+                                    <td class="p-2">
+                                        @Html.DisplayFor(modelItem => item.Prenom)
+                                    </td>
+                                    <td class="p-2">
+                                        @Html.DisplayFor(modelItem => item.Civilite)
+                                    </td>
+                                    <td class="p-2">
+                                        @Html.DisplayFor(modelItem => item.DateInscription)
+                                    </td>
+                                    <td class="p-2">
+                                        @* Seller rating... *@
 
-                                @ratingMoyenVente
-                            </td>
-                            <td class="p-2">
-                                @* Buyer rating... *@
+                                        @ratingMoyenVente
+                                    </td>
+                                    <td class="p-2">
+                                        @* Buyer rating... *@
 
-                                @ratingMoyenAchat
-                            </td>
-                            <td class="p-2">
-                                <span><a class="btn btn-outline-danger" role="button" asp-controller="Member" asp-action="Index" asp-route-email="@item.Email"><i class="far fa-user"></i> Profile</a></span>
-                            </td>
-                            <td>
-                                <a asp-controller="Home" asp-action="Index" asp-route-email="@item.Email">Display active objects</a>
-                            </td>
-                        </tr>
+                                        @ratingMoyenAchat
+                                    </td>
+                                    <td class="p-2">
+                                        <span><a class="btn btn-outline-danger" role="button" asp-controller="Member" asp-action="Index" asp-route-email="@item.Email"><i class="far fa-user"></i>@StringsMember.Profile</a></span>
+                                    </td>
+                                    <td>
+                                        <a asp-controller="Home" asp-action="Index" asp-route-email="@item.Email">@StringsMember.DisplayActive</a>
+                                    </td>
+                                </tr>
 
-}
+                            }
                             <tr class="border-top text-white-50" style="background-color: rgba(52, 58, 64,.8) !important; ">
                                 <td class="pl-2">
                                     NOTES :
                                 </td>
                                 <td class="" colspan="8">
-                                    <span> - Ratings go from -3 to 3 in ascending order of evaluation ;</span> 
+                                    <span> -@StringsMember.RatingsExplanation</span>
                                 </td>
                             </tr>
                             <tr class="text-white-50" style="background-color: rgba(52, 58, 64,.8) !important; ">
                                 <td class=""></td>
                                 <td class="" colspan="8">
-                                    <span> - Seller Rating : Average rating received by the seller ;</span>
+                                    <span> -@StringsMember.SellerRatingEx</span>
                                 </td>
                             </tr>
                             <tr class="border-bottom text-white-50" style="background-color: rgba(52, 58, 64,.8) !important; ">
                                 <td class=""></td>
                                 <td class="" colspan="8">
-                                    <span> - Buyer Rating : Average rating given by the seller to his winners. </span>
+                                    <span> -@StringsMember.BuyerRatingEx </span>
                                 </td>
                             </tr>
                         </tbody>

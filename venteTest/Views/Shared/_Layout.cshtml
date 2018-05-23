@@ -58,13 +58,13 @@
 
                 <div class="dropdown mx-auto" style="position:relative;">
                     <button style="background:#403A34;" class="btn dropdown-toggle" type="button" id="lang" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img id="langSel" src="~/images/icon-francais.gif" alt="..." class="img-thumbnail icon-small mr-1" width="35"><span class="text-white-50">FR</span>
+                        <img id="langSel" src="~/images/icon-francais.gif" alt="..." class="img-thumbnail icon-small mr-1" width="35"><span class="text-white-50">@SharedStrings.Langue</span>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="about-us" style="width: 200px; top:auto">
                         @*<a asp-area="" asp-controller="Home" asp-action="Faq" class="dropdown-item"><img id="langSelFR" src="~/images/icon-francais.gif" alt="..." class="img-thumbnail icon-small" width="35">Francais</a>
                     <a asp-area="" asp-controller="Home" asp-action="Faq" class="dropdown-item"><img id="langSelEN" src="~/images/icon-anglais.gif" alt="..." class="img-thumbnail icon-small" width="35">Anglais</a>*@
-                        <a asp-area="" asp-controller="Home" asp-action="SetLanguage" asp-route-culture="fr" asp-route-returnUrl="@Context.Request.Path" class="dropdown-item"><img id="langSelFR" src="~/images/icon-francais.gif" alt="..." class="img-thumbnail icon-small mr-1" width="35">Francais</a>
-                        <a asp-area="" asp-controller="Home" asp-action="SetLanguage" asp-route-culture="en" asp-route-returnUrl="@Context.Request.Path" class="dropdown-item"><img id="langSelEN" src="~/images/icon-anglais.gif" alt="..." class="img-thumbnail icon-small mr-1" width="35">Anglais</a>
+                        <a asp-area="" asp-controller="Home" asp-action="SetLanguage" asp-route-culture="fr" asp-route-returnUrl="@Context.Request.Path" class="dropdown-item"><img id="langSelFR" src="~/images/icon-francais.gif" alt="..." class="img-thumbnail icon-small mr-1" width="35">@SharedStrings.Francais</a>
+                        <a asp-area="" asp-controller="Home" asp-action="SetLanguage" asp-route-culture="en" asp-route-returnUrl="@Context.Request.Path" class="dropdown-item"><img id="langSelEN" src="~/images/icon-anglais.gif" alt="..." class="img-thumbnail icon-small mr-1" width="35">@SharedStrings.Anglais</a>
                     </div>
                 </div>
                 @*<form class="form-inline mx-auto" action="">
@@ -96,12 +96,12 @@
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span>&times;</span></button>
                         </div>
                         <div class="modal-body text-center">
-                            <h4>Liste des objets</h4>
-                            <p>Vous allez recevoir une liste de tous les objets à vendre</p>
+                            <h4>@SharedStrings.ListeEmailHeader</h4>
+                            <p>@SharedStrings.ListeDescription</p>
                             <div class="input-group">
                                 <input type="email" id="visiteurEmail" name="visiteurEmail" class="form-control" placeholder="Votre courriel" required>
                                 <span class="input-group-btn">
-                                    <input type="submit" class="btn btn-primary" value="M'envoyer">
+                                    <input type="submit" class="btn btn-primary" value="@SharedStrings.ContactBoutonEnvoyer">
                                 </span>
                             </div>
                         </div>

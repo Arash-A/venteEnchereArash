@@ -21,6 +21,7 @@ using System.Net;
 using System.Net.Mail;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Http;
+using venteTest.Resources.Views;
 
 namespace venteTest.Controllers
 {
@@ -130,7 +131,7 @@ namespace venteTest.Controllers
 
             ViewData["Pages"] = ("10" == pages) ? 250 : 10;
             int pageSize = (int)ViewData["Pages"];
-            ViewData["NumPages"] = (pageSize == 250) ? "Show 10 Per Page" : "Show Full List";
+            ViewData["NumPages"] = (pageSize == 250) ? "Show 10 Per Page" : @SharedStrings.ToutAfficherObjets;
 
             //return View(await objets.AsNoTracking().ToListAsync());
             return View(await PaginatedList<Objet>.CreateAsync(objets.AsNoTracking(), page ?? 1, pageSize));
