@@ -32,8 +32,10 @@
 
   <ItemGroup>
     <Folder Include="Models\MemberViewModels\" />
+    <Folder Include="Views\Rapports\" />
     <Folder Include="Views\Partials\" />
     <Folder Include="wwwroot\Attachments\ListeVisiteurPDF\" />
+    <Folder Include="wwwroot\Attachments\Rapports\" />
   </ItemGroup>
 
   <ItemGroup>
