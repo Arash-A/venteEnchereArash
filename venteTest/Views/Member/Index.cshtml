@@ -1,7 +1,61 @@
-﻿
+﻿@model venteTest.Models.MemberViewModels.IndexViewModel
+@using venteTest.Resources.Views
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2>Member details</h2>
 
+<h2>Seller Rating</h2>
+<h4>@Model.Civilite @Model.Prenom @Model.Nom</h4>
+<hr />
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h4 class="mt-2 mb-4">Among @Model.NbEvaluation evaluation(s), this seller has a rating of <span class="text-warning p-3 rounded" style="background-color: rgba(52, 58, 64,.8) !important;">@Model.Cote</span> !</h4>
+        </div>
+
+        <div class="col-12">
+            <h4>Comments :</h4>
+            <table class="table-hover">
+                <thead>
+                    <tr class="border-top border-bottom border-info">
+                        <th class="p-2">
+                            @Html.DisplayNameFor(model => model.Email)
+                        </th>
+                        <th class="p-2">
+                            @Html.DisplayNameFor(model => model.Cote)
+                        </th>
+                        <th class="p-2">
+                            
+                        </th>
+                        <th class="p-2"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Objets) {
+                    <tr>
+                        <td class="p-2">
+                            @Html.DisplayFor(modelItem => item.Acheteur.Email)
+                        </td>
+                        <td class="p-2">
+                            @*@Html.DisplayFor(modelItem => item.AchatEvaluation.Cote)*@
+                            <span class="text-warning p-1 rounded" style="background-color: rgba(52, 58, 64,.8) !important;">@item.AchatEvaluation.Cote</span>
+                        </td>
+                        <td class="p-2">
+                            @Html.DisplayFor(modelItem => item.AchatEvaluation.Commentaire)
+                        </td>
+                        <td class="p-2"></td>
+                    </tr>
+
+    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <hr />
+    <span class="text-info">
+        * @StringsMember.RatingsExplanation
+    </span>
+
+</div>

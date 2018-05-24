@@ -292,7 +292,13 @@
                     } else {
                         row.style.display = 'none';
                     }
+
                 }
+
+                if (table.rows[i+1].cells[0].innerText.replace(/(^\s+|\s+$)/g, '').toUpperCase() == "NOTES :") {
+                    break;
+                } 
+              
             }
         }
 

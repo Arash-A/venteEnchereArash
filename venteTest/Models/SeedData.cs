@@ -141,6 +141,9 @@ namespace venteTest.Models
                 // Enregistrer la commission sur cette vente
                 objet.Commission = objet.PrixVenteBrute * (double)objet.ConfigurationAdmin.TauxGlobalComissionAuVendeur;
 
+                // enregistré l'acheteur...
+                objet.Acheteur = (Miseur)UserManager.Users.FirstOrDefault(p => p.UserName.Equals("sasha.bouchard@gmail.com"));
+
                 // Créer une évaluation d'achat fait par l'acheteur sur le vendeur (pour un objet vendu)
                 objet.AchatEvaluation = new AchatEvaluation { Vendeur = (Vendeur)UserManager.Users.FirstOrDefault(p => p.UserName.Equals("isabelle.blais16@gmail.com")), Objet = objet, Commentaire = "Vendeur incompétent. Je ne ferai plus jamais affaire avec lui!", Cote = -3, DateEvaluation = DateTime.Now };
 

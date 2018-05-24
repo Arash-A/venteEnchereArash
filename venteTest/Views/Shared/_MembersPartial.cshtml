@@ -14,7 +14,9 @@
     lstMembers.Add(lstAdmin.FirstOrDefault()); //ajouter l'admin à liste de membres
     var members = lstMembers.Where(p => p.EmailConfirmed == true);
 
-    double ratingMoyenVente = 0d; double ratingMoyenAchat = 0d;
+    double ratingMoyenVente = 0d;
+    int nbEvaluations = 0;
+    
 }
 
 <li class="nav-item dropdown">
@@ -56,7 +58,7 @@
                                     <span>@StringsMember.SellerRating</span>
                                 </th>
                                 <th class="p-2">
-                                    <span>@StringsMember.BuyerRating</span>
+                                    <span>Nb Evaluations</span>
                                 </th>
                                 <th></th>
                                 <th></th>
@@ -64,7 +66,7 @@
                         </thead>
                         <tbody>
                             @foreach (var item in members)
-                            {
+                    {
 
                                 string query = "SELECT * FROM Objets WHERE Status = {0} AND VendeurId = {1} ";
 
@@ -79,61 +81,58 @@
                                 //var objetsDuMembre = lstMembers.Where(t => t.Email.Equals(item.Email)).FirstOrDefault().Objets;
                                 if (objetsDuMembre != null)
                                 {
-                                    ratingMoyenVente = 0d; ratingMoyenAchat = 0d; int cmpt = 0;
+                                    ratingMoyenVente = 0d; int cmpt = 0;
                                     foreach (var objItem in objetsDuMembre)
                                     {
 
-                                        //on affecte 0 par défaut si aucune évaluation n'a encore été fait
-                                        var ratingV = objItem.VenteEvaluation == null ? 0 : Convert.ToDouble(objItem.VenteEvaluation.Cote); //N.B. la vente évaluation est faite par l'acheteur
-                                        ratingMoyenVente += ratingV;
+                                        if (objItem.AchatEvaluation != null) {
+                                            ratingMoyenVente += Convert.ToDouble(objItem.AchatEvaluation.Cote);
+                                            cmpt++;
+                                        }
 
-                                        var ratingA = objItem.AchatEvaluation == null ? 0 : Convert.ToDouble(objItem.AchatEvaluation.Cote); //N.B. la vente évaluation est faite par l'acheteur
-                                        ratingMoyenAchat += ratingA;
-
-                                        cmpt++;
                                     }
 
                                     ratingMoyenVente = (cmpt != 0) ? ratingMoyenVente / Convert.ToDouble(cmpt) : 0;
-                                    ratingMoyenAchat = (cmpt != 0) ? ratingMoyenAchat / Convert.ToDouble(cmpt) : 0;
+
+                                    nbEvaluations = cmpt;
                                 }
                                 // N.B. :
-                                // VenteEvaluation = évaluation de vente fait par le vendeur sur l'acheteur
                                 // AchatEvaluation = évaluation d'achat fait par l'acheteur sur le vendeur
 
 
-                                <tr class="border-bottom">
-                                    <td class="p-2">
-                                        @Html.DisplayFor(modelItem => item.Email)
-                                    </td>
-                                    <td class="p-2">
-                                        @Html.DisplayFor(modelItem => item.Nom)
-                                    </td>
-                                    <td class="p-2">
-                                        @Html.DisplayFor(modelItem => item.Prenom)
-                                    </td>
-                                    <td class="p-2">
-                                        @Html.DisplayFor(modelItem => item.Civilite)
-                                    </td>
-                                    <td class="p-2">
-                                        @Html.DisplayFor(modelItem => item.DateInscription)
-                                    </td>
-                                    <td class="p-2">
-                                        @* Seller rating... *@
+                            <tr class="border-bottom">
+                                <td class="p-2">
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+                                <td class="p-2">
+                                    @Html.DisplayFor(modelItem => item.Nom)
+                                </td>
+                                <td class="p-2">
+                                    @Html.DisplayFor(modelItem => item.Prenom)
+                                </td>
+                                <td class="p-2">
+                                    @Html.DisplayFor(modelItem => item.Civilite)
+                                </td>
+                                <td class="p-2">
+                                    @Html.DisplayFor(modelItem => item.DateInscription)
+                                </td>
+                                <td class="p-2">
+                                    @* Seller rating... *@
 
-                                        @ratingMoyenVente
-                                    </td>
-                                    <td class="p-2">
-                                        @* Buyer rating... *@
-
-                                        @ratingMoyenAchat
-                                    </td>
-                                    <td class="p-2">
-                                        <span><a class="btn btn-outline-danger" role="button" asp-controller="Member" asp-action="Index" asp-route-email="@item.Email"><i class="far fa-user"></i>@StringsMember.Profile</a></span>
-                                    </td>
-                                    <td>
-                                        <a asp-controller="Home" asp-action="Index" asp-route-email="@item.Email">@StringsMember.DisplayActive</a>
-                                    </td>
-                                </tr>
+                                    @ratingMoyenVente
+                                </td>
+                                <td class="p-2">
+                                    @* Nb evaluations *@
+                                    @nbEvaluations
+                                    
+                                </td>
+                                <td class="p-2">
+                                    <span><a class="btn btn-outline-danger" role="button" asp-controller="Member" asp-action="Index" asp-route-email="@item.Email"><i class="far fa-user"></i> @StringsMember.Profile</a></span>
+                                </td>
+                                <td>
+                                    <a asp-controller="Home" asp-action="Index" asp-route-email="@item.Email">@StringsMember.DisplayActive</a>
+                                </td>
+                            </tr>
 
                             }
                             <tr class="border-top text-white-50" style="background-color: rgba(52, 58, 64,.8) !important; ">
@@ -144,18 +143,13 @@
                                     <span> -@StringsMember.RatingsExplanation</span>
                                 </td>
                             </tr>
-                            <tr class="text-white-50" style="background-color: rgba(52, 58, 64,.8) !important; ">
+                            <tr class="border-bottom text-white-50" style="background-color: rgba(52, 58, 64,.8) !important; ">
                                 <td class=""></td>
                                 <td class="" colspan="8">
                                     <span> -@StringsMember.SellerRatingEx</span>
                                 </td>
                             </tr>
-                            <tr class="border-bottom text-white-50" style="background-color: rgba(52, 58, 64,.8) !important; ">
-                                <td class=""></td>
-                                <td class="" colspan="8">
-                                    <span> -@StringsMember.BuyerRatingEx </span>
-                                </td>
-                            </tr>
+
                         </tbody>
                     </table>
                 </div>
