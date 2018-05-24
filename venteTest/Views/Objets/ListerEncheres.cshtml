@@ -1,0 +1,55 @@
+﻿@model venteTest.Models.Objet
+
+@{
+    Layout = null;
+}
+
+<h3 align="center">Historique des Enchères </h3>
+<table align="center">
+    <thead>
+        <tr align="center">
+            <th class="p-2 m-2">
+                <span>Montant</span>
+            </th>
+            <th></th>
+            <th></th>
+            <th class="p-2 m-2">
+                <span class="h6 currentBid">Prénom</span>
+            </th>
+            <th></th>
+            <th></th>
+            <th class="p-2 m-2">
+                <span class="h6 currentBid">Nom</span>
+            </th>
+            <th></th>
+            <th></th>
+            <th class="p-2 m-2">
+                <span class="h6 currentBid">Courriel</span>
+            </th>
+        </tr>
+    </thead>
+    @foreach (var item in Model.Encheres)
+    {
+    <tr align="left">
+        <td>
+            $ @Html.DisplayFor(modelItem => item.Niveau)
+        </td>
+        <td></td>
+        <td></td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Miseur.Prenom)
+        </td>
+        <td></td>
+        <td></td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Miseur.Nom)
+        </td>
+        <td></td>
+        <td></td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Miseur.UserName)
+        </td>
+    </tr>
+
+    }
+</table>

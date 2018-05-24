@@ -161,15 +161,15 @@
                                 <p style="background-color: #FCF8E3;" class="text-dark rounded-bottom border-danger border-top p-2">
                                     <strong>@StringsHome.IndexMiseEnAvance</strong>
                                     @{
-                                        var enchereMenante = item.Encheres.OrderByDescending(t => t.Niveau).FirstOrDefault();
-                                        var miseurMenantEnchere = enchereMenante.Miseur;
+        var enchereMenante = item.Encheres.OrderByDescending(t => t.Niveau).FirstOrDefault();
+        var miseurMenantEnchere = enchereMenante.Miseur;
                                     }
                                     <br />
                                     <span>@miseurMenantEnchere.Prenom @miseurMenantEnchere.Nom !  |  @Html.DisplayFor(modelItem => item.Encheres.OrderByDescending(t => t.Niveau).FirstOrDefault().Niveau) $</span>
                                     @*Bouton pour afficher d'avantage.. ici un toggle hide/show*@
-
+                                    
                                     <a class="btn btn-danger ml-3 mb-2 mt-2" role="button" asp-controller="Objets" asp-action="Miser" asp-route-id="@item.ObjetID">@StringsHome.IndexMise</a>
-                                    | <a class="btn btn-outline-danger" role="button" asp-route-id="@item.ObjetID">@StringsHome.IndexMiseHistorique</a>
+                                    | <a class="btn btn-outline-danger" role="button" asp-controller="Objets" asp-action="ListerEncheres" asp-route-id="@item.ObjetID">@StringsHome.IndexMiseHistorique</a>
                                 </p>
 
                             </div>

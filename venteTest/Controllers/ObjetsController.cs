@@ -890,6 +890,30 @@ namespace venteTest.Controllers {
 
         }
 
-    }
+
+
+        [Authorize(Roles = "Member, Admin, Manager")]
+        public async Task<IActionResult> ListerEncheres(int id)
+        {
+            var objet = await _context.Objets
+                            .Include(o => o.Encheres)
+                            .ThenInclude(o => o.Miseur)
+                            .Include(o => o.ConfigurationAdmin)
+                            .Include(o => o.Acheteur)
+                            .Include(o => o.Vendeur)
+                            .SingleOrDefaultAsync(m => m.ObjetID == id);
+
+           // var encheres = objet.Encheres.ToList();
+            return View(objet);
+        }
+
+
+
+
+
+
+
+
+        }
 
 }
