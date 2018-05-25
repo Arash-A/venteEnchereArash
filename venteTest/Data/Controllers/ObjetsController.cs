@@ -1031,24 +1031,79 @@ namespace venteTest.Controllers {
         }
         // Fin Créer une évaluation de vente fait par le vendeur sur l'acheteur (pour un objet vendu)
 
-      /////// [Authorize(Roles = "Member, Admin, Manager")]
-      /////// public async Task<IActionResult> EvaluerAchat(int id) {
-      ///////
-      ///////
-      ///////
-      /////// }
-      ///////
-      ///////
-      /////// //SB Créer une évaluation d'achat fait par l'acheteur sur le vendeur (pour un objet vendu)
-      ///////
-      /////// [Authorize(Roles = "Member, Admin, Manager")]
-      /////// [HttpPost]
-      /////// public async Task<IActionResult> EvaluerAchat(EvaluationViewModel evalAchatVM) {
-      ///////
-      ///////
-      ///////
-      /////// }
 
+
+        //SB Créer une évaluation d'achat fait par l'acheteur sur le vendeur (pour un objet vendu)
+
+        [Authorize(Roles = "Member, Admin, Manager")]
+        public async Task<IActionResult> EvaluerAchat(int id) {
+
+            var objet = await _context.Objets
+         .Include(o => o.Encheres)
+         .ThenInclude(o => o.Miseur)
+         .Include(o => o.ConfigurationAdmin)
+         .Include(o => o.Acheteur)
+         .Include(o => o.Vendeur)
+          .Include(o => o.AchatEvaluation)
+         .SingleOrDefaultAsync(m => m.ObjetID == id);
+
+            AchatEvaluation achatAval = objet.AchatEvaluation;
+
+
+            EvaluationViewModel evalAchatVM = new EvaluationViewModel();
+            evalAchatVM.Objet = objet;
+            evalAchatVM.leUser = objet.Vendeur;
+
+            if (achatAval != null) {
+
+                evalAchatVM.Cote = objet.AchatEvaluation.Cote;
+
+                evalAchatVM.Commentaire = objet.AchatEvaluation.Commentaire;
+
+                ViewBag.SellerBuyer = "buyer";
+
+                return View("DetailEvaluation", evalAchatVM);
+            }
+
+            return View(evalAchatVM);
+
+        }
+
+       
+        [Authorize(Roles = "Member, Admin, Manager")]
+        [HttpPost]
+        public async Task<IActionResult> EvaluerAchat(EvaluationViewModel evalAchatVM) {
+
+            if (ModelState.IsValid) {
+
+                var objet = await _context.Objets
+                .Include(o => o.Encheres)
+                .ThenInclude(o => o.Miseur)
+                .Include(o => o.ConfigurationAdmin)
+                .Include(o => o.Acheteur)
+                .Include(o => o.Vendeur)
+                 .Include(o => o.AchatEvaluation)
+                .SingleOrDefaultAsync(m => m.ObjetID == evalAchatVM.ObjetId);
+
+
+                AchatEvaluation achatEvaluation = new AchatEvaluation() {
+                    DateEvaluation = DateTime.Now,
+                    Cote = evalAchatVM.Cote,
+                    Commentaire = evalAchatVM.Commentaire,
+                    Vendeur = objet.Vendeur,
+                    Objet = objet
+                };
+
+                _context.Add(achatEvaluation);
+                await _context.SaveChangesAsync();
+                TempData["message"] = $"Vente evaluation '{achatEvaluation.EvaluationID}' has been created.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(evalAchatVM);
+
+        }
+               
         // Fin Créer une évaluation d'achat fait par l'acheteur sur le vendeur (pour un objet vendu)
 
 

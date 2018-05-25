@@ -81,6 +81,7 @@
                 </td>
                 <td class="p-2">
                     <a class="btn btn-outline-warning mb-2" role="button" asp-controller="Objets" asp-action="Details" asp-route-id="@item.ObjetID">@StringsObjets.DetailsTitle</a>
+                    <a class="btn btn-outline-danger mb-2" role="button" asp-controller="Objets" asp-action="EvaluerAchat" asp-route-id="@item.ObjetID">@StringsHome.AjouterEvaluation</a>
                 </td>
             </tr>
             }
