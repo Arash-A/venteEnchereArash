@@ -1,0 +1,90 @@
+﻿@model IEnumerable<venteTest.Models.Objet>
+
+@{
+    ViewData["Title"] = "Rapport4";
+    Layout = "~/Views/Rapports/_Layout.cshtml";
+}
+
+<h2>Rapport4</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nom)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PrixDepart)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PrixVenteBrute)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Commission)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateInscription)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateLimite)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.imageUrl)
+                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Categorie)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrixDepart)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrixVenteBrute)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Commission)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateInscription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateLimite)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.imageUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Categorie.CategorieId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ObjetID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ObjetID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ObjetID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
