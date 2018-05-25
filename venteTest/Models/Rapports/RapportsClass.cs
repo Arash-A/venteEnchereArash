@@ -39,8 +39,8 @@ namespace venteTest.Models.Rapports
             //                FromSql(q1, 0)
             //             select o;
             //List<Objet> visListe = objets.ToList();
-            //creerPdf(visListe, "");
-            //sendRapport()
+            //string path=creerPdf(visListe, "");
+            //sendRapport(membre,path,sujet,content);
         }
 
         public void rapport2() {

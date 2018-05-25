@@ -45,44 +45,44 @@
                 <th class="p-2 m-2">
                     <a title="Click here to filter field!" asp-action="Index" asp-route-sortOrder="@ViewData["CategorieSortParm"]"><span class="h6">Categorie</span><i class="fa fa-fw fa-sort"></i></a>
                 </th>
-                <th class="p-2 m-2"><span class="h6 currentBid">Current Bid</span></th>
+                <th class="p-2 m-2"><span class="h6 currentBid">Vendeur<br />Prix Vente</span></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model) {
-                <tr class="p-2">
-                    <td class="p-2">
-                        <img src="~/@item.imageUrl" width="100" height="100" />
-                        @*<img src="~/Uploads/Brush.jpg" width="100" height="100" />*@
-                    </td>
-                    <td class="p-2 h5">
-                        @Html.DisplayFor(modelItem => item.Nom)
-                    </td>
-                    <td class="p-2">
-                        @Html.DisplayFor(modelItem => item.PrixDepart)$
-                    </td>
-                    <td class="p-2">
-                        @Html.DisplayFor(modelItem => item.DateInscription)
-                    </td>
-                    <td class="p-2">
-                        @Html.DisplayFor(modelItem => item.DureeMiseVente)
-                    </td>
-                    <td class="laCategorie p-2">
-                        @Html.DisplayFor(modelItem => item.Categorie.Nom)
-                    </td>
-                    <td>
-                        @{
-        var enchereMenante = item.Encheres.OrderByDescending(t => t.Niveau).FirstOrDefault();
-        var miseurMenantEnchere = enchereMenante.Miseur;
-                        }
-                        <br />
-                        <span class="courriel">@miseurMenantEnchere.Prenom @miseurMenantEnchere.Nom </span><span class="currentBid"><br /><strong>@Html.DisplayFor(modelItem => item.Encheres.OrderByDescending(t => t.Niveau).FirstOrDefault().Niveau) $</strong> </span>
-                        @*Bouton pour afficher d'avantage.. ici un toggle hide/show*@
-                    </td>
-                    <td class="p-2">
-                        <a class="btn btn-outline-warning mb-2" role="button" asp-controller="Objets" asp-action="Details" asp-route-id="@item.ObjetID">@StringsObjets.DetailsTitle</a>
-                    </td>
-                </tr>
+            <tr class="p-2">
+                <td class="p-2">
+                    <img src="~/@item.imageUrl" width="100" height="100" />
+                    @*<img src="~/Uploads/Brush.jpg" width="100" height="100" />*@
+                </td>
+                <td class="p-2 h5">
+                    @Html.DisplayFor(modelItem => item.Nom)
+                </td>
+                <td class="p-2">
+                    @Html.DisplayFor(modelItem => item.PrixDepart)$
+                </td>
+                <td class="p-2">
+                    @Html.DisplayFor(modelItem => item.DateInscription)
+                </td>
+                <td class="p-2">
+                    @Html.DisplayFor(modelItem => item.DureeMiseVente)
+                </td>
+                <td class="laCategorie p-2">
+                    @Html.DisplayFor(modelItem => item.Categorie.Nom)
+                </td>
+                <td>
+                    @{
+                        var enchereMenante = item.Encheres.OrderByDescending(t => t.Niveau).FirstOrDefault();
+                        var vendeur = item.Vendeur;
+                    }
+                    <br />
+                    <span class="courriel">@vendeur.Prenom @vendeur.Nom </span><span class="currentBid"><br /><strong>@Html.DisplayFor(modelItem => item.PrixVenteBrute) $</strong></span>
+                    @*Bouton pour afficher d'avantage.. ici un toggle hide/show*@
+                </td>
+                <td class="p-2">
+                    <a class="btn btn-outline-warning mb-2" role="button" asp-controller="Objets" asp-action="Details" asp-route-id="@item.ObjetID">@StringsObjets.DetailsTitle</a>
+                </td>
+            </tr>
             }
         </tbody>
     </table>
