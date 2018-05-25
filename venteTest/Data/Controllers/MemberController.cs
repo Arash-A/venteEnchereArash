@@ -67,7 +67,7 @@ namespace venteTest.Controllers
                 }
 
             }
-            ratingMoyenVente = (cmpt != 0) ? ratingMoyenVente / Convert.ToDouble(cmpt) : 0;
+            //ratingMoyenVente = (cmpt != 0) ? ratingMoyenVente / Convert.ToDouble(cmpt) : 0;
 
             var indexViewModel = new IndexViewModel() {
                 Email = member.Email,

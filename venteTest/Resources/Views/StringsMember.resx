@@ -124,7 +124,7 @@
     <value>Cote d'acheteur</value>
   </data>
   <data name="BuyerRatingEx" xml:space="preserve">
-    <value>Evaluation de l'acheteur: Note moyenne attribuée par le vendeur à ses lauréats</value>
+    <value>Evaluation de l'acheteur: Somme des notes attribuée par le vendeur à ses lauréats</value>
   </data>
   <data name="DisplayActive" xml:space="preserve">
     <value>Afficher les objets actifs</value>
@@ -133,7 +133,7 @@
     <value>Profil</value>
   </data>
   <data name="RatingsExplanation" xml:space="preserve">
-    <value>Les évaluations vont de -3 à 3 dans l'ordre croissant de l'évaluation</value>
+    <value>L'évaluation du membre doit être maintenue au delà de -9 pour demeurer actif</value>
   </data>
   <data name="Rechercher" xml:space="preserve">
     <value>Rechercher...</value>
@@ -145,6 +145,6 @@
     <value>Cote de vendeur</value>
   </data>
   <data name="SellerRatingEx" xml:space="preserve">
-    <value>Evaluation du vendeur: Note moyenne reçue par le vendeur</value>
+    <value>Evaluation du vendeur: Somme des notes reçue par le vendeur</value>
   </data>
 </root>

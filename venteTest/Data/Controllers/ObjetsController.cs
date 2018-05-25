@@ -982,7 +982,7 @@ namespace venteTest.Controllers {
             if (venteAval != null) {
                 
                 evalVenteVM.Cote = objet.VenteEvaluation.Cote;
-                
+                evalVenteVM.DateEvaluation = objet.VenteEvaluation.DateEvaluation;
                 evalVenteVM.Commentaire = objet.VenteEvaluation.Commentaire;
 
                 ViewBag.SellerBuyer = "seller";
@@ -1057,7 +1057,7 @@ namespace venteTest.Controllers {
             if (achatAval != null) {
 
                 evalAchatVM.Cote = objet.AchatEvaluation.Cote;
-
+                evalAchatVM.DateEvaluation = objet.AchatEvaluation.DateEvaluation;
                 evalAchatVM.Commentaire = objet.AchatEvaluation.Commentaire;
 
                 ViewBag.SellerBuyer = "buyer";

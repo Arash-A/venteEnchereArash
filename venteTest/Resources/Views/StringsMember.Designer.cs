@@ -79,7 +79,7 @@ namespace venteTest.Resources.Views {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Evaluation de l&apos;acheteur: Note moyenne attribuée par le vendeur à ses lauréats.
+        ///   Looks up a localized string similar to Evaluation de l&apos;acheteur: Somme des notes attribuée par le vendeur à ses lauréats.
         /// </summary>
         public static string BuyerRatingEx {
             get {
@@ -106,7 +106,7 @@ namespace venteTest.Resources.Views {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Les évaluations vont de -3 à 3 dans l&apos;ordre croissant de l&apos;évaluation.
+        ///   Looks up a localized string similar to L&apos;évaluation du membre doit être maintenue au delà de -9 pour demeurer actif.
         /// </summary>
         public static string RatingsExplanation {
             get {
@@ -142,7 +142,7 @@ namespace venteTest.Resources.Views {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Evaluation du vendeur: Note moyenne reçue par le vendeur.
+        ///   Looks up a localized string similar to Evaluation du vendeur: Somme des notes reçue par le vendeur.
         /// </summary>
         public static string SellerRatingEx {
             get {
