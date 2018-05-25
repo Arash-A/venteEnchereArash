@@ -28,6 +28,7 @@ namespace venteTest.Data
         public DbSet<Evaluation> Evaluations { get; set;}
         public DbSet<Fichier> Fichiers { get; set;}
         public DbSet<ConfigurationAdmin> ConfigurationAdmins { get; set; }
+        public DbSet<venteTest.Models.AchatEvaluation> AchatEvaluation { get; set; }
 
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

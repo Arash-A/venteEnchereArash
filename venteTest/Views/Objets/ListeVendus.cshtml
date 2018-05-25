@@ -50,7 +50,8 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model) {
+            @foreach (var item in Model)
+            {
                 <tr class="p-2">
                     <td class="p-2">
                         <img src="~/@item.imageUrl" width="100" height="100" />
@@ -81,8 +82,18 @@
                         @*Bouton pour afficher d'avantage.. ici un toggle hide/show*@
                     </td>
                     <td class="p-2">
+                       
                         <a class="btn btn-outline-warning mb-2" role="button" asp-controller="Objets" asp-action="Details" asp-route-id="@item.ObjetID">@StringsObjets.DetailsTitle</a>
                         <a class="btn btn-danger ml-3 mb-2 mt-2" role="button" asp-controller="Objets" asp-action="Miser" asp-route-id="@item.ObjetID">@StringsHome.IndexMise</a>
+                        <a class="btn btn-outline-warning mb-2" role="button" asp-controller="Objets" asp-action="Evaluer" asp-route-id="@item.ObjetID">@StringsHome.AjouterEvaluation</a>
+                         
+
+
+
+
+
+
+
 
                     </td>
                 </tr>

@@ -199,6 +199,7 @@ namespace venteTest.Controllers {
                         var attachmentfile = Path.GetFileName(item.FileName);
                         var attachmentFileName = System.IO.Path.Combine(he.WebRootPath, "Attachments") + $@"\{attachmentfile}";
                         item.CopyTo(new FileStream(attachmentFileName, FileMode.Create));
+                        objet.Fichiers = new List<Fichier>();
                         objet.Fichiers.Add(new Fichier() { NomOriginal = attachmentfile, NomLocale = attachmentFileName, verseLe = DateTime.Now });
                     }
                 }
@@ -206,7 +207,7 @@ namespace venteTest.Controllers {
                 objet.Categorie = _context.Categories.FirstOrDefault(p => p.CategorieId == objetVM.CategorieID);
                 objet.ConfigurationAdmin = _context.ConfigurationAdmins.Last();
                 objet.Encheres = new List<Enchere>();
-                objet.Fichiers = new List<Fichier>();
+               // objet.Fichiers = new List<Fichier>();
 
                 //Affectation d'une 1e mise.. (Par défaut celui qui crée un objet place une première mise sur son objet, comme ça il est facturé si jamais personne mise et il "remporte" son objet)
                 Miseur miseur = (Miseur)userName;
@@ -222,7 +223,7 @@ namespace venteTest.Controllers {
                 //Fin ajout BD
 
                 //Ajout Arash pour mettre objet en status Vendu apres certain temp !!!!!!!!!!!!!! ces ligne du code doit être exactement ici !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                BackgroundJob.Schedule(() => ChangeStatus(objet.ObjetID), objet.DateLimite);
+                //BackgroundJob.Schedule(() => ChangeStatus(objet.ObjetID), objet.DateLimite);
 
 
                 TempData["message"] = $"Objet '{objet.Nom}' has been created for bidding starting now and ending at '{objet.DateLimite}'.";
@@ -908,12 +909,57 @@ namespace venteTest.Controllers {
         }
 
 
+        [Authorize(Roles = "Member, Admin, Manager")]
+        public async Task<IActionResult> Evaluer(int id)
+        {
+            var objet = await _context.Objets
+                            .Include(o => o.Encheres)
+                            .ThenInclude(o => o.Miseur)
+                            .Include(o => o.ConfigurationAdmin)
+                            .Include(o => o.Acheteur)
+                            .Include(o => o.Vendeur)
+                             .Include(o => o.AchatEvaluation)
+                            .SingleOrDefaultAsync(m => m.ObjetID == id);
 
+            Evaluation eval = objet.AchatEvaluation;
 
-
-
-
-
+            if (eval!=null)
+            {
+                return View("DetailEvaluation", objet.AchatEvaluation);
+            }
+            return View(objet.AchatEvaluation);
         }
+
+
+   
+        [HttpPost]
+        public async Task<IActionResult> Evaluer(Evaluation eval)
+        {
+            var objet = await _context.Objets
+                            .Include(o => o.Encheres)
+                            .ThenInclude(o => o.Miseur)
+                            .Include(o => o.ConfigurationAdmin)
+                            .Include(o => o.Acheteur)
+                            .Include(o => o.Vendeur)
+                             .Include(o => o.AchatEvaluation)
+                            .SingleOrDefaultAsync(m => m.ObjetID == eval.Objet.ObjetID);
+
+            eval.DateEvaluation = DateTime.Now;
+            objet.AchatEvaluation = (AchatEvaluation)eval;
+
+            return RedirectToAction("Index", "Home");
+        }
+
+
+
+
+
+
+
+
+
+
+
+    }
 
 }

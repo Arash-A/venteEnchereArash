@@ -1,0 +1,37 @@
+﻿@model venteTest.Models.AchatEvaluation
+
+@{
+    ViewData["Title"] = "DetailEvaluation";
+}
+
+
+
+<div>
+    <h4>Evaluation  Acheteur</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.DateEvaluation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateEvaluation)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Cote)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cote)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Commentaire)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Commentaire)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

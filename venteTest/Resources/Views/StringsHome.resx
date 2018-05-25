@@ -204,4 +204,7 @@
   <data name="Support" xml:space="preserve">
     <value>Support</value>
   </data>
+  <data name="AjouterEvaluation" xml:space="preserve">
+    <value>Evaluation</value>
+  </data>
 </root>
