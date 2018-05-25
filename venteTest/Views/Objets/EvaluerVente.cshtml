@@ -1,0 +1,44 @@
+﻿@model venteTest.Models.ObjetViewModel.EvaluationViewModel
+
+@{
+    ViewData["Title"] = "Evaluer";
+}
+
+<h2>Evaluation</h2>
+
+<h4>Evaluation on buyer : @Model.leUser.Prenom @Model.leUser.Nom (@Model.leUser.Email)</h4> @*Acheteur ou Vendeur*@ 
+<h4>Object @Model.Objet.ObjetID : @Model.Objet.Nom (@Model.Objet.Description)</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EvaluerVente">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Cote" class="control-label"></label>
+                <input asp-for="Cote" class="form-control" />
+                <span asp-validation-for="Cote" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Commentaire" class="control-label"></label>
+                <input asp-for="Commentaire" class="form-control" />
+                <span asp-validation-for="Commentaire" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-warning" />
+            </div>
+
+            @*<input asp-for="Objet" value="@Model.Objet" class="form-control" hidden />*@
+
+            <div class="form-group">
+                <input asp-for="ObjetId" value="@Model.Objet.ObjetID" class="form-control" hidden />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@*<div>
+    <a asp-action="Index">Back to List</a>
+</div>*@
+

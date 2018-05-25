@@ -1,4 +1,4 @@
-﻿@model venteTest.Models.AchatEvaluation
+﻿@model venteTest.Models.ObjetViewModel.EvaluationViewModel
 
 @{
     ViewData["Title"] = "DetailEvaluation";
@@ -7,11 +7,13 @@
 
 
 <div>
-    <h4>Evaluation  Acheteur</h4>
+    <h4>Evaluation </h4>
+    <h4>Evaluation on @ViewBag.SellerBuyer : @Model.leUser.Prenom @Model.leUser.Nom (@Model.leUser.Email)</h4> @*Acheteur ou Vendeur*@
+    <h4>Object @Model.Objet.ObjetID : @Model.Objet.Nom (@Model.Objet.Description)</h4>
     <hr />
     <dl class="dl-horizontal">
-        
-        
+
+
         <dt>
             @Html.DisplayNameFor(model => model.DateEvaluation)
         </dt>

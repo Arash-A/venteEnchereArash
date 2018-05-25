@@ -34,21 +34,24 @@
                 </thead>
                 <tbody>
                     @foreach (var item in Model.Objets) {
+                        if (item.AchatEvaluation != null) { 
                     <tr>
                         <td class="p-2">
                             @Html.DisplayFor(modelItem => item.Acheteur.Email)
                         </td>
                         <td class="p-2">
                             @*@Html.DisplayFor(modelItem => item.AchatEvaluation.Cote)*@
-                            <span class="text-warning p-1 rounded" style="background-color: rgba(52, 58, 64,.8) !important;">@item.AchatEvaluation.Cote</span>
+                            <span class="text-warning p-1 rounded" style="background-color: rgba(52, 58, 64,.8) !important;">
+                                 @item.AchatEvaluation.Cote
+                            </span>
                         </td>
                         <td class="p-2">
                             @Html.DisplayFor(modelItem => item.AchatEvaluation.Commentaire)
                         </td>
                         <td class="p-2"></td>
                     </tr>
-
-    }
+                        }
+                    }
                 </tbody>
             </table>
         </div>

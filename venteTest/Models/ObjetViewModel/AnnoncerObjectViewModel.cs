@@ -30,7 +30,7 @@ namespace venteTest.Models.ObjetViewModel
 
 
         [Required]
-        [DataType(DataType.Date)]
+        //[DataType(DataType.Date)]
         [Display(Name = "ObjetMiseDateFin", ResourceType = typeof(StringsObjets))]
         [UIHint("DateTimePicker")]
           public DateTime DateLimite { get; set; } // fixé par le Vendeur à l'ajout dans ce ViewModel

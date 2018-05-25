@@ -223,12 +223,19 @@ namespace venteTest.Controllers {
                 //Fin ajout BD
 
                 //Ajout Arash pour mettre objet en status Vendu apres certain temp !!!!!!!!!!!!!! ces ligne du code doit être exactement ici !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                //BackgroundJob.Schedule(() => ChangeStatus(objet.ObjetID), objet.DateLimite);
+                BackgroundJob.Schedule(() => ChangeStatus(objet.ObjetID), objet.DateLimite);
 
 
                 TempData["message"] = $"Objet '{objet.Nom}' has been created for bidding starting now and ending at '{objet.DateLimite}'.";
                 return RedirectToAction(nameof(Index));
             }
+
+            foreach (var modelState in ViewData.ModelState.Values) {
+                foreach (var error in modelState.Errors) {
+                    
+                }
+            }
+
             return View(objetVM);
         }
 
@@ -908,7 +915,7 @@ namespace venteTest.Controllers {
             return View(objet);
         }
 
-
+        /*
         [Authorize(Roles = "Member, Admin, Manager")]
         public async Task<IActionResult> Evaluer(int id)
         {
@@ -929,32 +936,120 @@ namespace venteTest.Controllers {
             }
             return View(objet.AchatEvaluation);
         }
+        */
+        /*
+             [HttpPost]
+             public async Task<IActionResult> Evaluer(Evaluation eval)
+             {
+                 var objet = await _context.Objets
+                                 .Include(o => o.Encheres)
+                                 .ThenInclude(o => o.Miseur)
+                                 .Include(o => o.ConfigurationAdmin)
+                                 .Include(o => o.Acheteur)
+                                 .Include(o => o.Vendeur)
+                                  .Include(o => o.AchatEvaluation)
+                                 .SingleOrDefaultAsync(m => m.ObjetID == eval.Objet.ObjetID);
+
+                 eval.DateEvaluation = DateTime.Now;
+                 objet.AchatEvaluation = (AchatEvaluation)eval;
+
+                 return RedirectToAction("Index", "Home");
+             }
+         */
 
 
-   
-        [HttpPost]
-        public async Task<IActionResult> Evaluer(Evaluation eval)
-        {
+        //SB Créer une évaluation de vente fait par le vendeur sur l'acheteur (pour un objet vendu)
+
+        [Authorize(Roles = "Member, Admin, Manager")]
+        public async Task<IActionResult> EvaluerVente(int id) {
+
             var objet = await _context.Objets
-                            .Include(o => o.Encheres)
-                            .ThenInclude(o => o.Miseur)
-                            .Include(o => o.ConfigurationAdmin)
-                            .Include(o => o.Acheteur)
-                            .Include(o => o.Vendeur)
-                             .Include(o => o.AchatEvaluation)
-                            .SingleOrDefaultAsync(m => m.ObjetID == eval.Objet.ObjetID);
+                .Include(o => o.Encheres)
+                .ThenInclude(o => o.Miseur)
+                .Include(o => o.ConfigurationAdmin)
+                .Include(o => o.Acheteur)
+                .Include(o => o.Vendeur)
+                 .Include(o => o.VenteEvaluation)
+                .SingleOrDefaultAsync(m => m.ObjetID == id);
 
-            eval.DateEvaluation = DateTime.Now;
-            objet.AchatEvaluation = (AchatEvaluation)eval;
+            VenteEvaluation venteAval = objet.VenteEvaluation;
 
-            return RedirectToAction("Index", "Home");
+
+            EvaluationViewModel evalVenteVM = new EvaluationViewModel();
+            evalVenteVM.Objet = objet;
+            evalVenteVM.leUser = objet.Acheteur;
+
+            if (venteAval != null) {
+                
+                evalVenteVM.Cote = objet.VenteEvaluation.Cote;
+                
+                evalVenteVM.Commentaire = objet.VenteEvaluation.Commentaire;
+
+                ViewBag.SellerBuyer = "seller";
+
+                return View("DetailEvaluation", evalVenteVM);
+            }          
+
+            return View(evalVenteVM);
+
         }
 
+        [Authorize(Roles = "Member, Admin, Manager")]
+        [HttpPost]
+        public async Task<IActionResult> EvaluerVente(EvaluationViewModel evalVenteVM) {
+
+            if (ModelState.IsValid) {
 
 
+                var objet = await _context.Objets
+                .Include(o => o.Encheres)
+                .ThenInclude(o => o.Miseur)
+                .Include(o => o.ConfigurationAdmin)
+                .Include(o => o.Acheteur)
+                .Include(o => o.Vendeur)
+                 .Include(o => o.AchatEvaluation)
+                .SingleOrDefaultAsync(m => m.ObjetID == evalVenteVM.ObjetId);
 
 
+                VenteEvaluation venteEvaluation = new VenteEvaluation() {
+                    DateEvaluation = DateTime.Now,
+                    Cote = evalVenteVM.Cote,
+                    Commentaire = evalVenteVM.Commentaire,
+                    Acheteur = objet.Acheteur,
+                    Objet = objet
+                };
 
+                _context.Add(venteEvaluation);
+                await _context.SaveChangesAsync();
+                TempData["message"] = $"Vente evaluation '{venteEvaluation.EvaluationID}' has been created.";
+                return RedirectToAction(nameof(Index));
+            }
+
+
+            return View(evalVenteVM);
+
+        }
+        // Fin Créer une évaluation de vente fait par le vendeur sur l'acheteur (pour un objet vendu)
+
+      /////// [Authorize(Roles = "Member, Admin, Manager")]
+      /////// public async Task<IActionResult> EvaluerAchat(int id) {
+      ///////
+      ///////
+      ///////
+      /////// }
+      ///////
+      ///////
+      /////// //SB Créer une évaluation d'achat fait par l'acheteur sur le vendeur (pour un objet vendu)
+      ///////
+      /////// [Authorize(Roles = "Member, Admin, Manager")]
+      /////// [HttpPost]
+      /////// public async Task<IActionResult> EvaluerAchat(EvaluationViewModel evalAchatVM) {
+      ///////
+      ///////
+      ///////
+      /////// }
+
+        // Fin Créer une évaluation d'achat fait par l'acheteur sur le vendeur (pour un objet vendu)
 
 
 

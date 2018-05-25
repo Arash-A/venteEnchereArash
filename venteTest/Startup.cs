@@ -128,8 +128,8 @@ namespace venteTest
 
             // Ajour Arash pour Hangfire
 
-           // app.UseHangfireServer();
-            //app.UseHangfireDashboard();
+            app.UseHangfireServer();
+            app.UseHangfireDashboard();
 
             // app.UseHangfireServer();
              //app.UseHangfireDashboard();

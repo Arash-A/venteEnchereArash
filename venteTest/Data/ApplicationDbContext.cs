@@ -28,7 +28,10 @@ namespace venteTest.Data
         public DbSet<Evaluation> Evaluations { get; set;}
         public DbSet<Fichier> Fichiers { get; set;}
         public DbSet<ConfigurationAdmin> ConfigurationAdmins { get; set; }
-        public DbSet<venteTest.Models.AchatEvaluation> AchatEvaluation { get; set; }
+
+
+        // SB... Mise en commentaire , cette ligne enleve la Foreign Key d'AchatEvaluationID dans la table dbo.Objets
+        // public DbSet<venteTest.Models.AchatEvaluation> AchatEvaluation { get; set; }
 
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
