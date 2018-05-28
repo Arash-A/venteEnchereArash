@@ -32,9 +32,9 @@
                     <span class="text-uppercase text-dark h5">@StringsMember.Actif</span>
                     <div class="form-inline my-2 my-lg-0 mt-1">
                         <input id="srchParams" class="form-control mr-sm-2" type="search" placeholder="@StringsMember.Rechercher" aria-label="Search">
-                        <button class="btn btn-outline-light my-2 my-sm-0" onclick="showParNomPrenomEmail(document.getElementById('srchParams').value)"><i class="fa fa-search"></i></button>
-                        <span class="text-white ml-2"> | </span>
-                        <a class="text-white ml-2 btn btn-outline-secondary" role="button" onclick="document.getElementById('srchParams').value=''; showParNomPrenomEmail(document.getElementById('srchParams').value); document.getElementById('srchParams').focus()"> @StringsMember.Reset</a>
+                        <button class="btn btn-outline-secondary my-2 my-sm-0" onclick="showParNomPrenomEmail(document.getElementById('srchParams').value)"><i class="fa fa-search"></i></button>
+                        <span class="ml-2"> | </span>
+                        <a class="ml-2 btn btn-outline-secondary" role="button" onclick="document.getElementById('srchParams').value=''; showParNomPrenomEmail(document.getElementById('srchParams').value); document.getElementById('srchParams').focus()"> @StringsMember.Reset</a>
                     </div>
                     <table id="tabledeMembresAcc" class="table-hover mt-2 table-responsive">
                         <thead>

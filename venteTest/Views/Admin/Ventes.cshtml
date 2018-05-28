@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewData["Title"] = "Ventes";
+}
+@model venteTest.Models.AdminViewModels.SendVentesReportViewModel
+
+<h2>Ventes</h2>
+<h4>Ventes réalisées et commissions pour une année</h4>
+<form asp-action="Ventes">
+    <div class="form-group">
+        <label asp-for="Year" class="control-label">Year</label>
+        <select asp-for="Year" class="form-control w-auto">
+            <option>Select Year...</option>
+            @foreach (var item in ViewBag.Years) {
+                <option value=@item>@item</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn-lg btn-warning">Email PDF report</button>
+</form>

@@ -11,35 +11,41 @@ using venteTest.Models;
 using venteTest.Models.AdminViewModels;
 using AutoMapper;
 using venteTest.Services;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using venteTest.Models.Rapports;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Hosting;
 
-namespace venteTest.Controllers
-{
+namespace venteTest.Controllers {
     [Authorize(Roles = "Admin")]
-    public class AdminController : Controller
-    {
+    public class AdminController : Controller {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IEmailSender _emailSender;
+        private readonly IServiceProvider _serviceProvider;
+        private readonly IHostingEnvironment he;
 
         public AdminController(ApplicationDbContext context,
                                 UserManager<ApplicationUser> userManager,
-                                IEmailSender emailSender) {
+                                IEmailSender emailSender,
+                                IServiceProvider serviceProvider,
+                                IHostingEnvironment e) {
 
             _userManager = userManager;
             _context = context;
             _emailSender = emailSender;
+            _serviceProvider = serviceProvider;
+            he = e;
         }
 
         // CATEGORIES
-        public async Task<IActionResult> Index()
-        {
+        public async Task<IActionResult> Index() {
             IList<Categorie> lstCateg = await _context.Categories.ToListAsync();
             IList<CategorieViewModel> lstCategViewModel = Mapper.Map<IList<Categorie>, IList<CategorieViewModel>>(lstCateg);
             return View(lstCategViewModel);
         }
 
-        public IActionResult CreateCategorie()
-        {
+        public IActionResult CreateCategorie() {
             return View();
         }
 
@@ -147,7 +153,7 @@ namespace venteTest.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteCategorieConfirmed([Bind("CategorieId")] CategorieViewModel categViewModel) {
-            
+
             int id = categViewModel.CategorieId;
             var categorie = await _context.Categories.SingleOrDefaultAsync(m => m.CategorieId == id);
             _context.Categories.Remove(categorie);
@@ -167,7 +173,7 @@ namespace venteTest.Controllers
         // MEMBRES
         public async Task<IActionResult> Membres(string members = "") {
 
-            IList<ApplicationUser> lstMembers =  await _userManager.GetUsersInRoleAsync("Member");
+            IList<ApplicationUser> lstMembers = await _userManager.GetUsersInRoleAsync("Member");
 
             if (!(members == "" || members == "AllMembers")) {
                 // Afficher les nouveaux membres inscrits depuis 24 heures
@@ -197,7 +203,7 @@ namespace venteTest.Controllers
             } else {
                 _user.EmailConfirmed = true;
                 TempData["message"] = $"Member '{email}' has been activated.";
-            }               
+            }
 
             var result = await _userManager.UpdateAsync(_user); // MAJ
             if (result.Succeeded) {
@@ -225,7 +231,7 @@ namespace venteTest.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EmailMember(SendEmailViewModel emailVM) {
-            
+
             // Valider existence du membre
             var _user = await _userManager.FindByEmailAsync(emailVM.ToEmail);
             if (_user == null) {
@@ -290,11 +296,11 @@ namespace venteTest.Controllers
                 PasGlobalEnchere = configurationVM.PasGlobalEnchere,
                 TauxGlobalComissionAuVendeur = configurationVM.TauxGlobalComissionAuVendeur
             };
-                
-                _context.Add(configuration);
-                await _context.SaveChangesAsync();
-                TempData["message"] = $"Created sucessfully new configuration # '{configuration.ConfigurationAdminId}'.";
-                return RedirectToAction(nameof(BidConfiguration));
+
+            _context.Add(configuration);
+            await _context.SaveChangesAsync();
+            TempData["message"] = $"Created sucessfully new configuration # '{configuration.ConfigurationAdminId}'.";
+            return RedirectToAction(nameof(BidConfiguration));
             //}
         }
 
@@ -346,6 +352,7 @@ namespace venteTest.Controllers
         // ****************************************************************** ///
 
         // ****************************************************************** ///
+
         // List objets en vente, en cours, vendu, etc.
 
         public async Task<IActionResult> Objets(string objects = "", string state = "", string email = "") {
@@ -374,12 +381,12 @@ namespace venteTest.Controllers
 
             if (!(state == "")) {
                 // Afficher nouveaux
-                if (state == "SoldObjects") { 
-                   ViewBag.StateObjects = "Sold";
-                   objets = objets.Where(p => p.Status == Status.Vendu);
+                if (state == "SoldObjects") {
+                    ViewBag.StateObjects = "Sold";
+                    objets = objets.Where(p => p.Status == Status.Vendu);
                 } else {
                     ViewBag.StateObjects = "OnSale";
-                   objets = objets.Where(p => p.Status == Status.EnVente);
+                    objets = objets.Where(p => p.Status == Status.EnVente);
                 }
             }
 
@@ -393,6 +400,35 @@ namespace venteTest.Controllers
             IList<ObjetsViewModel> model = Mapper.Map<IList<Objet>, IList<ObjetsViewModel>>(obs);
             return View(model);
         }
+
+
+        //Rapport #5 - PDF - Synthèse des ventes réalisées et des commissions perçues durant l’année
+        public async Task<IActionResult> Ventes() {
+
+            var lstYears = new List<int> { 2018 };
+            ViewBag.Years = lstYears;
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Ventes(SendVentesReportViewModel sendVentesReportViewModel) {
+
+            if (ModelState.IsValid) { 
+                // Créer et envoyer rapport PDF:
+                RapportsClass rapportsClass = new RapportsClass(_context, this.ControllerContext, he);
+                // Chercher l'admin courriel
+                var userManager = _serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+                var userName = await userManager.FindByNameAsync(User.Identity.Name);
+                // envoyer rapport
+                rapportsClass.rapport5(int.Parse(sendVentesReportViewModel.Year),
+                                        userName.Email);
+
+                return RedirectToAction(nameof(Ventes));
+            }
+
+            return View("sendVentesReportViewModel");
+
+        }
+        // Fin rapport #5
 
     }
 }

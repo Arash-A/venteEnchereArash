@@ -11,20 +11,22 @@ using System.IO;
 using Microsoft.AspNetCore.Mvc;
 using venteTest.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Hosting;
 
 namespace venteTest.Models.Rapports
 {
     public class RapportsClass
     {
+        private readonly IHostingEnvironment he;
         private readonly ApplicationDbContext _context;
         private readonly ActionContext monContext;
         private static int numero = 0;
 
-
-
-
-        public RapportsClass(ApplicationDbContext db) {
+        public RapportsClass(ApplicationDbContext db, ControllerContext controllerContext, IHostingEnvironment e) {
             _context = db;
+            monContext = controllerContext;
+            he = e;
         }
 
         public void rapport1() {
@@ -55,16 +57,38 @@ namespace venteTest.Models.Rapports
 
         }
 
-        public void rapport5() {
+        public void rapport5(int annee, string emailAdmin) {
+            // Sélection des objets vendus
+            String q1 = "SELECT * FROM Objets WHERE Status={0}"; // AND DateLimite >= {1} AND DateLimite < {2}  
+            var objets = from o in _context.Objets.
+                        Include(o => o.Categorie).
+                        Include(o => o.Vendeur).
+                        Include(o => o.Acheteur).
+                            FromSql(q1, 1, annee, annee + 1)
+                         select o;
 
+            objets = objets.Where(p => p.DateLimite.Year >= annee && p.DateLimite.Year < (annee + 1));
+
+            List <Objet> lstObjets = objets.ToList();
+
+            // Création du PDF
+            string path = CreerPdf(lstObjets, "../Rapports/Rapport5", "5-VENTES-ANNUEL");
+            // Titre du courriel
+            string sujet = "VentesEnchères - Synthèse des ventes réalisées et des commissions année " + annee;
+            // Contenu du courriel
+            string content = "Voici votre rapport annuel des ventes réalisées et des commissions perçues pour l'annéee " + annee + ".";
+
+            sendRapport(emailAdmin, path, sujet, content);
+            /////////////////////////////////
         }
 
+        private string CreerPdf(List<Objet>liste, string vueUtilisee, string typeRapport) {
 
-
-        private string CreerPdf(List<Objet> liste,string vueUtilisee,string typeRapport) {
-
-            string webRootPath = "wwww/Attachments/Rapports/";
-            var path = Path.Combine(webRootPath, "rapport#" +typeRapport+"---"+ numero+"---" + DateTime.Now.ToString("yyyy-mm-dd")+ ".pdf");
+            //string webRootPath = "wwww/Attachments/Rapports/"; //enleve SB
+            string webRootPath = he.WebRootPath + "/Attachments/Rapports/";
+            webRootPath = webRootPath.Trim();
+            string pthCombine = "rapport#" + typeRapport + "---" + numero + "---" + DateTime.Now.ToString("yyyy-mm-dd") + ".pdf";
+            var path = Path.Combine(webRootPath, pthCombine);
 
             var report = new ViewAsPdf(vueUtilisee, liste) {
                 FileName = "",
@@ -75,7 +99,7 @@ namespace venteTest.Models.Rapports
                 DateTime.Now.ToString("MMM ddd d HH:mm yyyy") + "      Page: [page]/[toPage]\"" +
             " --footer-line --footer-font-size \"12\" --footer-spacing 1 --footer-font-name \"Segoe UI\""
             };
-            var binary = report.BuildFile(this.monContext);
+            var binary = report.BuildFile(this.monContext); 
             numero++;
             return path.ToString();
         }
