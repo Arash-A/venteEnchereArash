@@ -129,6 +129,9 @@
   <data name="BoutonCreer" xml:space="preserve">
     <value>Create</value>
   </data>
+  <data name="btnTelecharger" xml:space="preserve">
+    <value>Download !</value>
+  </data>
   <data name="ButtonDelete" xml:space="preserve">
     <value>Delete</value>
   </data>

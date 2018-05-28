@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Evaluer";
+    List<int> cotes = new List<int> { -3, -2, -1, 0, 1, 2, 3 };
 }
 
 <h2>Evaluation</h2>
@@ -16,12 +17,13 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Cote" class="control-label"></label>
-                <input asp-for="Cote" class="form-control" />
+                <select asp-for="Cote" class="form-control" asp-items="@(new SelectList(@cotes))"></select>
+   
                 <span asp-validation-for="Cote" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Commentaire" class="control-label"></label>
-                <input asp-for="Commentaire" class="form-control" />
+                <textarea asp-for="Commentaire" rows="5" cols="40" class="form-control"></textarea>
                 <span asp-validation-for="Commentaire" class="text-danger"></span>
             </div>
             <div class="form-group">

@@ -1,0 +1,30 @@
+﻿@model venteTest.Models.Fichier
+@using venteTest.Resources.Views
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Objets" asp-action="Download" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="NomOriginal" class="control-label"></label>
+                <input asp-for="NomOriginal" class="form-control" readonly="readonly" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="verseLe" class="control-label"></label>
+                <input asp-for="verseLe" class="form-control" readonly="readonly" />
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="@StringsObjets.btnTelecharger" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">@StringsObjets.BackToList</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

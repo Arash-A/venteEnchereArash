@@ -68,7 +68,20 @@
                 </dt>
                 <dd>
                     @Html.DisplayFor(model => model.Categorie.Nom)
+                    <hr />
                 </dd>
+
+                <dt>
+                    Liste des Pièces Jointes
+                </dt>
+
+                <dd>
+                    <hr />
+                    @foreach (Fichier item in Model.Fichiers){
+                @Html.Partial("_Fichier.cshtml", item)}
+                    <hr />
+                </dd>
+
             </dl>
 
         </div>
