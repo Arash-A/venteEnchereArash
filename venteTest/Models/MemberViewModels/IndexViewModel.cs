@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using venteTest.Models.AdminViewModels;
 using venteTest.Resources.Models;
 
 namespace venteTest.Models.MemberViewModels
 {
     public class IndexViewModel {
+
+        public string Id { get; set; }
 
         [Display(Name = "UsagerCourriel", ResourceType = typeof(StringsManage))]
         [EmailAddress]
@@ -25,6 +28,8 @@ namespace venteTest.Models.MemberViewModels
         public double Cote { get; set; }
 
         public double NbEvaluation { get; set; }
+
+        //public SendCotesReportViewModel SendCotesReportViewModel { get; set; }
 
         public virtual ICollection<Objet> Objets {
             get;
