@@ -67,6 +67,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>StringsObjets.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\Models\StringsRapports.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>StringsRapports.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\Models\StringsShared.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -144,8 +149,15 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>StringsObjets.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Models\StringsOnjets.en.resx">
+    <EmbeddedResource Update="Resources\Models\StringsObjets.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Models\StringsRapports.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Models\StringsRapports.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>StringsRapports.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Models\StringsShared.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
