@@ -15,11 +15,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using venteTest.Models.Rapports;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
-using Hangfire;
-using Rotativa.AspNetCore;
-using System.Net.Mail;
-using System.Net;
-using System.IO;
+using System.Globalization;
 
 namespace venteTest.Controllers {
     [Authorize(Roles = "Admin")]
@@ -29,7 +25,6 @@ namespace venteTest.Controllers {
         private readonly IEmailSender _emailSender;
         private readonly IServiceProvider _serviceProvider;
         private readonly IHostingEnvironment he;
-        private static int numero = 0;
 
         public AdminController(ApplicationDbContext context,
                                 UserManager<ApplicationUser> userManager,
@@ -407,12 +402,57 @@ namespace venteTest.Controllers {
             return View(model);
         }
 
+        //Rapport #4 - PDF - Cote de popularité des membres incluant le niveau de la cote, le nombre d’évaluations.
+        [HttpGet]
+        public async Task<IActionResult> MembresCote() {
+            ViewBag.Months = new SelectList(Enumerable.Range(1, 12).Select(x =>
+                                               new SelectListItem() {
+                                                   Text = CultureInfo.CurrentCulture.DateTimeFormat.AbbreviatedMonthNames[x - 1] + " (" + x + ")",
+                                                   Value = x.ToString()
+                                               }), "Value", "Text");
+
+            ViewBag.Years = new SelectList(Enumerable.Range(DateTime.Today.Year - 5, 6).Select(x =>
+                                               new SelectListItem() {
+                                                   Text = x.ToString(),
+                                                   Value = x.ToString()
+                                               }), "Value", "Text");
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> MembresCote(SendCotesReportViewModel sendCotesReportViewModel) {
+
+            if (ModelState.IsValid) {
+                // Créer et envoyer rapport PDF:
+                RapportsClass rapportsClass = new RapportsClass(_context, this.ControllerContext, he);
+                // Chercher l'admin courriel
+                var userManager = _serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+                var userName = await userManager.FindByNameAsync(User.Identity.Name);
+                // envoyer rapport
+                rapportsClass.rapport4(userName.Email, sendCotesReportViewModel);
+
+                return RedirectToAction(nameof(MembresCote));
+            }
+
+            ViewBag.Months = new SelectList(Enumerable.Range(1, 12).Select(x =>
+                                   new SelectListItem() {
+                                       Text = CultureInfo.CurrentCulture.DateTimeFormat.AbbreviatedMonthNames[x - 1] + " (" + x + ")",
+                                       Value = x.ToString()
+                                   }), "Value", "Text");
+
+            ViewBag.Years = new SelectList(Enumerable.Range(DateTime.Today.Year - 5, 6).Select(x =>
+                                               new SelectListItem() {
+                                                   Text = x.ToString(),
+                                                   Value = x.ToString()
+                                               }), "Value", "Text");
+            return View(sendCotesReportViewModel);
+
+        }
+        // Fin rapport #4
 
         //Rapport #5 - PDF - Synthèse des ventes réalisées et des commissions perçues durant l’année
         public async Task<IActionResult> Ventes() {
 
-            var lstYears = new List<int> { 2018 };
-            ViewBag.Years = lstYears;
+            ViewBag.Years = new List<int> { 2018 };
             return View();
         }
         [HttpPost]
@@ -425,21 +465,22 @@ namespace venteTest.Controllers {
                 var userManager = _serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
                 var userName = await userManager.FindByNameAsync(User.Identity.Name);
                 // envoyer rapport
-                rapportsClass.rapport5(int.Parse(sendVentesReportViewModel.Year),
+                rapportsClass.rapport5(sendVentesReportViewModel.Year,
                                         userName.Email);
 
                 return RedirectToAction(nameof(Ventes));
             }
 
-            return View("sendVentesReportViewModel");
+            ViewBag.Years = new List<int> { 2018 };
+            return View(sendVentesReportViewModel);
 
         }
         // Fin rapport #5
+
         public async Task<IActionResult> rapSettings() {
 
             return View();
         }
-       
 
     }
 }

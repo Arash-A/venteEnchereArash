@@ -9,6 +9,6 @@ namespace venteTest.Models.AdminViewModels
     public class SendVentesReportViewModel
     {
         [Required]
-        public string Year { get; set; }
+        public int Year { get; set; }
     }
 }

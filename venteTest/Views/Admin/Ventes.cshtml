@@ -4,11 +4,11 @@
 }
 @model venteTest.Models.AdminViewModels.SendVentesReportViewModel
 
-<h2>Ventes</h2>
-<h4>Ventes réalisées et commissions pour une année</h4>
+<h2>Sales</h2>
+<h4>Sales and commissions for a given year</h4>
 <form asp-action="Ventes">
     <div class="form-group">
-        <label asp-for="Year" class="control-label">Year</label>
+        <label asp-for="Year" class="control-label font-weight-bold">Year</label>
         <select asp-for="Year" class="form-control w-auto">
             <option>Select Year...</option>
             @foreach (var item in ViewBag.Years) {
