@@ -87,7 +87,7 @@ namespace venteTest.Models.Rapports
             //string webRootPath = "wwww/Attachments/Rapports/"; //enleve SB
             string webRootPath = he.WebRootPath + "/Attachments/Rapports/";
             webRootPath = webRootPath.Trim();
-            string pthCombine = "rapport#" + typeRapport + "---" + numero + "---" + DateTime.Now.ToString("yyyy-mm-dd") + ".pdf";
+            string pthCombine = "rapport#" + typeRapport + "---" + numero + "---" + DateTime.Now.ToString("yyyy-MM-dd hh-mm") + ".pdf";
             var path = Path.Combine(webRootPath, pthCombine);
 
             var report = new ViewAsPdf(vueUtilisee, liste) {

@@ -15,6 +15,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using venteTest.Models.Rapports;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
+using Hangfire;
+using Rotativa.AspNetCore;
+using System.Net.Mail;
+using System.Net;
+using System.IO;
 
 namespace venteTest.Controllers {
     [Authorize(Roles = "Admin")]
@@ -24,6 +29,7 @@ namespace venteTest.Controllers {
         private readonly IEmailSender _emailSender;
         private readonly IServiceProvider _serviceProvider;
         private readonly IHostingEnvironment he;
+        private static int numero = 0;
 
         public AdminController(ApplicationDbContext context,
                                 UserManager<ApplicationUser> userManager,
@@ -429,6 +435,11 @@ namespace venteTest.Controllers {
 
         }
         // Fin rapport #5
+        public async Task<IActionResult> rapSettings() {
+
+            return View();
+        }
+       
 
     }
 }

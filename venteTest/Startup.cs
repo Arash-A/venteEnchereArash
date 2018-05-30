@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Options;
 using Rotativa.AspNetCore;
+using venteTest.Models.Rapports;
 
 namespace venteTest
 {
@@ -82,10 +83,8 @@ namespace venteTest
 
             // Ajout Arash pour les Taches automatique selon http://docs.hangfire.io
             // aussi: http://docs.hangfire.io/en/latest/configuration/using-dashboard.html#configuring-authorization
-
-          //  services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")));
-
              services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddTransient<RapportsClass>();
 
 
             //LOCALIZATION + GLOBALIZATION
@@ -127,14 +126,10 @@ namespace venteTest
             RotativaConfiguration.Setup(env);
 
             // Ajour Arash pour Hangfire
-
             app.UseHangfireServer();
             app.UseHangfireDashboard();
 
-            // app.UseHangfireServer();
-             //app.UseHangfireDashboard();
-
-
+           
 
         }
 

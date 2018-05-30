@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewData["Title"] = "Rapports Settings";
+}
+@model venteTest.Models.Rapports.RapViewModel
+<h2>Configuration</h2>
+<br />
+<h4>Activer ou désactiver d'envoyer les rapport automatique</h4>
+<br />
+<form asp-controller="Rapport" asp-action="rapSettings" method="post">
+    <div class="form-group">
+
+        <div class="form-check checkbox-slider--a">
+            <label>
+                <input asp-for="rap1" /><span class="indicator-success"> @Html.DisplayNameFor(m => m.rap1) -Liste des objets qui ont intéressé un membre</span>
+                <span> <button asp-action="rap1Mt" asp-controller="Rapport" type="button" class="btn navbar-btn mr-2" ><span>Envoyer</span></button></span>
+            </label>
+        </div>
+        <div class="form-check checkbox-slider--a">
+            <label>
+                <input asp-for="rap2" /><span class="indicator-success"> @Html.DisplayNameFor(m => m.rap2)-Liste des objets vendus par un membre</span>
+                <span> <button asp-action="rap2Mt" asp-controller="Rapport" type="button" class="btn navbar-btn mr-2"><span>Envoyer</span></button></span>
+            </label>
+        </div>
+        <div class="form-check checkbox-slider--a">
+            <label>
+                <input asp-for="rap3" /><span class="indicator-success"> @Html.DisplayNameFor(m => m.rap3)-Liste des produits en vente dont la période de vente est échue ou sera échue sous peu</span>
+                <span> <button asp-action="rap3Mt" asp-controller="Rapport" type="button" class="btn navbar-btn mr-2"><span>Envoyer</span></button></span>
+            </label>
+        </div>
+        <div class="form-check checkbox-slider--a">
+            <label>
+                <input asp-for="rap4" /><span class="indicator-success"> @Html.DisplayNameFor(m => m.rap4)-Cote de popularité des membres incluant le niveau de la cote, le nombre d’évaluations</span>
+                <span> <button asp-action="rap3Mt" asp-controller="Rapport" type="button" class="btn navbar-btn mr-2"><span>Envoyer</span></button></span>
+            </label>
+        </div>
+        <div class="form-check checkbox-slider--a">
+            <label>
+                <input asp-for="rap5" /><span class="indicator-success"> @Html.DisplayNameFor(m => m.rap5)-Synthèse des ventes réalisées et des commissions perçues durant l’année</span>
+                <span> <button asp-action="rap4Mt" asp-controller="Rapport" type="button" class="btn navbar-btn mr-2"><span>Envoyer</span></button></span>
+            </label>
+        </div>
+    </div>
+    <button type="submit" class="btn-lg btn-warning">Sauvegarde</button>
+</form>
