@@ -26,6 +26,7 @@ using System.Net;
 using System.Text;
 using venteTest.Models.Rapports;
 using venteTest.Models;
+using venteTest.Models.AdminViewModels;
 
 namespace venteTest.Data.Controllers
 {
@@ -100,12 +101,12 @@ namespace venteTest.Data.Controllers
 
         public void rapport3() {
             RapportsClass rapportsClass = new RapportsClass(_context, this.ControllerContext, he);
-            rapportsClass.rapport3();
+           // rapportsClass.rapport3();
         }
 
         public void rapport4() {
             RapportsClass rapportsClass = new RapportsClass(_context, this.ControllerContext, he);
-            rapportsClass.rapport4();
+           // rapportsClass.rapport4("sasha.bouchard@gmail.com", SendCotesReportViewModel sendCotesReportViewModel);
         }
 
         public void rapport5() {
@@ -116,7 +117,7 @@ namespace venteTest.Data.Controllers
         /// <summary>
         /// Methodes de l'action pour les boutons
         /// </summary>
-        public async Task<IActionResult> rap1Mt(RapViewModel rap) {
+        public async Task<IActionResult> rap1Mt() {
             RapportsClass rapportsClass = new RapportsClass(_context, this.ControllerContext, he);
             // envoyer rapport
             rapportsClass.rapport1();
@@ -124,7 +125,7 @@ namespace venteTest.Data.Controllers
             return RedirectToAction("Index", "Admin");
         }
 
-        public async Task<IActionResult> rap2Mt(RapViewModel rap) {
+        public async Task<IActionResult> rap2Mt() {
             RapportsClass rapportsClass = new RapportsClass(_context, this.ControllerContext, he);
             // envoyer rapport
             rapportsClass.rapport2();
@@ -132,23 +133,23 @@ namespace venteTest.Data.Controllers
             return RedirectToAction("Index", "Admin");
         }
 
-        public async Task<IActionResult> rap3Mt(RapViewModel rap) {
+        public async Task<IActionResult> rap3Mt() {
             RapportsClass rapportsClass = new RapportsClass(_context, this.ControllerContext, he);
             // envoyer rapport
-            rapportsClass.rapport3();
+            //rapportsClass.rapport3();
             TempData["message"] = "Rapport est envoyé";
             return RedirectToAction("Index", "Admin");
         }
 
-        public async Task<IActionResult> rap4Mt(RapViewModel rap) {
+        public async Task<IActionResult> rap4Mt() {
             RapportsClass rapportsClass = new RapportsClass(_context, this.ControllerContext, he);
             // envoyer rapport
-            rapportsClass.rapport4();
+           // rapportsClass.rapport4( "sasha.bouchard@gmail.com",);
             TempData["message"] = "Rapport est envoyé";
             return RedirectToAction("Index", "Admin");
         }
 
-        public async Task<IActionResult> rap5Mt(RapViewModel rap) {
+        public async Task<IActionResult> rap5Mt() {
             RapportsClass rapportsClass = new RapportsClass(_context, this.ControllerContext, he);
             // envoyer rapport
             rapportsClass.rapport5(DateTime.Now.Year,"sasha.bouchard@gmail.com");
