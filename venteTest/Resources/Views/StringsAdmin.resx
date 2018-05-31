@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AfficherTous" xml:space="preserve">
+    <value>Afficher tous les items</value>
+  </data>
   <data name="ButtonCreer" xml:space="preserve">
     <value>Créer</value>
   </data>
@@ -134,6 +137,9 @@
   </data>
   <data name="DeleteTitle" xml:space="preserve">
     <value>Effacer</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
   </data>
   <data name="EditBackToList" xml:space="preserve">
     <value>De retour à la liste</value>
@@ -158,6 +164,12 @@
   </data>
   <data name="EmailTitle" xml:space="preserve">
     <value>Écrire au membre</value>
+  </data>
+  <data name="HistoriqueCourriel" xml:space="preserve">
+    <value>Sélectioner un courriel</value>
+  </data>
+  <data name="HistoriqueUsager" xml:space="preserve">
+    <value>Historique par usager:</value>
   </data>
   <data name="IndexCreerNouvelle" xml:space="preserve">
     <value>Créer une nouvelle catégorie</value>
@@ -213,8 +225,26 @@
   <data name="MembresPrenom" xml:space="preserve">
     <value>Prénom</value>
   </data>
+  <data name="MembresRating" xml:space="preserve">
+    <value>Evaluation des membres</value>
+  </data>
   <data name="MembresTelephone" xml:space="preserve">
     <value>Numéro de téléphone</value>
+  </data>
+  <data name="MiseDateDepart" xml:space="preserve">
+    <value>Date de départ</value>
+  </data>
+  <data name="MiseDateFin" xml:space="preserve">
+    <value>Date de fin</value>
+  </data>
+  <data name="MiseEtat" xml:space="preserve">
+    <value>État</value>
+  </data>
+  <data name="MiseInitiale" xml:space="preserve">
+    <value>Mise initiale</value>
+  </data>
+  <data name="MiseJours" xml:space="preserve">
+    <value>Durée</value>
   </data>
   <data name="NavBid" xml:space="preserve">
     <value>Configuration des mises</value>
@@ -230,5 +260,35 @@
   </data>
   <data name="NavOptions" xml:space="preserve">
     <value>Options</value>
+  </data>
+  <data name="Nom" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="Objets" xml:space="preserve">
+    <value>Objets</value>
+  </data>
+  <data name="OptionNouveaux" xml:space="preserve">
+    <value>Nouveaux items</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Options d'affichage</value>
+  </data>
+  <data name="OptionsTous" xml:space="preserve">
+    <value>Tous les items</value>
+  </data>
+  <data name="OptionVendus" xml:space="preserve">
+    <value>Items vendus</value>
+  </data>
+  <data name="OptionVente" xml:space="preserve">
+    <value>Items en vente</value>
+  </data>
+  <data name="Rapports" xml:space="preserve">
+    <value>Rapports</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
+  <data name="VentesAnnuelles" xml:space="preserve">
+    <value>Ventes annuelles</value>
   </data>
 </root>
