@@ -117,8 +117,38 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Acheteur" xml:space="preserve">
+    <value>Acheteur</value>
+  </data>
+  <data name="Adresse" xml:space="preserve">
+    <value>Adresse</value>
+  </data>
+  <data name="Annee" xml:space="preserve">
+    <value>Année</value>
+  </data>
+  <data name="AnneeDepart" xml:space="preserve">
+    <value>Année de départ</value>
+  </data>
+  <data name="AnneeFin" xml:space="preserve">
+    <value>Année de fin</value>
+  </data>
+  <data name="Categorie" xml:space="preserve">
+    <value>Catégorie</value>
+  </data>
+  <data name="Civilite" xml:space="preserve">
+    <value>Civilité</value>
+  </data>
+  <data name="Courriel" xml:space="preserve">
+    <value>Courriel</value>
+  </data>
+  <data name="CourrielConfirme" xml:space="preserve">
+    <value>Courriel confirmé</value>
+  </data>
   <data name="CourrielMembre" xml:space="preserve">
     <value>Courriel du membre</value>
+  </data>
+  <data name="DateInscription" xml:space="preserve">
+    <value>Date d'inscription</value>
   </data>
   <data name="FacteurComm" xml:space="preserve">
     <value>Facteur de commission</value>
@@ -126,11 +156,23 @@
   <data name="IdMise" xml:space="preserve">
     <value>Id Mise</value>
   </data>
+  <data name="Langue" xml:space="preserve">
+    <value>Langue</value>
+  </data>
   <data name="Message" xml:space="preserve">
     <value>Message</value>
   </data>
   <data name="MisePas" xml:space="preserve">
     <value>Pas de la mise</value>
+  </data>
+  <data name="MoisDepart" xml:space="preserve">
+    <value>Mois de départ</value>
+  </data>
+  <data name="MoisFin" xml:space="preserve">
+    <value>Mois de fin</value>
+  </data>
+  <data name="Nom" xml:space="preserve">
+    <value>Nom</value>
   </data>
   <data name="ObjetDateDepart" xml:space="preserve">
     <value>Date de départ</value>
@@ -156,7 +198,19 @@
   <data name="ObjetNom" xml:space="preserve">
     <value>Nom</value>
   </data>
+  <data name="Prenom" xml:space="preserve">
+    <value>Prénom</value>
+  </data>
+  <data name="Telephone" xml:space="preserve">
+    <value>Téléphone</value>
+  </data>
+  <data name="TelephoneConfirme" xml:space="preserve">
+    <value>Téléphone confirmé</value>
+  </data>
   <data name="Titre" xml:space="preserve">
     <value>Titre</value>
+  </data>
+  <data name="Vendeur" xml:space="preserve">
+    <value>Vendeur</value>
   </data>
 </root>

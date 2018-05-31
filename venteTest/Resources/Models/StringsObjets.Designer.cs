@@ -61,7 +61,25 @@ namespace venteTest.Resources.Models {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Commission au vendeur.
+        ///   Looks up a localized string similar to Catégorie.
+        /// </summary>
+        public static string Categorie {
+            get {
+                return ResourceManager.GetString("Categorie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ID Catégorie.
+        /// </summary>
+        public static string CategorieId {
+            get {
+                return ResourceManager.GetString("CategorieId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Commission du vendeur.
         /// </summary>
         public static string Commission {
             get {
@@ -75,6 +93,24 @@ namespace venteTest.Resources.Models {
         public static string DateAjout {
             get {
                 return ResourceManager.GetString("DateAjout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date limite.
+        /// </summary>
+        public static string DateLimite {
+            get {
+                return ResourceManager.GetString("DateLimite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
             }
         }
         
@@ -97,11 +133,29 @@ namespace venteTest.Resources.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nom.
+        /// </summary>
+        public static string Nom {
+            get {
+                return ResourceManager.GetString("Nom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>
         public static string ObjetDescription {
             get {
                 return ResourceManager.GetString("ObjetDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Object id.
+        /// </summary>
+        public static string ObjetId {
+            get {
+                return ResourceManager.GetString("ObjetId", resourceCulture);
             }
         }
         
@@ -156,6 +210,15 @@ namespace venteTest.Resources.Models {
         public static string PrixVendu {
             get {
                 return ResourceManager.GetString("PrixVendu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string Status {
+            get {
+                return ResourceManager.GetString("Status", resourceCulture);
             }
         }
     }

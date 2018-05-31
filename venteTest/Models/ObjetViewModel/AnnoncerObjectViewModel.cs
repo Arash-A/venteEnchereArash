@@ -46,9 +46,11 @@ namespace venteTest.Models.ObjetViewModel
         [StringLength(1024, ErrorMessage = "Your image path is too long because exceeding 1024 characters. Try again!")]
         public string imageUrl { get; set; }
 
+        [Display(Name = "CategorieId", ResourceType = typeof(StringsObjets))]
         //propriéte de Navigation
         public int CategorieID { get; set; }
 
+        [Display(Name = "Categorie", ResourceType = typeof(StringsObjets))]
         public Categorie Categorie { get; set; }
     }
 }

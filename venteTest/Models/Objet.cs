@@ -13,15 +13,17 @@ namespace venteTest.Models {
     }
     // Class corespondante à un objet à vendre
     public class Objet {
+
+        [Display(Name = "ObjetId", ResourceType = typeof(StringsObjets))]
         public int ObjetID { get; set; } // The unique key
 
-        [Required]
+        [Required, Display(Name = "Nom", ResourceType = typeof(StringsObjets))]
         public string Nom { get; set; }
 
 
         [Required]
         [MaxLength(400)]
-        [Display(Name = "ObjetDescription", ResourceType = typeof(StringsObjets))]
+        [Display(Name = "Description", ResourceType = typeof(StringsObjets))]
         public string Description { get; set; }
 
 
@@ -40,6 +42,7 @@ namespace venteTest.Models {
         [Display(Name = "DateAjout", ResourceType = typeof(StringsObjets))]
         public DateTime DateInscription { get; set; } // fixé par le Vendeur à l'ajout
 
+        [Display(Name = "DateLimite", ResourceType = typeof(StringsObjets))]
         public DateTime DateLimite { get; set; } // fixé par le Vendeur à l'ajout
 
         [Display(Name = "Duree", ResourceType = typeof(StringsObjets))]
@@ -50,6 +53,8 @@ namespace venteTest.Models {
                 return (outpp);
             }
         }
+
+        [Display(Name = "Status", ResourceType = typeof(StringsObjets))]
         public Status Status { get; set; }
 
         [Display(Name = "Image", ResourceType = typeof(StringsObjets))]

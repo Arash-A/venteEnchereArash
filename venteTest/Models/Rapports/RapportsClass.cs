@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Hosting;
 using venteTest.Models.AdminViewModels;
 using AutoMapper;
 using venteTest.Models.MemberViewModels;
+using venteTest.Resources.Models;
 
 namespace venteTest.Models.Rapports
 {
@@ -79,12 +80,12 @@ namespace venteTest.Models.Rapports
             // Création du PDF
             string path = CreerPdf(lstObjets, "../Rapports/Rapport4", "4-COTES-" + sendCotesReportViewModel.SelectedYearStart + sendCotesReportViewModel.SelectedMonthStart + "-" + sendCotesReportViewModel.SelectedYearEnd + sendCotesReportViewModel.SelectedMonthEnd);
             // Titre du courriel
-            string sujet = "VentesEnchères - Synthèse des cotes de membres pour période de " +
+            string sujet = "VentesEnchères - " +@StringsRapports.RapportCotesDescription + " " +
                                 sendCotesReportViewModel.SelectedMonthStart + "/" + sendCotesReportViewModel.SelectedYearStart + " - " +
                                 sendCotesReportViewModel.SelectedMonthEnd + "/" + sendCotesReportViewModel.SelectedYearEnd +
                                 ".";
             // Contenu du courriel
-            string content = "Voici votre rapport annuel des ventes réalisées et des commissions perçues pour la période de " +
+            string content = @StringsRapports.RapportAnnuelDescription + " " +
                                 sendCotesReportViewModel.SelectedMonthStart +"/"+ sendCotesReportViewModel.SelectedYearStart + " - " +
                                 sendCotesReportViewModel.SelectedMonthEnd + "/" + sendCotesReportViewModel.SelectedYearEnd +
                                 ".";
@@ -110,9 +111,9 @@ namespace venteTest.Models.Rapports
             // Création du PDF
             string path = CreerPdf(lstObjets, "../Rapports/Rapport5", "5-VENTES-ANNUEL");
             // Titre du courriel
-            string sujet = "VentesEnchères - Synthèse des ventes réalisées et des commissions année " + annee;
+            string sujet = "VentesEnchères -  " +@StringsRapports.RapportVentesDescription + " " + annee;
             // Contenu du courriel
-            string content = "Voici votre rapport annuel des ventes réalisées et des commissions perçues pour l'annéee " + annee + ".";
+            string content = @StringsRapports.RapportVentesDescription +" " + annee + ".";
 
             sendRapport(emailAdmin, path, sujet, content);
             /////////////////////////////////
@@ -123,7 +124,7 @@ namespace venteTest.Models.Rapports
             //string webRootPath = "wwww/Attachments/Rapports/"; //enleve SB
             string webRootPath = he.WebRootPath + "/Attachments/Rapports/";
             webRootPath = webRootPath.Trim();
-            string pthCombine = "rapport#" + typeRapport + "---" + numero + "---" + DateTime.Now.ToString("yyyy-MM-dd hh-mm") + ".pdf";
+            string pthCombine = @StringsRapports.RapportNo + typeRapport + "---" + numero + "---" + DateTime.Now.ToString("yyyy-MM-dd hh-mm") + ".pdf";
             var path = Path.Combine(webRootPath, pthCombine);
 
             var report = new ViewAsPdf(vueUtilisee, liste) {

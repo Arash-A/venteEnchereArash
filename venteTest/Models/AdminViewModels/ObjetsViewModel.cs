@@ -44,10 +44,13 @@ namespace venteTest.Models.AdminViewModels {
         [StringLength(1024, ErrorMessage = "Your image path is too long because exceeding 1024 characters. Try again!")]
         public string imageUrl { get; set; }
 
+        [Display(Name = "Categorie", ResourceType = typeof(StringsAdmin))]
         public Categorie Categorie { get; set; }
-        [Required]
+
+        [Required, Display(Name = "Vendeur", ResourceType = typeof(StringsAdmin))]
         public Vendeur Vendeur { get; set; }
 
+        [Display(Name = "Acheteur", ResourceType = typeof(StringsAdmin))]
         public Miseur Acheteur { get; set; }
         // 1 objet à vendre possède une Configuration de PasDenchère et 1 TauxGlobalComissionAuVendeur qui ne change pas durant une vente
         public ConfigurationAdmin ConfigurationAdmin { get; set; }

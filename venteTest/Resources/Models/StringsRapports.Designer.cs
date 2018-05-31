@@ -59,5 +59,95 @@ namespace venteTest.Resources.Models {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rapport no 1.
+        /// </summary>
+        public static string Rapport1 {
+            get {
+                return ResourceManager.GetString("Rapport1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rapport no 2.
+        /// </summary>
+        public static string Rapport2 {
+            get {
+                return ResourceManager.GetString("Rapport2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rapport no 3.
+        /// </summary>
+        public static string Rapport3 {
+            get {
+                return ResourceManager.GetString("Rapport3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rapport no 4.
+        /// </summary>
+        public static string Rapport4 {
+            get {
+                return ResourceManager.GetString("Rapport4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rapport no 5.
+        /// </summary>
+        public static string Rapport5 {
+            get {
+                return ResourceManager.GetString("Rapport5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voici votre rapport annuel des ventes réalisées et des commissions perçues pour la période de.
+        /// </summary>
+        public static string RapportAnnuelDescription {
+            get {
+                return ResourceManager.GetString("RapportAnnuelDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voici votre rapport annuel des ventes réalisées et des commissions perçues pour l&apos;annéee.
+        /// </summary>
+        public static string RapportCommissionsDescriprtion {
+            get {
+                return ResourceManager.GetString("RapportCommissionsDescriprtion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Synthèse des cotes de membres pour période de.
+        /// </summary>
+        public static string RapportCotesDescription {
+            get {
+                return ResourceManager.GetString("RapportCotesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rapport numéro.
+        /// </summary>
+        public static string RapportNo {
+            get {
+                return ResourceManager.GetString("RapportNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Synthèse des ventes réalisées et des commissions année.
+        /// </summary>
+        public static string RapportVentesDescription {
+            get {
+                return ResourceManager.GetString("RapportVentesDescription", resourceCulture);
+            }
+        }
     }
 }

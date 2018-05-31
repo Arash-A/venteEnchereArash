@@ -61,11 +61,101 @@ namespace venteTest.Resources.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Acheteur.
+        /// </summary>
+        public static string Acheteur {
+            get {
+                return ResourceManager.GetString("Acheteur", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adresse.
+        /// </summary>
+        public static string Adresse {
+            get {
+                return ResourceManager.GetString("Adresse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Année.
+        /// </summary>
+        public static string Annee {
+            get {
+                return ResourceManager.GetString("Annee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Année de départ.
+        /// </summary>
+        public static string AnneeDepart {
+            get {
+                return ResourceManager.GetString("AnneeDepart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Année de fin.
+        /// </summary>
+        public static string AnneeFin {
+            get {
+                return ResourceManager.GetString("AnneeFin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Catégorie.
+        /// </summary>
+        public static string Categorie {
+            get {
+                return ResourceManager.GetString("Categorie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Civilité.
+        /// </summary>
+        public static string Civilite {
+            get {
+                return ResourceManager.GetString("Civilite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Courriel.
+        /// </summary>
+        public static string Courriel {
+            get {
+                return ResourceManager.GetString("Courriel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Courriel confirmé.
+        /// </summary>
+        public static string CourrielConfirme {
+            get {
+                return ResourceManager.GetString("CourrielConfirme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Courriel du membre.
         /// </summary>
         public static string CourrielMembre {
             get {
                 return ResourceManager.GetString("CourrielMembre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date d&apos;inscription.
+        /// </summary>
+        public static string DateInscription {
+            get {
+                return ResourceManager.GetString("DateInscription", resourceCulture);
             }
         }
         
@@ -88,6 +178,15 @@ namespace venteTest.Resources.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Langue.
+        /// </summary>
+        public static string Langue {
+            get {
+                return ResourceManager.GetString("Langue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Message.
         /// </summary>
         public static string Message {
@@ -102,6 +201,33 @@ namespace venteTest.Resources.Models {
         public static string MisePas {
             get {
                 return ResourceManager.GetString("MisePas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mois de départ.
+        /// </summary>
+        public static string MoisDepart {
+            get {
+                return ResourceManager.GetString("MoisDepart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mois de fin.
+        /// </summary>
+        public static string MoisFin {
+            get {
+                return ResourceManager.GetString("MoisFin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nom.
+        /// </summary>
+        public static string Nom {
+            get {
+                return ResourceManager.GetString("Nom", resourceCulture);
             }
         }
         
@@ -178,11 +304,47 @@ namespace venteTest.Resources.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Prénom.
+        /// </summary>
+        public static string Prenom {
+            get {
+                return ResourceManager.GetString("Prenom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Téléphone.
+        /// </summary>
+        public static string Telephone {
+            get {
+                return ResourceManager.GetString("Telephone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Téléphone confirmé.
+        /// </summary>
+        public static string TelephoneConfirme {
+            get {
+                return ResourceManager.GetString("TelephoneConfirme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Titre.
         /// </summary>
         public static string Titre {
             get {
                 return ResourceManager.GetString("Titre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vendeur.
+        /// </summary>
+        public static string Vendeur {
+            get {
+                return ResourceManager.GetString("Vendeur", resourceCulture);
             }
         }
     }

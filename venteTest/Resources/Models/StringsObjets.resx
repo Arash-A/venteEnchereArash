@@ -117,11 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Categorie" xml:space="preserve">
+    <value>Catégorie</value>
+  </data>
+  <data name="CategorieId" xml:space="preserve">
+    <value>ID Catégorie</value>
+  </data>
   <data name="Commission" xml:space="preserve">
-    <value>Commission au vendeur</value>
+    <value>Commission du vendeur</value>
   </data>
   <data name="DateAjout" xml:space="preserve">
     <value>Date d'ajout</value>
+  </data>
+  <data name="DateLimite" xml:space="preserve">
+    <value>Date limite</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
   </data>
   <data name="Duree" xml:space="preserve">
     <value>Temps depuis le début</value>
@@ -129,8 +141,14 @@
   <data name="Image" xml:space="preserve">
     <value>Image</value>
   </data>
+  <data name="Nom" xml:space="preserve">
+    <value>Nom</value>
+  </data>
   <data name="ObjetDescription" xml:space="preserve">
     <value>Description</value>
+  </data>
+  <data name="ObjetId" xml:space="preserve">
+    <value>Object id</value>
   </data>
   <data name="ObjetImage" xml:space="preserve">
     <value>Image</value>
@@ -149,5 +167,8 @@
   </data>
   <data name="PrixVendu" xml:space="preserve">
     <value>Prix vendu</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
   </data>
 </root>

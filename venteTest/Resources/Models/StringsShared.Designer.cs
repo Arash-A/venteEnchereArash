@@ -59,5 +59,293 @@ namespace venteTest.Resources.Models {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Acheteur.
+        /// </summary>
+        public static string Acheteur {
+            get {
+                return ResourceManager.GetString("Acheteur", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adresse.
+        /// </summary>
+        public static string Adresse {
+            get {
+                return ResourceManager.GetString("Adresse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Id catégorie.
+        /// </summary>
+        public static string CategorieId {
+            get {
+                return ResourceManager.GetString("CategorieId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Civilité.
+        /// </summary>
+        public static string Civilite {
+            get {
+                return ResourceManager.GetString("Civilite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Commentaire.
+        /// </summary>
+        public static string Commentaire {
+            get {
+                return ResourceManager.GetString("Commentaire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Commission.
+        /// </summary>
+        public static string Commission {
+            get {
+                return ResourceManager.GetString("Commission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cote.
+        /// </summary>
+        public static string Cote {
+            get {
+                return ResourceManager.GetString("Cote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date d&apos;ajout.
+        /// </summary>
+        public static string DateAjout {
+            get {
+                return ResourceManager.GetString("DateAjout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date d&apos;évaluation.
+        /// </summary>
+        public static string DateEvaluation {
+            get {
+                return ResourceManager.GetString("DateEvaluation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date d&apos;inscription.
+        /// </summary>
+        public static string DateInscription {
+            get {
+                return ResourceManager.GetString("DateInscription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date limite.
+        /// </summary>
+        public static string DateLimite {
+            get {
+                return ResourceManager.GetString("DateLimite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date versé.
+        /// </summary>
+        public static string DateVerse {
+            get {
+                return ResourceManager.GetString("DateVerse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Durée.
+        /// </summary>
+        public static string Duree {
+            get {
+                return ResourceManager.GetString("Duree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Id enchère.
+        /// </summary>
+        public static string EnchereId {
+            get {
+                return ResourceManager.GetString("EnchereId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Id évaluation.
+        /// </summary>
+        public static string EvaluationId {
+            get {
+                return ResourceManager.GetString("EvaluationId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Id fichier.
+        /// </summary>
+        public static string FichierId {
+            get {
+                return ResourceManager.GetString("FichierId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Langue.
+        /// </summary>
+        public static string Langue {
+            get {
+                return ResourceManager.GetString("Langue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mise maximum.
+        /// </summary>
+        public static string MiseMax {
+            get {
+                return ResourceManager.GetString("MiseMax", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Miseur.
+        /// </summary>
+        public static string Miseur {
+            get {
+                return ResourceManager.GetString("Miseur", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Niveau.
+        /// </summary>
+        public static string Niveau {
+            get {
+                return ResourceManager.GetString("Niveau", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nom.
+        /// </summary>
+        public static string Nom {
+            get {
+                return ResourceManager.GetString("Nom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nom local.
+        /// </summary>
+        public static string NomLocal {
+            get {
+                return ResourceManager.GetString("NomLocal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nom original.
+        /// </summary>
+        public static string NomOriginal {
+            get {
+                return ResourceManager.GetString("NomOriginal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Numéro.
+        /// </summary>
+        public static string Numero {
+            get {
+                return ResourceManager.GetString("Numero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Objet.
+        /// </summary>
+        public static string Objet {
+            get {
+                return ResourceManager.GetString("Objet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IDobjet.
+        /// </summary>
+        public static string ObjetId {
+            get {
+                return ResourceManager.GetString("ObjetId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prix de l&apos;objet.
+        /// </summary>
+        public static string ObjetPrix {
+            get {
+                return ResourceManager.GetString("ObjetPrix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prénom.
+        /// </summary>
+        public static string Prenom {
+            get {
+                return ResourceManager.GetString("Prenom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prix vendu.
+        /// </summary>
+        public static string PrixVendu {
+            get {
+                return ResourceManager.GetString("PrixVendu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remarques.
+        /// </summary>
+        public static string Remarques {
+            get {
+                return ResourceManager.GetString("Remarques", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string Status {
+            get {
+                return ResourceManager.GetString("Status", resourceCulture);
+            }
+        }
     }
 }

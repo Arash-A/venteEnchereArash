@@ -25,8 +25,10 @@ namespace venteTest.Models.MemberViewModels
         [Display(Name = "UsagerCivilite", ResourceType = typeof(StringsManage))]
         public string Civilite { get; set; }
 
+        [Display(Name = "Cote", ResourceType = typeof(StringsManage))]
         public double Cote { get; set; }
 
+        [Display(Name = "NbEvaluation", ResourceType = typeof(StringsManage))]
         public double NbEvaluation { get; set; }
 
         //public SendCotesReportViewModel SendCotesReportViewModel { get; set; }

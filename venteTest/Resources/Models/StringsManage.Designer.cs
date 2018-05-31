@@ -70,6 +70,24 @@ namespace venteTest.Resources.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cote.
+        /// </summary>
+        public static string Cote {
+            get {
+                return ResourceManager.GetString("Cote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nombre d&apos;évaluations.
+        /// </summary>
+        public static string NbEvaluation {
+            get {
+                return ResourceManager.GetString("NbEvaluation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mot de passe actuel.
         /// </summary>
         public static string UsagerActuelP {

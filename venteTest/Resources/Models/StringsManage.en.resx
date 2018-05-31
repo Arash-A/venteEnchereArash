@@ -120,6 +120,12 @@
   <data name="CodeVerif" xml:space="preserve">
     <value>Verification code</value>
   </data>
+  <data name="Cote" xml:space="preserve">
+    <value>Rating</value>
+  </data>
+  <data name="NbEvaluation" xml:space="preserve">
+    <value>Number of evaluations</value>
+  </data>
   <data name="UsagerAdresse" xml:space="preserve">
     <value>Address</value>
   </data>
